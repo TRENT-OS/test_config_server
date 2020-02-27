@@ -1,0 +1,10 @@
+/*
+   *  CAmkES configuration file for the ConfigFileInjector interface.
+   *
+   *  Copyright (C) 2019, Hensoldt Cyber GmbH
+*/
+
+
+procedure config_file_injector_interface {
+    void backend_injected();
+};

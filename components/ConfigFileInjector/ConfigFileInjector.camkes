@@ -1,0 +1,19 @@
+/*
+   *  CAmkES configuration file for the ConfigFileInjector component.
+   *
+   *  Copyright (C) 2020, Hensoldt Cyber GmbH
+*/
+
+import "ConfigFileInjectorInf.camkes";
+import "../PartitionManager/PartitionManagerInf.camkes";
+
+
+component ConfigFileInjector {
+
+    provides config_file_injector_interface injector_component;
+
+    //-------------------------------------------------
+    // PartitionManager
+    dataport Buf pm_dataport_buf;
+    uses     partition_manager_interface api_pm_component;
+}

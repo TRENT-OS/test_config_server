@@ -1,0 +1,124 @@
+/*
+   *  CAmkES configuration file for the ConfigServer test suite.
+   *
+   *  Copyright (C) 2019, Hensoldt Cyber GmbH
+*/
+
+
+import <std_connector.camkes>;
+
+import "components/TestApp/TestApp.camkes";
+import "components/ChanMux/ChanMux.camkes";
+import "components/Uart/Uart.camkes";
+import "components/ConfigServer/ConfigServer.camkes";
+import "components/PartitionManager/PartitionManager.camkes";
+import "components/ConfigFileInjector/ConfigFileInjector.camkes";
+
+
+assembly {
+    composition {
+        //----------------------------------------------------------------------
+        // ConfigFileInjector
+        //----------------------------------------------------------------------
+        component ConfigFileInjector configFileInjector;
+
+        connection  seL4RPCCall      configFileInjector_pm             (from configFileInjector.api_pm_component, to partitionManager.api_pm_component);
+        connection  seL4SharedData   configFileInjector_pm_data        (from configFileInjector.pm_dataport_buf, to partitionManager.pm_dataport_buf_configFileInjector);
+
+        //----------------------------------------------------------------------
+        // Uart
+        //----------------------------------------------------------------------
+        component   UartDev       uartDev;
+        component   UartDrv       uartDrv;
+
+        connection  seL4HardwareMMIO uart_memio                        (from uartDrv.uartRegBase, to uartDev.uartRegBase);
+        connection  seL4RPCCall uart_chanmux                           (from uartDrv.Output, to chanMux.ChanMuxOut);
+
+
+        //----------------------------------------------------------------------
+        // ChanMux
+        //----------------------------------------------------------------------
+        component   ChanMux       chanMux;
+
+        connection  seL4SharedData uart_dataConnection                 (from chanMux.outputDataPort, to uartDrv.inputDataPort);
+        connection  seL4RPCCall chanmux_uart                           (from chanMux.Output, to uartDrv.UartDrv);
+        connection  seL4Notification dataAvailableLan                  (from chanMux.dataAvailable_client, to partitionManager.ChanMuxSignal_dataAvailable);
+
+
+        //----------------------------------------------------------------------
+        // TestApp1
+        //----------------------------------------------------------------------
+        component   TestApp1         testApp1;
+
+        connection  seL4RPCCall      testApp1_configServer             (from testApp1.server, to configServer.server);
+        connection  seL4SharedData   testApp1_configServer_data        (from testApp1.cfg_dataport_buf, to configServer.cfg_dataport_buf1);
+        connection  seL4RPCCall      testApp1_pm                       (from testApp1.api_pm_component, to partitionManager.api_pm_component);
+        connection  seL4SharedData   testApp1_pm_data                  (from testApp1.pm_dataport_buf, to partitionManager.pm_dataport_buf_testApp);
+        connection  seL4RPCCall      testApp1_configFileInjector       (from testApp1.injector_component, to configFileInjector.injector_component);
+        connection  seL4Notification testApp2_testDone                 (from testApp1.test_done, to testApp2.app1_test_done);
+
+
+        //----------------------------------------------------------------------
+        // TestApp2
+        //----------------------------------------------------------------------
+        component   TestApp2         testApp2;
+
+        connection  seL4RPCCall      testApp2_configServer             (from testApp2.server, to configServer.server);
+        connection  seL4SharedData   testApp2_configServer_data        (from testApp2.cfg_dataport_buf, to configServer.cfg_dataport_buf2);
+        connection  seL4Notification testApp3_testDone                 (from testApp2.test_done, to testApp3.app2_test_done);
+
+
+        //----------------------------------------------------------------------
+        // TestApp3
+        //----------------------------------------------------------------------
+        component   TestApp3         testApp3;
+
+        connection  seL4RPCCall      testApp3_configServer             (from testApp3.server, to configServer.server);
+        connection  seL4SharedData   testApp3_configServer_data        (from testApp3.cfg_dataport_buf, to configServer.cfg_dataport_buf3);
+        connection  seL4Notification testApp4_testDone                 (from testApp3.test_done, to testApp4.app3_test_done);
+
+
+        //----------------------------------------------------------------------
+        // TestApp4
+        //----------------------------------------------------------------------
+        component   TestApp4         testApp4;
+
+        connection  seL4RPCCall      testApp4_configServer             (from testApp4.server, to configServer.server);
+        connection  seL4SharedData   testApp4_configServer_data        (from testApp4.cfg_dataport_buf, to configServer.cfg_dataport_buf4);
+        connection  seL4Notification testApp1_testDone                 (from testApp4.test_done, to testApp1.app4_test_done);
+
+
+        //----------------------------------------------------------------------
+        // ConfigServer
+        //----------------------------------------------------------------------
+        component   ConfigServer   configServer;
+
+        connection  seL4RPCCall    configServer_pm                     (from configServer.api_pm_component, to partitionManager.api_pm_component);
+        connection  seL4SharedData configServer_pm_data                (from configServer.pm_dataport_buf, to partitionManager.pm_dataport_buf_configServer);
+        connection  seL4RPCCall    configServer_configFileInjector     (from configServer.injector_component, to configFileInjector.injector_component);
+
+
+        //----------------------------------------------------------------------
+        // PartitionManager
+        //----------------------------------------------------------------------
+        component   PartitionManager  partitionManager;
+
+        connection  seL4RPCCall       partitionManger_chanMux          (from partitionManager.ChanMuxRpc, to chanMux.ChanMuxIn);
+        connection  seL4SharedData    partitionManger_chanMux_data     (from partitionManager.chanMuxDataPort, to chanMux.client_dataport_buf);
+
+    }
+
+    // include "seos_system_config.h";
+    configuration {
+        uartDev.uartRegBase_paddr  = 0xE0000000;
+        uartDev.uartRegBase_size   = 0x1000;
+        uartDrv.inputDataPort       = "R";
+
+        // assign endpoint badges for n:1 RPC interface of ChanMUX. The generic
+        // naming scheme is <component>.<interface>_attributes = <badge ID>
+        partitionManager.ChanMuxRpc_attributes = 101;
+
+        // assign an initial semaphore value
+        configServer.backend_init_done_value = 0;
+    }
+}
