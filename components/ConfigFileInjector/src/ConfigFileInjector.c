@@ -39,8 +39,8 @@ void injector_component_backend_injected()
 static bool
 TestCreateFSBackend(void)
 {
-    seos_pm_result_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
-    if (pm_result != SEOS_PM_SUCCESS)
+    seos_err_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
+    if (pm_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to get disk info: %d", pm_result);
         return false;
@@ -48,7 +48,7 @@ TestCreateFSBackend(void)
 
     pm_result = partition_manager_get_info_partition(PARTITION_ID,
                                                      &pm_partition_data);
-    if (pm_result != SEOS_PM_SUCCESS)
+    if (pm_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to get partition info: %d!",
                         pm_partition_data.partition_id);
