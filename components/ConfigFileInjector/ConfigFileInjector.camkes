@@ -4,8 +4,8 @@
    *  Copyright (C) 2020, Hensoldt Cyber GmbH
 */
 
+import <seos_if_partitionManager.camkes>;
 import "ConfigFileInjectorInf.camkes";
-import "../PartitionManager/PartitionManagerInf.camkes";
 
 
 component ConfigFileInjector {

@@ -6,7 +6,7 @@
 
 
 import <seos_if_chanMux.camkes>;
-import "PartitionManagerInf.camkes";
+import <seos_if_partitionManager.camkes>;
 
 
 component PartitionManager {

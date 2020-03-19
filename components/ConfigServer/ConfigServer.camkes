@@ -5,7 +5,7 @@
 */
 
 import <seos_if_configuration.camkes>;
-import "../PartitionManager/PartitionManagerInf.camkes";
+import <seos_if_partitionManager.camkes>;
 
 component ConfigServer {
 

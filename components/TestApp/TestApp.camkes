@@ -7,8 +7,8 @@
 
 import <seos_if_chanMux.camkes>;
 import <seos_if_configuration.camkes>;
+import <seos_if_partitionManager.camkes>;
 import "../ConfigFileInjector/ConfigFileInjectorInf.camkes";
-import "../PartitionManager/PartitionManagerInf.camkes";
 
 
 component TestApp1 {
