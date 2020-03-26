@@ -10,6 +10,7 @@ seos_set_config_file(seos_system_config.h)
 
 seos_use_libs(
     SEOS_LIBS
+    SEOS_CHANMUX
     SEOS_PARTITION_MANAGER
     SEOS_FILESYSTEM_CORE
     SEOS_FILESYSTEM_FAT
@@ -63,6 +64,8 @@ DeclareCAmkESComponent(PartitionManager
     LIBS
         seos_system_config
         seos_libs
+        chanmux_client
+        proxy_nvm
         seos_partition_manager
 )
 
@@ -109,7 +112,7 @@ DeclareCAmkESComponent(TestApp1
         tests
     SOURCES
         components/TestApp/src/TestRunnerApp1.c
-	    util/init_lib_with_fs_backend.c
+	util/init_lib_with_fs_backend.c
         util/init_lib_with_mem_backend.c
         util/create_parameters.c
         util/helper_func.c
@@ -243,6 +246,7 @@ DeclareCAmkESComponent(ChanMux
         seos_system_config
         seos_core_api
         seos_libs
+        chanmux_server
 )
 
 DeclareCAmkESRootserver(ConfigServerTests.camkes)

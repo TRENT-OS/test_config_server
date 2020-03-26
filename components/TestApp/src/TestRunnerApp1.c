@@ -24,8 +24,6 @@
 #include "test_parameter_set_functions.h"
 
 #include "LibDebug/Debug.h"
-#include "ProxyNVM.h"
-#include "ChanMux/ChanMuxClient.h"
 #include <string.h>
 #include <camkes.h>
 
