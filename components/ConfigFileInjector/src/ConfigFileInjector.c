@@ -14,7 +14,7 @@
 
 #include "LibDebug/Debug.h"
 
-#include "seos_config_server.h"
+#include "seos_config.h"
 
 #if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
 #include "create_fs_backend.h"
@@ -55,8 +55,8 @@ TestCreateFSBackend(void)
         return false;
     }
 
-    seos_fs_result_t fs_result = partition_init(pm_partition_data.partition_id, 0);
-    if (fs_result != SEOS_FS_SUCCESS)
+    seos_err_t fs_result = partition_init(pm_partition_data.partition_id, 0);
+    if (fs_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to init partition: %d!", fs_result);
         return false;
@@ -78,20 +78,20 @@ TestCreateFSBackend(void)
             0,  // default value: count file/dir entries: FAT12/FAT16 = 16; FAT32 = 0
             0,  // default value: count header sectors: 512
             FS_PARTITION_OVERWRITE_CREATE)
-        != SEOS_FS_SUCCESS)
+        != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to create filesystem on partition: %d!",
                         pm_partition_data.partition_id);
         return false;
     }
 
-    if (partition_fs_mount(phandle) != SEOS_FS_SUCCESS)
+    if (partition_fs_mount(phandle) != SEOS_SUCCESS)
     {
         return false;
     }
 
     SeosConfigInstanceStore* serverInstanceStore =
-        server_seos_configuration_getInstances();
+        seos_configuration_getInstances();
     SeosConfigLib* configLib =
         seos_configuration_instance_store_getInstance(serverInstanceStore, 0);
 
@@ -140,7 +140,7 @@ TestCreateFSBackend(void)
         return false;
     }
 
-    if (partition_close(phandle) != SEOS_FS_SUCCESS)
+    if (partition_close(phandle) != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to close partition: %d!",
                         pm_partition_data.partition_id);

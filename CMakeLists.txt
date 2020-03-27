@@ -37,8 +37,6 @@ DeclareCAmkESComponent(ConfigFileInjector
         -DSEOS_FS_BUILD_AS_LIB_BASIC_HANDLE
         # partition manager
         -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
-        # config server
-        -DSEOS_CONFIG_CAMKES_SERVER     # indicates a camkes configuration server is being built
     LIBS
         seos_system_config
         seos_libs

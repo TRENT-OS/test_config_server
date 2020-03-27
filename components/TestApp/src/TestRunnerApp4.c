@@ -8,7 +8,8 @@
 
 #include "seos_system_config.h"
 
-#include "seos_config_client.h"
+#include "SeosError.h"
+#include "seos_config.h"
 
 #include "LibDebug/Debug.h"
 
@@ -35,43 +36,53 @@ run(void)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    SeosConfigHandle localHandle;
-    SeosConfigHandle remoteHandle;
-
     //wait until App1 finishes the basic single client tests
     app3_test_done_wait();
 
-    //Open local handle of API
-    err = seos_configuration_createHandle(SEOS_CONFIG_HANDLE_KIND_LOCAL, 0, &localHandle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-
     //Open remote handle of API
+    SeosConfigHandle remoteHandle;
     err = seos_configuration_createHandle(SEOS_CONFIG_HANDLE_KIND_RPC, 0, &remoteHandle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 
     Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n", TEST_APP);
     //Test get parameter functions in multiclient environment
-    TestGetInteger32FromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_32_NAME_0, APP4_PARAMETER_32_VALUE_0);
+    TestGetInteger32FromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                     APP4_PARAMETER_32_NAME_0, APP4_PARAMETER_32_VALUE_0);
     sync_with_other_apps();
-    TestGetInteger64FromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_64_NAME_0, APP4_PARAMETER_64_VALUE_0);
+    TestGetInteger64FromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                     APP4_PARAMETER_64_NAME_0, APP4_PARAMETER_64_VALUE_0);
     sync_with_other_apps();
-    TestGetStringsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_STRING_NAME_0, APP4_PARAMETER_STRING_VALUE_0, sizeof(APP4_PARAMETER_STRING_VALUE_0));
+    TestGetStringsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                   APP4_PARAMETER_STRING_NAME_0, APP4_PARAMETER_STRING_VALUE_0,
+                                   sizeof(APP4_PARAMETER_STRING_VALUE_0));
     sync_with_other_apps();
-    TestGetBlobsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_BLOB_NAME_0, APP4_PARAMETER_BLOB_VALUE_0, sizeof(APP4_PARAMETER_BLOB_VALUE_0));
+    TestGetBlobsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                 APP4_PARAMETER_BLOB_NAME_0, APP4_PARAMETER_BLOB_VALUE_0,
+                                 sizeof(APP4_PARAMETER_BLOB_VALUE_0));
     sync_with_other_apps();
-    TestGetBlobsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_BLOB_NAME_3, APP4_PARAMETER_BLOB_VALUE_3, sizeof(APP4_PARAMETER_BLOB_VALUE_3));
+    TestGetBlobsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                 APP4_PARAMETER_BLOB_NAME_3, APP4_PARAMETER_BLOB_VALUE_3,
+                                 sizeof(APP4_PARAMETER_BLOB_VALUE_3));
     sync_with_other_apps();
 
     //Test set parameter functions in multiclient environment
-    TestParameterSetValueAsU32_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_32_NAME_0, APP4_PARAMETER_32_VALUE_0_NEW);
+    TestParameterSetValueAsU32_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                  APP4_PARAMETER_32_NAME_0, APP4_PARAMETER_32_VALUE_0_NEW);
     sync_with_other_apps();
-    TestParameterSetValueAsU64_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_64_NAME_0, APP4_PARAMETER_64_VALUE_0_NEW);
+    TestParameterSetValueAsU64_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                  APP4_PARAMETER_64_NAME_0, APP4_PARAMETER_64_VALUE_0_NEW);
     sync_with_other_apps();
-    TestParameterSetValueAsString_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_STRING_NAME_0, APP4_PARAMETER_STRING_VALUE_0_NEW, sizeof(APP4_PARAMETER_STRING_VALUE_0_NEW));
+    TestParameterSetValueAsString_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                     APP4_PARAMETER_STRING_NAME_0, APP4_PARAMETER_STRING_VALUE_0_NEW,
+                                     sizeof(APP4_PARAMETER_STRING_VALUE_0_NEW));
     sync_with_other_apps();
-    TestParameterSetValueAsBlob_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_BLOB_NAME_0, APP4_PARAMETER_BLOB_VALUE_0_NEW, sizeof(APP4_PARAMETER_BLOB_VALUE_0_NEW));
+    TestParameterSetValueAsBlob_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                   APP4_PARAMETER_BLOB_NAME_0, APP4_PARAMETER_BLOB_VALUE_0_NEW,
+                                   sizeof(APP4_PARAMETER_BLOB_VALUE_0_NEW));
     sync_with_other_apps();
-    TestParameterSetValueAsBlob_ok(&remoteHandle, DOMAIN_APP, TEST_APP, APP4_PARAMETER_BLOB_NAME_3, APP4_PARAMETER_BLOB_VALUE_3_NEW, sizeof(APP4_PARAMETER_BLOB_VALUE_3_NEW));
+    TestParameterSetValueAsBlob_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+                                   APP4_PARAMETER_BLOB_NAME_3, APP4_PARAMETER_BLOB_VALUE_3_NEW,
+                                   sizeof(APP4_PARAMETER_BLOB_VALUE_3_NEW));
     sync_with_other_apps();
 
     Debug_LOG_DEBUG("%s: All tests completed.\n", TEST_APP);

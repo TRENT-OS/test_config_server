@@ -9,7 +9,8 @@
 
 #include "seos_system_config.h"
 
-#include "seos_config_client.h"
+#include "SeosError.h"
+#include "seos_config.h"
 
 #include "create_parameters.h"
 
@@ -78,8 +79,8 @@ initializeConfigBackend(void)
         return false;
     }
 
-    seos_fs_result_t fs_result = partition_init(pm_partition_data.partition_id, 0);
-    if (fs_result != SEOS_FS_SUCCESS)
+    seos_err_t fs_result = partition_init(pm_partition_data.partition_id, 0);
+    if (fs_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to init partition: %d!", fs_result);
         return false;
@@ -91,7 +92,7 @@ initializeConfigBackend(void)
         return false;
     }
 
-    if (partition_fs_mount(phandle) != SEOS_FS_SUCCESS)
+    if (partition_fs_mount(phandle) != SEOS_SUCCESS)
     {
         return false;
     }

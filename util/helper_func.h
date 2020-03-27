@@ -4,10 +4,8 @@
 
 #pragma once
 
-#include "SeosConfigLib.h"
-#include "SeosConfigBackend.h"
-
-#include "seos_config_client.h"
+#include "SeosError.h"
+#include "seos_config.h"
 
 
 void initializeName(char* buf, size_t bufSize, char const* name);

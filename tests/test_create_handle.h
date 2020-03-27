@@ -2,7 +2,7 @@
  * Copyright (C) 2020, Hensoldt Cyber GmbH
  */
 
-#include "seos_config_client.h"
+#include "seos_config.h"
 
 #include "LibDebug/Debug.h"
 

@@ -10,8 +10,6 @@
 
 #include "init_lib_with_mem_backend.h"
 
-#include "SeosConfigBackend.h"
-#include "SeosConfigLib.h"
 
 // Sizes of the buffers are defined to at least cover the total size of the
 // parameters added to the backend

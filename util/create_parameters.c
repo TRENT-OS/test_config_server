@@ -5,8 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "LibDebug/Debug.h"
-#include "SeosConfigBackend.h"
-#include "SeosConfigLib.h"
+#include "create_parameters.h"
 
 static
 seos_err_t

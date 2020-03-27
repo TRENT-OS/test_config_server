@@ -8,7 +8,8 @@
 
 #include "seos_system_config.h"
 
-#include "seos_config_client.h"
+#include "SeosError.h"
+#include "seos_config.h"
 
 #include "LibDebug/Debug.h"
 
@@ -36,18 +37,11 @@ run(void)
 {
     seos_err_t err = SEOS_ERROR_GENERIC;
 
-    SeosConfigHandle localHandle;
-    SeosConfigHandle remoteHandle;
-
     //wait until App1 finishes the basic single client tests
     app1_test_done_wait();
 
-    //Open local handle of API
-    err = seos_configuration_createHandle(SEOS_CONFIG_HANDLE_KIND_LOCAL, 0,
-                                          &localHandle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
-
     //Open remote handle of API
+    SeosConfigHandle remoteHandle;
     err = seos_configuration_createHandle(SEOS_CONFIG_HANDLE_KIND_RPC, 0,
                                           &remoteHandle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
