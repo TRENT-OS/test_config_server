@@ -5,7 +5,7 @@
 #pragma once
 
 #include "SeosError.h"
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
 int
-initializeDomainsAndParameters(SeosConfigLib* configLib, char const* domainName);
+initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* domainName);

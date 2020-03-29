@@ -7,13 +7,13 @@
 // -----------------------------------------------------------------------------
 void
 TestDomainEnumerator_init_ok(
-    SeosConfigHandle* handle)
+    OS_ConfigServiceHandle_t* handle)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
@@ -21,19 +21,19 @@ TestDomainEnumerator_init_ok(
 
 void
 TestDomainEnumerator_init_fail(
-    SeosConfigHandle* handle)
+    OS_ConfigServiceHandle_t* handle)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
+    OS_ConfigServiceHandle_t configHandle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     // Uninitialized config handle
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
     // Empty domain enumerator
     configHandle = *handle;
-    err = seos_configuration_domainEnumeratorInit(configHandle, NULL);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, NULL);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
@@ -41,16 +41,16 @@ TestDomainEnumerator_init_fail(
 
 void
 TestDomainEnumerator_close_ok(
-    SeosConfigHandle* handle)
+    OS_ConfigServiceHandle_t* handle)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
-    err = seos_configuration_domainEnumeratorClose(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorClose(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
@@ -58,27 +58,27 @@ TestDomainEnumerator_close_ok(
 
 void
 TestDomainEnumerator_close_fail(
-    SeosConfigHandle* handle)
+    OS_ConfigServiceHandle_t* handle)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     // Uninitialized domain enumerator
-    err = seos_configuration_domainEnumeratorClose(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorClose(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     // Initialize domain enumerator
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    SeosConfigHandle uninitializedHandle;
-    err = seos_configuration_domainEnumeratorClose(uninitializedHandle, &domainEnumerator);
+    OS_ConfigServiceHandle_t uninitializedHandle;
+    err = OS_ConfigService_domainEnumeratorClose(uninitializedHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
     // Empty domain enumerator
-    err = seos_configuration_domainEnumeratorClose(configHandle, NULL);
+    err = OS_ConfigService_domainEnumeratorClose(configHandle, NULL);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
@@ -86,36 +86,36 @@ TestDomainEnumerator_close_fail(
 
 void
 TestDomainEnumerator_increment_ok(
-    SeosConfigHandle* handle,
+    OS_ConfigServiceHandle_t* handle,
     const char* componentName,
     unsigned int maxDomainIndex)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     for (int i = 0; i < (maxDomainIndex-1); i++)
     {
-        err = seos_configuration_domainEnumeratorIncrement(configHandle, &domainEnumerator);
+        err = OS_ConfigService_domainEnumeratorIncrement(configHandle, &domainEnumerator);
         Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
         // Check if the index actually got incremented
         Debug_ASSERT_PRINTFLN((1+i) == domainEnumerator.index, "Index value: %d", domainEnumerator.index);
     }
 
-    err = seos_configuration_domainEnumeratorClose(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorClose(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
-    if (SEOS_CONFIG_HANDLE_KIND_RPC == seos_configuration_handle_getHandleKind(
+    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Rpc");
     }
 
-    else if (SEOS_CONFIG_HANDLE_KIND_LOCAL == seos_configuration_handle_getHandleKind(
+    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Local");
@@ -126,36 +126,36 @@ TestDomainEnumerator_increment_ok(
 
 void
 TestDomainEnumerator_increment_fail(
-    SeosConfigHandle* handle)
+    OS_ConfigServiceHandle_t* handle)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     // Uninitialized domain enumerator
-    err = seos_configuration_domainEnumeratorIncrement(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorIncrement(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
     // Make sure the index did not get incremented
     Debug_ASSERT_PRINTFLN(0 == domainEnumerator.index, "Index value: %d", domainEnumerator.index);
 
     // Initialize domain enumerator
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    SeosConfigHandle uninitializedHandle;
-    err = seos_configuration_domainEnumeratorIncrement(uninitializedHandle, &domainEnumerator);
+    OS_ConfigServiceHandle_t uninitializedHandle;
+    err = OS_ConfigService_domainEnumeratorIncrement(uninitializedHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
     // Make sure the index did not get incremented
     Debug_ASSERT_PRINTFLN(0 == domainEnumerator.index, "Index value: %d", domainEnumerator.index);
 
     // Empty domain enumerator
-    err = seos_configuration_domainEnumeratorIncrement(configHandle, NULL);
+    err = OS_ConfigService_domainEnumeratorIncrement(configHandle, NULL);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
     // Make sure the index did not get incremented
     Debug_ASSERT_PRINTFLN(0 == domainEnumerator.index, "Index value: %d", domainEnumerator.index);
 
-    err = seos_configuration_domainEnumeratorClose(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorClose(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
@@ -163,51 +163,51 @@ TestDomainEnumerator_increment_fail(
 
 void
 TestDomainEnumerator_reset_ok(
-    SeosConfigHandle* handle,
+    OS_ConfigServiceHandle_t* handle,
     const char* componentName,
     unsigned int maxDomainIndex)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
-    err = seos_configuration_domainEnumeratorIncrement(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorIncrement(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
     // Check if the index actually got incremented
     Debug_ASSERT_PRINTFLN(1 == domainEnumerator.index, "Index value: %d", domainEnumerator.index);
 
-    err = seos_configuration_domainEnumeratorReset(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorReset(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
     // Check if the index actually got reset
     Debug_ASSERT_PRINTFLN(0 == domainEnumerator.index, "Index value: %d", domainEnumerator.index);
 
     for (int i = 0; i < (maxDomainIndex-1); i++)
     {
-        err = seos_configuration_domainEnumeratorIncrement(configHandle, &domainEnumerator);
+        err = OS_ConfigService_domainEnumeratorIncrement(configHandle, &domainEnumerator);
         Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
         // Check if the index actually got incremented
         Debug_ASSERT_PRINTFLN((1+i) == domainEnumerator.index, "Index value: %d", domainEnumerator.index);
     }
 
-    err = seos_configuration_domainEnumeratorReset(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorReset(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
     // Check if the index actually got reset
     Debug_ASSERT_PRINTFLN(0 == domainEnumerator.index, "Index value: %d", domainEnumerator.index);
 
-    err = seos_configuration_domainEnumeratorClose(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorClose(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
-    if (SEOS_CONFIG_HANDLE_KIND_RPC == seos_configuration_handle_getHandleKind(
+    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Rpc");
     }
 
-    else if (SEOS_CONFIG_HANDLE_KIND_LOCAL == seos_configuration_handle_getHandleKind(
+    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Local");
@@ -218,27 +218,27 @@ TestDomainEnumerator_reset_ok(
 
 void
 TestDomainEnumerator_reset_fail(
-    SeosConfigHandle* handle)
+    OS_ConfigServiceHandle_t* handle)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     // Uninitialized domain enumerator
-    err = seos_configuration_domainEnumeratorReset(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorReset(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     // Initialize domain enumerator
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    SeosConfigHandle uninitializedHandle;
-    err = seos_configuration_domainEnumeratorReset(uninitializedHandle, &domainEnumerator);
+    OS_ConfigServiceHandle_t uninitializedHandle;
+    err = OS_ConfigService_domainEnumeratorReset(uninitializedHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
     // Empty domain enumerator
-    err = seos_configuration_domainEnumeratorReset(configHandle, NULL);
+    err = OS_ConfigService_domainEnumeratorReset(configHandle, NULL);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
@@ -246,21 +246,21 @@ TestDomainEnumerator_reset_fail(
 
 void
 TestDomainEnumerator_getElement_ok(
-    SeosConfigHandle* handle)
+    OS_ConfigServiceHandle_t* handle)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
-    SeosConfigLib_Domain           domain;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
+    OS_ConfigServiceLibTypes_Domain_t           domain;
 
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
-    err = seos_configuration_domainEnumeratorGetElement(
+    err = OS_ConfigService_domainEnumeratorGetElement(
                                       configHandle, &domainEnumerator, &domain);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
-    err = seos_configuration_domainEnumeratorClose(
+    err = OS_ConfigService_domainEnumeratorClose(
                                                configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
@@ -269,38 +269,38 @@ TestDomainEnumerator_getElement_ok(
 
 void
 TestDomainEnumerator_getElement_fail(
-    SeosConfigHandle* handle)
+    OS_ConfigServiceHandle_t* handle)
 {
     seos_err_t err;
-    SeosConfigHandle configHandle = *handle;
-    SeosConfigLib_DomainEnumerator domainEnumerator;
-    SeosConfigLib_Domain           domain;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
+    OS_ConfigServiceLibTypes_Domain_t           domain;
 
     // Uninitialized domain enumerator
-    err = seos_configuration_domainEnumeratorGetElement(configHandle,
+    err = OS_ConfigService_domainEnumeratorGetElement(configHandle,
                                                     &domainEnumerator, &domain);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     // Initialize domain enumerator
-    err = seos_configuration_domainEnumeratorInit(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    SeosConfigHandle uninitializedHandle;
-    err = seos_configuration_domainEnumeratorGetElement(uninitializedHandle,
+    OS_ConfigServiceHandle_t uninitializedHandle;
+    err = OS_ConfigService_domainEnumeratorGetElement(uninitializedHandle,
                                                     &domainEnumerator, &domain);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
     // Empty domain enumerator
-    err = seos_configuration_domainEnumeratorGetElement(configHandle, NULL, &domain);
+    err = OS_ConfigService_domainEnumeratorGetElement(configHandle, NULL, &domain);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     // Empty domain
-    err = seos_configuration_domainEnumeratorGetElement(configHandle,
+    err = OS_ConfigService_domainEnumeratorGetElement(configHandle,
                                                         &domainEnumerator, NULL);
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
-    err = seos_configuration_domainEnumeratorClose(configHandle, &domainEnumerator);
+    err = OS_ConfigService_domainEnumeratorClose(configHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
@@ -308,7 +308,7 @@ TestDomainEnumerator_getElement_fail(
 
 // -----------------------------------------------------------------------------
 
-void TestDomainEnumerator_testAll(SeosConfigHandle* handle,const char* componentName, unsigned int maxDomainIndex)
+void TestDomainEnumerator_testAll(OS_ConfigServiceHandle_t* handle,const char* componentName, unsigned int maxDomainIndex)
 {
     Debug_LOG_DEBUG("Executing Test Domain Enumerator tests");
 

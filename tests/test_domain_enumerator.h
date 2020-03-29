@@ -2,7 +2,7 @@
  * Copyright (C) 2020, Hensoldt Cyber GmbH
  */
 
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
 #include "LibDebug/Debug.h"
 
@@ -12,10 +12,10 @@
 
 
 // -----------------------------------------------------------------------------
-void TestDomainEnumerator_increment_ok(SeosConfigHandle* handle,
+void TestDomainEnumerator_increment_ok(OS_ConfigServiceHandle_t* handle,
                                        const char* componentName,
                                        unsigned int maxDomainIndex);
 
-void TestDomainEnumerator_reset_ok(SeosConfigHandle* handle,
+void TestDomainEnumerator_reset_ok(OS_ConfigServiceHandle_t* handle,
                                    const char* componentName,
                                    unsigned int maxDomainIndex);

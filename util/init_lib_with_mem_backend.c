@@ -2,7 +2,7 @@
  * Copyright (C) 2019, Hensoldt Cyber GmbH
  */
 
-#if defined(CONFIG_SERVER_BACKEND_MEMORY)
+#if defined(OS_CONFIG_SERVICE_BACKEND_MEMORY)
 #include <string.h>
 #include <stdio.h>
 
@@ -20,43 +20,43 @@ static char blobBuf[12000];
 
 static
 seos_err_t
-formatMemoryBackends(SeosConfigLib* configLib)
+formatMemoryBackends(OS_ConfigServiceLib_t* configLib)
 {
     seos_err_t result = 0;
 
     // Create the memory backends.
-    result = SeosConfigBackend_createMemBackend(domainBuf, sizeof(domainBuf), 4,
-                                                sizeof(SeosConfigLib_Domain));
+    result = OS_ConfigServiceBackend_createMemBackend(domainBuf, sizeof(domainBuf), 4,
+                                                sizeof(OS_ConfigServiceLibTypes_Domain_t));
     if (result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("createMemBackend failed with: %d", result);
         return result;
     }
 
-    result = SeosConfigBackend_createMemBackend(parameterBuf, sizeof(parameterBuf),
-                                                64, sizeof(SeosConfigLib_Parameter));
+    result = OS_ConfigServiceBackend_createMemBackend(parameterBuf, sizeof(parameterBuf),
+                                                64, sizeof(OS_ConfigServiceLibTypes_Parameter_t));
     if (result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("createMemBackend failed with: %d", result);
         return result;
     }
 
-    result = SeosConfigBackend_createMemBackend(
+    result = OS_ConfigServiceBackend_createMemBackend(
                  stringBuf,
                  sizeof(stringBuf),
                  16,
-                 SEOS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH);
+                 OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH);
     if (result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("createMemBackend failed with: %d", result);
         return result;
     }
 
-    result = SeosConfigBackend_createMemBackend(
+    result = OS_ConfigServiceBackend_createMemBackend(
                  blobBuf,
                  sizeof(blobBuf),
                  144,
-                 SEOS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH);
+                 OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH);
     if (result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("createMemBackend failed with: %d", result);
@@ -67,13 +67,13 @@ formatMemoryBackends(SeosConfigLib* configLib)
 }
 
 seos_err_t
-initializeWithMemoryBackends(SeosConfigLib* configLib)
+initializeWithMemoryBackends(OS_ConfigServiceLib_t* configLib)
 {
     seos_err_t result = 0;
-    SeosConfigBackend parameterBackend;
-    SeosConfigBackend domainBackend;
-    SeosConfigBackend stringBackend;
-    SeosConfigBackend blobBackend;
+    OS_ConfigServiceBackend_t parameterBackend;
+    OS_ConfigServiceBackend_t domainBackend;
+    OS_ConfigServiceBackend_t stringBackend;
+    OS_ConfigServiceBackend_t blobBackend;
 
     // Create the memory backends.
     result = formatMemoryBackends(configLib);
@@ -84,7 +84,7 @@ initializeWithMemoryBackends(SeosConfigLib* configLib)
     }
 
     // Initialize the backends in the config library object.
-    result = SeosConfigBackend_initializeMemBackend(&domainBackend, domainBuf,
+    result = OS_ConfigServiceBackend_initializeMemBackend(&domainBackend, domainBuf,
                                                     sizeof(domainBuf));
     if (result != SEOS_SUCCESS)
     {
@@ -92,7 +92,7 @@ initializeWithMemoryBackends(SeosConfigLib* configLib)
         return result;
     }
 
-    result = SeosConfigBackend_initializeMemBackend(&parameterBackend, parameterBuf,
+    result = OS_ConfigServiceBackend_initializeMemBackend(&parameterBackend, parameterBuf,
                                                     sizeof(parameterBuf));
     if (result != SEOS_SUCCESS)
     {
@@ -100,7 +100,7 @@ initializeWithMemoryBackends(SeosConfigLib* configLib)
         return result;
     }
 
-    result = SeosConfigBackend_initializeMemBackend(&stringBackend, stringBuf,
+    result = OS_ConfigServiceBackend_initializeMemBackend(&stringBackend, stringBuf,
                                                     sizeof(stringBuf));
     if (result != SEOS_SUCCESS)
     {
@@ -108,7 +108,7 @@ initializeWithMemoryBackends(SeosConfigLib* configLib)
         return result;
     }
 
-    result = SeosConfigBackend_initializeMemBackend(&blobBackend, blobBuf,
+    result = OS_ConfigServiceBackend_initializeMemBackend(&blobBackend, blobBuf,
                                                     sizeof(blobBuf));
     if (result != SEOS_SUCCESS)
     {
@@ -116,7 +116,7 @@ initializeWithMemoryBackends(SeosConfigLib* configLib)
         return result;
     }
 
-    result = SeosConfigLib_Init(
+    result = OS_ConfigServiceLib_Init(
                  configLib,
                  &parameterBackend,
                  &domainBackend,
@@ -124,7 +124,7 @@ initializeWithMemoryBackends(SeosConfigLib* configLib)
                  &blobBackend);
     if (result != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("SeosConfigLib_Init failed with: %d", result);
+        Debug_LOG_ERROR("OS_ConfigServiceLib_Init failed with: %d", result);
         return result;
     }
 

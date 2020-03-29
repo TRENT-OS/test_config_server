@@ -2,7 +2,7 @@
  * Copyright (C) 2019, Hensoldt Cyber GmbH
  */
 
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 #include <string.h>
 #include <stdio.h>
 
@@ -27,43 +27,43 @@ static
 seos_err_t createFileBackends(hPartition_t phandle)
 {
     seos_err_t result = 0;
-    SeosConfigBackend_FileName name;
+    OS_ConfigServiceBackend_FileName_t name;
 
     // Create the file backends.
-    Debug_LOG_DEBUG("Size of ConfigLib_Domain: %d", sizeof(SeosConfigLib_Domain));
-    initializeName(name.buffer, SEOS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
+    Debug_LOG_DEBUG("Size of ConfigLib_Domain: %d", sizeof(OS_ConfigServiceLibTypes_Domain_t));
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
-    result = SeosConfigBackend_createFileBackend(name, phandle, 4,
-                                                 sizeof(SeosConfigLib_Domain));
+    result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 4,
+                                                 sizeof(OS_ConfigServiceLibTypes_Domain_t));
     if (result != SEOS_SUCCESS)
     {
         return result;
     }
 
-    Debug_LOG_DEBUG("Size of ConfigLib_Parameter: %d", sizeof(SeosConfigLib_Parameter));
-    initializeName(name.buffer, SEOS_CONFIG_BACKEND_MAX_FILE_NAME_LEN,
+    Debug_LOG_DEBUG("Size of ConfigLib_Parameter: %d", sizeof(OS_ConfigServiceLibTypes_Parameter_t));
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN,
                    PARAMETER_FILE);
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
-    result = SeosConfigBackend_createFileBackend(name, phandle, 64,
-                                                 sizeof(SeosConfigLib_Parameter));
+    result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 64,
+                                                 sizeof(OS_ConfigServiceLibTypes_Parameter_t));
     if (result != SEOS_SUCCESS)
     {
         return result;
     }
 
-    initializeName(name.buffer, SEOS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, STRING_FILE);
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, STRING_FILE);
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
-    result = SeosConfigBackend_createFileBackend(name, phandle, 16,
-                                                 SEOS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH);
+    result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 16,
+                                                 OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH);
     if (result != SEOS_SUCCESS)
     {
         return result;
     }
 
-    initializeName(name.buffer, SEOS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, BLOB_FILE);
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, BLOB_FILE);
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
-    result = SeosConfigBackend_createFileBackend(name, phandle, 144,
-                                                 SEOS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH);
+    result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 144,
+                                                 OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH);
     if (result != SEOS_SUCCESS)
     {
         return result;
@@ -72,16 +72,16 @@ seos_err_t createFileBackends(hPartition_t phandle)
     return SEOS_SUCCESS;
 }
 
-seos_err_t initializeWithFileBackends(SeosConfigLib* configLib,
+seos_err_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                                       hPartition_t phandle)
 {
     seos_err_t result = 0;
 
-    SeosConfigBackend parameterBackend;
-    SeosConfigBackend domainBackend;
-    SeosConfigBackend stringBackend;
-    SeosConfigBackend blobBackend;
-    SeosConfigBackend_FileName name;
+    OS_ConfigServiceBackend_t parameterBackend;
+    OS_ConfigServiceBackend_t domainBackend;
+    OS_ConfigServiceBackend_t stringBackend;
+    OS_ConfigServiceBackend_t blobBackend;
+    OS_ConfigServiceBackend_FileName_t name;
     // Create the memory backends.
     result = createFileBackends(phandle);
     if (result != SEOS_SUCCESS)
@@ -92,17 +92,17 @@ seos_err_t initializeWithFileBackends(SeosConfigLib* configLib,
     Debug_LOG_DEBUG("file backends created.");
 
     // Initialize the backends in the config library object.
-    initializeName(name.buffer, SEOS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
-    result = SeosConfigBackend_initializeFileBackend(&domainBackend, name, phandle);
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
+    result = OS_ConfigServiceBackend_initializeFileBackend(&domainBackend, name, phandle);
     Debug_LOG_DEBUG("Domain name: %s", name.buffer);
     if (result != SEOS_SUCCESS)
     {
         return result;
     }
 
-    initializeName(name.buffer, SEOS_CONFIG_BACKEND_MAX_FILE_NAME_LEN,
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN,
                    PARAMETER_FILE);
-    result = SeosConfigBackend_initializeFileBackend(&parameterBackend, name,
+    result = OS_ConfigServiceBackend_initializeFileBackend(&parameterBackend, name,
                                                      phandle);
     if (result != SEOS_SUCCESS)
     {
@@ -110,23 +110,23 @@ seos_err_t initializeWithFileBackends(SeosConfigLib* configLib,
     }
     Debug_LOG_DEBUG("Parameter backend initialized.");
 
-    initializeName(name.buffer, SEOS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, STRING_FILE);
-    result = SeosConfigBackend_initializeFileBackend(&stringBackend, name, phandle);
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, STRING_FILE);
+    result = OS_ConfigServiceBackend_initializeFileBackend(&stringBackend, name, phandle);
     if (result != SEOS_SUCCESS)
     {
         return result;
     }
     Debug_LOG_DEBUG("String backend initialized.");
 
-    initializeName(name.buffer, SEOS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, BLOB_FILE);
-    result = SeosConfigBackend_initializeFileBackend(&blobBackend, name, phandle);
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, BLOB_FILE);
+    result = OS_ConfigServiceBackend_initializeFileBackend(&blobBackend, name, phandle);
     if (result != SEOS_SUCCESS)
     {
         return result;
     }
     Debug_LOG_DEBUG("Blob backend initialized.");
 
-    result = SeosConfigLib_Init(
+    result = OS_ConfigServiceLib_Init(
                  configLib,
                  &parameterBackend,
                  &domainBackend,
@@ -134,7 +134,7 @@ seos_err_t initializeWithFileBackends(SeosConfigLib* configLib,
                  &blobBackend);
     if (result != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("SeosConfigLib_Init failed with: %d", result);
+        Debug_LOG_ERROR("OS_ConfigServiceLib_Init failed with: %d", result);
         return result;
     }
     return result;

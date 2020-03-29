@@ -6,10 +6,10 @@
 */
 
 
-#include "seos_system_config.h"
+#include "system_config.h"
 
 #include "SeosError.h"
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
 #include "LibDebug/Debug.h"
 
@@ -41,8 +41,8 @@ run(void)
     app1_test_done_wait();
 
     //Open remote handle of API
-    SeosConfigHandle remoteHandle;
-    err = seos_configuration_createHandle(SEOS_CONFIG_HANDLE_KIND_RPC, 0,
+    OS_ConfigServiceHandle_t remoteHandle;
+    err = OS_ConfigService_createHandle(OS_CONFIG_HANDLE_KIND_RPC, 0,
                                           &remoteHandle);
     Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
 

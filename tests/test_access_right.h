@@ -2,7 +2,7 @@
  * Copyright (C) 2020, Hensoldt Cyber GmbH
  */
 
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
 #include "LibDebug/Debug.h"
 
@@ -12,14 +12,14 @@
 
 
 // -----------------------------------------------------------------------------
-void TestParameterReadAccessRight_ok(SeosConfigHandle* handle,
+void TestParameterReadAccessRight_ok(OS_ConfigServiceHandle_t* handle,
                                      const char* domainName,
                                      const char* componentName,
                                      const char* parameterName,
                                      const char* parameterValue,
                                      size_t parameterLength);
 
-void TestParameterWriteAccessRight_ok(SeosConfigHandle* handle,
+void TestParameterWriteAccessRight_ok(OS_ConfigServiceHandle_t* handle,
                                       const char* domainName,
                                       const char* componentName,
                                       const char* parameterName,

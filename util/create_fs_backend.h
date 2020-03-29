@@ -5,8 +5,8 @@
 #pragma once
 
 #include "SeosError.h"
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
-seos_err_t initializeWithFileBackends(SeosConfigLib* configLib,
+seos_err_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                                       hPartition_t phandle);
 

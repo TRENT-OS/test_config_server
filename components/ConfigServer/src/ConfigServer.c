@@ -15,7 +15,7 @@
 #include "LibDebug/Debug.h"
 #include "SeosError.h"
 
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
 #include "create_parameters.h"
 
@@ -28,7 +28,7 @@
 
 
 /* Private types -------------------------------------------------------------*/
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 hPartition_t phandle;
 pm_disk_data_t pm_disk_data;
 pm_partition_data_t pm_partition_data;
@@ -39,12 +39,12 @@ initializeConfigBackend(void)
 {
     seos_err_t ret;
 
-    SeosConfigInstanceStore* serverInstanceStore =
-        seos_configuration_getInstances();
-    SeosConfigLib* configLib =
-        seos_configuration_instance_store_getInstance(serverInstanceStore, 0);
+    OS_ConfigServiceInstanceStore_t* serverInstanceStore =
+        OS_ConfigService_getInstances();
+    OS_ConfigServiceLib_t* configLib =
+        OS_ConfigServiceInstanceStore_getInstance(serverInstanceStore, 0);
 
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
     seos_err_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
     if (pm_result != SEOS_SUCCESS)
     {
@@ -89,7 +89,7 @@ initializeConfigBackend(void)
     }
 #endif
 
-#if defined(CONFIG_SERVER_BACKEND_MEMORY)
+#if defined(OS_CONFIG_SERVICE_BACKEND_MEMORY)
     // Create the backends in the instance.
     Debug_LOG_INFO("ConfigServer: Initializing with mem backend...");
     ret = initializeWithMemoryBackends(configLib);
@@ -143,7 +143,7 @@ initializeConfigBackend(void)
 void pre_init(void)
 {
     Debug_LOG_INFO("Starting ConfigServer...");
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
     //Wait for ConfigFileInjector component to create the config file
     Debug_LOG_INFO("ConfigServer waiting for ConfigFileInjector to create file...");
     injector_component_backend_injected();

@@ -1,4 +1,4 @@
-# SEOS ConfigServer-test application
+# ConfigServer-test application
 
 ## Getting Started
 

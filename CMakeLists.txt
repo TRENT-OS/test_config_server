@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.7.2)
 
-project(seos_system_config C)
+project(system_config C)
 add_library(${PROJECT_NAME} INTERFACE)
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_LIST_DIR})
 
 project(test_config_server C)
 
-seos_set_config_file(seos_system_config.h)
+seos_set_config_file(system_config.h)
 
 seos_use_libs(
     SEOS_LIBS
@@ -33,12 +33,12 @@ DeclareCAmkESComponent(ConfigFileInjector
         -Wall
         -Werror
         # filesystem
-        #-DCONFIG_SERVER_BACKEND_FILESYSTEM
+        #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
         -DSEOS_FS_BUILD_AS_LIB_BASIC_HANDLE
         # partition manager
         -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
     LIBS
-        seos_system_config
+        system_config
         seos_libs
         seos_core_api
         seos_configuration
@@ -60,7 +60,7 @@ DeclareCAmkESComponent(PartitionManager
         -Werror
         -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
     LIBS
-        seos_system_config
+        system_config
         seos_libs
         chanmux_client
         proxy_nvm
@@ -83,15 +83,15 @@ DeclareCAmkESComponent(ConfigServer
         -Wall
         -Werror
         # filesystem
-        #-DCONFIG_SERVER_BACKEND_FILESYSTEM
-        -DCONFIG_SERVER_BACKEND_MEMORY
+        #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
+        -DOS_CONFIG_SERVICE_BACKEND_MEMORY
         -DSEOS_FS_BUILD_AS_LIB_BASIC_HANDLE
         # partition manager
         -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
         # config server
-        -DSEOS_CONFIG_CAMKES_SERVER     # indicates a camkes configuration server is being built
+        -DOS_CONFIG_SERVICE_CAMKES_SERVER     # indicates a camkes configuration server is being built
     LIBS
-        seos_system_config
+        system_config
         seos_libs
         seos_core_api
         seos_configuration
@@ -124,14 +124,14 @@ DeclareCAmkESComponent(TestApp1
         -Wall
         -Werror
         # filesystem
-        #-DCONFIG_SERVER_BACKEND_FILESYSTEM
-        -DCONFIG_SERVER_BACKEND_MEMORY
+        #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
+        -DOS_CONFIG_SERVICE_BACKEND_MEMORY
         -DSEOS_FS_BUILD_AS_LIB_BASIC_HANDLE
         # partition manager
         -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
-        -DSEOS_CONFIG_CAMKES_CLIENT
+        -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
-        seos_system_config
+        system_config
         seos_libs
         seos_core_api
         seos_configuration
@@ -159,9 +159,9 @@ DeclareCAmkESComponent(TestApp2
     C_FLAGS
         -Wall
         -Werror
-        -DSEOS_CONFIG_CAMKES_CLIENT
+        -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
-        seos_system_config
+        system_config
         seos_libs
         seos_core_api
         seos_configuration
@@ -185,9 +185,9 @@ DeclareCAmkESComponent(TestApp3
     C_FLAGS
         -Wall
         -Werror
-        -DSEOS_CONFIG_CAMKES_CLIENT
+        -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
-        seos_system_config
+        system_config
         seos_libs
         seos_core_api
         seos_configuration
@@ -211,9 +211,9 @@ DeclareCAmkESComponent(TestApp4
     C_FLAGS
         -Wall
         -Werror
-        -DSEOS_CONFIG_CAMKES_CLIENT
+        -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
-        seos_system_config
+        system_config
         seos_libs
         seos_core_api
         seos_configuration
@@ -241,7 +241,7 @@ DeclareCAmkESComponent(ChanMux
         -Wall
         -Werror
     LIBS
-        seos_system_config
+        system_config
         seos_core_api
         seos_libs
         chanmux_server

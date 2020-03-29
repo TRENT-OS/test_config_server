@@ -14,9 +14,9 @@
 
 #include "LibDebug/Debug.h"
 
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 #include "create_fs_backend.h"
 #include "create_parameters.h"
 
@@ -35,7 +35,7 @@ void injector_component_backend_injected()
     Debug_LOG_DEBUG("injector_component_backend_injected call received");
 }
 
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 static bool
 TestCreateFSBackend(void)
 {
@@ -90,10 +90,10 @@ TestCreateFSBackend(void)
         return false;
     }
 
-    SeosConfigInstanceStore* serverInstanceStore =
-        seos_configuration_getInstances();
-    SeosConfigLib* configLib =
-        seos_configuration_instance_store_getInstance(serverInstanceStore, 0);
+    OS_ConfigServiceInstanceStore_t* serverInstanceStore =
+        OS_ConfigService_getInstances();
+    OS_ConfigServiceLib_t* configLib =
+        OS_ConfigServiceInstanceStore_getInstance(serverInstanceStore, 0);
 
     // Create the file backends
     seos_err_t result = initializeWithFileBackends(configLib, phandle);
@@ -156,7 +156,7 @@ TestCreateFSBackend(void)
 void pre_init(void)
 {
     Debug_LOG_INFO("Starting ConfigFileInjector...");
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
     // Create the fs backend
     if (!TestCreateFSBackend())
     {

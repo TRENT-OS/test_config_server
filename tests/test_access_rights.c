@@ -7,7 +7,7 @@
 
 // -----------------------------------------------------------------------------
 void
-TestParameterReadAccessRight_ok(SeosConfigHandle* handle,
+TestParameterReadAccessRight_ok(OS_ConfigServiceHandle_t* handle,
                                 const char* domainName,
                                 const char* componentName,
                                 const char* parameterName,
@@ -24,13 +24,13 @@ TestParameterReadAccessRight_ok(SeosConfigHandle* handle,
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_CONFIG_PARAMETER_NOT_FOUND == err, "err %d", err);
 
     char handleKind[15];
-    if (SEOS_CONFIG_HANDLE_KIND_RPC == seos_configuration_handle_getHandleKind(
+    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Rpc");
     }
 
-    else if (SEOS_CONFIG_HANDLE_KIND_LOCAL == seos_configuration_handle_getHandleKind(
+    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Local");
@@ -40,7 +40,7 @@ TestParameterReadAccessRight_ok(SeosConfigHandle* handle,
 }
 
 void
-TestParameterWriteAccessRight_ok(SeosConfigHandle* handle,
+TestParameterWriteAccessRight_ok(OS_ConfigServiceHandle_t* handle,
                                  const char* domainName,
                                  const char* componentName,
                                  const char* parameterName,
@@ -57,13 +57,13 @@ TestParameterWriteAccessRight_ok(SeosConfigHandle* handle,
     Debug_ASSERT_PRINTFLN(SEOS_ERROR_GENERIC == err, "err %d", err);
 
     char handleKind[15];
-    if (SEOS_CONFIG_HANDLE_KIND_RPC == seos_configuration_handle_getHandleKind(
+    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Rpc");
     }
 
-    else if (SEOS_CONFIG_HANDLE_KIND_LOCAL == seos_configuration_handle_getHandleKind(
+    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Local");

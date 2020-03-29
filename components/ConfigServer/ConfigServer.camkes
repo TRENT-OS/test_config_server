@@ -4,12 +4,12 @@
    *  Copyright (C) 2020, Hensoldt Cyber GmbH
 */
 
-import <seos_if_configuration.camkes>;
+import <if_OS_ConfigService.camkes>;
 import <seos_if_partitionManager.camkes>;
 
 component ConfigServer {
 
-    provides configuration_server_interface server;
+    provides if_OS_ConfigService OS_ConfigServiceServer;
 
     //-------------------------------------------------
     // dataports for clients

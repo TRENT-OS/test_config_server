@@ -5,7 +5,7 @@
 #pragma once
 
 #include "SeosError.h"
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
 seos_err_t
-initializeWithMemoryBackends(SeosConfigLib* configLib);
+initializeWithMemoryBackends(OS_ConfigServiceLib_t* configLib);

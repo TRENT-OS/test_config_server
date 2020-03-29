@@ -7,10 +7,10 @@
 */
 
 
-#include "seos_system_config.h"
+#include "system_config.h"
 
 #include "SeosError.h"
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
 #include "create_parameters.h"
 
@@ -35,7 +35,7 @@
 #define TEST_APP     TEST_APP1
 #define DOMAIN_APP   DOMAIN_APP1
 
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 /* Private types -------------------------------------------------------------*/
 hPartition_t phandle;
 pm_disk_data_t pm_disk_data;
@@ -56,12 +56,12 @@ initializeConfigBackend(void)
 {
     seos_err_t ret;
 
-    SeosConfigInstanceStore* clientInstanceStore =
-        seos_configuration_getInstances();
-    SeosConfigLib* configLib =
-        seos_configuration_instance_store_getInstance(clientInstanceStore, 0);
+    OS_ConfigServiceInstanceStore_t* clientInstanceStore =
+        OS_ConfigService_getInstances();
+    OS_ConfigServiceLib_t* configLib =
+        OS_ConfigServiceInstanceStore_getInstance(clientInstanceStore, 0);
 
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 
     seos_err_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
     if (pm_result != SEOS_SUCCESS)
@@ -107,7 +107,7 @@ initializeConfigBackend(void)
     }
 #endif
 
-#if defined(CONFIG_SERVER_BACKEND_MEMORY)
+#if defined(OS_CONFIG_SERVICE_BACKEND_MEMORY)
     // Create the backends in the instance.
     Debug_LOG_INFO("%s: Initializing with mem backend", TEST_APP);
     ret = initializeWithMemoryBackends(configLib);
@@ -161,11 +161,11 @@ initializeConfigBackend(void)
 int
 run(void)
 {
-    SeosConfigHandle localHandle;
-    SeosConfigHandle remoteHandle;
-    SeosConfigLib* instance;
+    OS_ConfigServiceHandle_t localHandle;
+    OS_ConfigServiceHandle_t remoteHandle;
+    OS_ConfigServiceLib_t* instance;
 
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
     //Wait until the remote backend is injected
     injector_component_backend_injected();
 #endif
@@ -178,13 +178,13 @@ run(void)
 
     Debug_LOG_INFO("Starting tests of ConfigServer...");
     //Start with simple handle tests
-    TestCreateHandle_ok(&localHandle, SEOS_CONFIG_HANDLE_KIND_LOCAL, TEST_APP);
-    TestCreateHandle_ok(&remoteHandle, SEOS_CONFIG_HANDLE_KIND_RPC, TEST_APP);
-    TestCreateHandle_fail(&localHandle, SEOS_CONFIG_HANDLE_KIND_LOCAL, TEST_APP);
-    TestCreateHandle_fail(&remoteHandle, SEOS_CONFIG_HANDLE_KIND_RPC, TEST_APP);
+    TestCreateHandle_ok(&localHandle, OS_CONFIG_HANDLE_KIND_LOCAL, TEST_APP);
+    TestCreateHandle_ok(&remoteHandle, OS_CONFIG_HANDLE_KIND_RPC, TEST_APP);
+    TestCreateHandle_fail(&localHandle, OS_CONFIG_HANDLE_KIND_LOCAL, TEST_APP);
+    TestCreateHandle_fail(&remoteHandle, OS_CONFIG_HANDLE_KIND_RPC, TEST_APP);
 
     //Test enumerator increment and reset functions
-    instance  = (SeosConfigLib*) seos_configuration_handle_getRemoteInstance(
+    instance  = (OS_ConfigServiceLib_t*) OS_ConfigServiceHandle_getRemoteInstance(
                     localHandle);
     TestDomainEnumerator_increment_ok(&localHandle, TEST_APP,
                                       instance->domainBackend.numberOfRecords);

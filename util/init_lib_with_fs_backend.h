@@ -1,13 +1,13 @@
 /**
  * Copyright (C) 2019, Hensoldt Cyber GmbH
  */
-#if defined(CONFIG_SERVER_BACKEND_FILESYSTEM)
+#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 #pragma once
 
 #include "SeosError.h"
-#include "seos_config.h"
+#include "OS_ConfigService.h"
 
-seos_err_t initializeWithFileBackends(SeosConfigLib* configLib,
+seos_err_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                                       hPartition_t phandle);
 
 #endif

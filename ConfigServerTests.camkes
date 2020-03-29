@@ -50,7 +50,7 @@ assembly {
         //----------------------------------------------------------------------
         component   TestApp1         testApp1;
 
-        connection  seL4RPCCall      testApp1_configServer             (from testApp1.server, to configServer.server);
+        connection  seL4RPCCall      testApp1_configServer             (from testApp1.OS_ConfigServiceServer, to configServer.OS_ConfigServiceServer);
         connection  seL4SharedData   testApp1_configServer_data        (from testApp1.cfg_dataport_buf, to configServer.cfg_dataport_buf1);
         connection  seL4RPCCall      testApp1_pm                       (from testApp1.api_pm_component, to partitionManager.api_pm_component);
         connection  seL4SharedData   testApp1_pm_data                  (from testApp1.pm_dataport_buf, to partitionManager.pm_dataport_buf_testApp);
@@ -63,7 +63,7 @@ assembly {
         //----------------------------------------------------------------------
         component   TestApp2         testApp2;
 
-        connection  seL4RPCCall      testApp2_configServer             (from testApp2.server, to configServer.server);
+        connection  seL4RPCCall      testApp2_configServer             (from testApp2.OS_ConfigServiceServer, to configServer.OS_ConfigServiceServer);
         connection  seL4SharedData   testApp2_configServer_data        (from testApp2.cfg_dataport_buf, to configServer.cfg_dataport_buf2);
         connection  seL4Notification testApp3_testDone                 (from testApp2.test_done, to testApp3.app2_test_done);
 
@@ -73,7 +73,7 @@ assembly {
         //----------------------------------------------------------------------
         component   TestApp3         testApp3;
 
-        connection  seL4RPCCall      testApp3_configServer             (from testApp3.server, to configServer.server);
+        connection  seL4RPCCall      testApp3_configServer             (from testApp3.OS_ConfigServiceServer, to configServer.OS_ConfigServiceServer);
         connection  seL4SharedData   testApp3_configServer_data        (from testApp3.cfg_dataport_buf, to configServer.cfg_dataport_buf3);
         connection  seL4Notification testApp4_testDone                 (from testApp3.test_done, to testApp4.app3_test_done);
 
@@ -83,7 +83,7 @@ assembly {
         //----------------------------------------------------------------------
         component   TestApp4         testApp4;
 
-        connection  seL4RPCCall      testApp4_configServer             (from testApp4.server, to configServer.server);
+        connection  seL4RPCCall      testApp4_configServer             (from testApp4.OS_ConfigServiceServer, to configServer.OS_ConfigServiceServer);
         connection  seL4SharedData   testApp4_configServer_data        (from testApp4.cfg_dataport_buf, to configServer.cfg_dataport_buf4);
         connection  seL4Notification testApp1_testDone                 (from testApp4.test_done, to testApp1.app4_test_done);
 
@@ -108,7 +108,7 @@ assembly {
 
     }
 
-    // include "seos_system_config.h";
+    // include "system_config.h";
     configuration {
         uartDev.uartRegBase_paddr  = 0xE0000000;
         uartDev.uartRegBase_size   = 0x1000;

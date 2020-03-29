@@ -7,7 +7,7 @@
 // -----------------------------------------------------------------------------
 void
 TestGetInteger32FromFsBackend_ok(
-    SeosConfigHandle* handle,
+    OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
     const char* parameterName,
@@ -22,13 +22,13 @@ TestGetInteger32FromFsBackend_ok(
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
-    if (SEOS_CONFIG_HANDLE_KIND_RPC == seos_configuration_handle_getHandleKind(
+    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Rpc");
     }
 
-    else if (SEOS_CONFIG_HANDLE_KIND_LOCAL == seos_configuration_handle_getHandleKind(
+    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Local");
@@ -39,7 +39,7 @@ TestGetInteger32FromFsBackend_ok(
 
 void
 TestGetInteger64FromFsBackend_ok(
-    SeosConfigHandle* handle,
+    OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
     const char* parameterName,
@@ -54,13 +54,13 @@ TestGetInteger64FromFsBackend_ok(
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
-    if (SEOS_CONFIG_HANDLE_KIND_RPC == seos_configuration_handle_getHandleKind(
+    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Rpc");
     }
 
-    else if (SEOS_CONFIG_HANDLE_KIND_LOCAL == seos_configuration_handle_getHandleKind(
+    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Local");
@@ -71,7 +71,7 @@ TestGetInteger64FromFsBackend_ok(
 
 void
 TestGetStringsFromFsBackend_ok(
-    SeosConfigHandle* handle,
+    OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
     const char* parameterName,
@@ -88,13 +88,13 @@ TestGetStringsFromFsBackend_ok(
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
-    if (SEOS_CONFIG_HANDLE_KIND_RPC == seos_configuration_handle_getHandleKind(
+    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Rpc");
     }
 
-    else if (SEOS_CONFIG_HANDLE_KIND_LOCAL == seos_configuration_handle_getHandleKind(
+    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Local");
@@ -106,7 +106,7 @@ TestGetStringsFromFsBackend_ok(
 
 void
 TestGetBlobsFromFsBackend_ok(
-    SeosConfigHandle* handle,
+    OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
     const char* parameterName,
@@ -123,13 +123,13 @@ TestGetBlobsFromFsBackend_ok(
     Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
-    if (SEOS_CONFIG_HANDLE_KIND_RPC == seos_configuration_handle_getHandleKind(
+    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Rpc");
     }
 
-    else if (SEOS_CONFIG_HANDLE_KIND_LOCAL == seos_configuration_handle_getHandleKind(
+    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
             *handle))
     {
         initializeName(handleKind, sizeof(handleKind), "Local");
