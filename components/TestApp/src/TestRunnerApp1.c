@@ -79,20 +79,20 @@ initializeConfigBackend(void)
         return false;
     }
 
-    seos_err_t fs_result = OS_FilesystemApi_init(pm_partition_data.partition_id, 0);
+    seos_err_t fs_result = OS_Filesystem_init(pm_partition_data.partition_id, 0);
     if (fs_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to init partition: %d!", fs_result);
         return false;
     }
 
-    if ( (phandle = OS_FilesystemApi_open(pm_partition_data.partition_id)) < 0)
+    if ( (phandle = OS_Filesystem_open(pm_partition_data.partition_id)) < 0)
     {
         Debug_LOG_ERROR("Fail to open partition: %d!", pm_partition_data.partition_id);
         return false;
     }
 
-    if (OS_FilesystemApi_mount(phandle) != SEOS_SUCCESS)
+    if (OS_Filesystem_mount(phandle) != SEOS_SUCCESS)
     {
         return false;
     }
