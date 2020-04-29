@@ -30,7 +30,7 @@ seos_err_t createFileBackends(hPartition_t phandle)
     OS_ConfigServiceBackend_FileName_t name;
 
     // Create the file backends.
-    Debug_LOG_DEBUG("Size of ConfigLib_Domain: %d", sizeof(OS_ConfigServiceLibTypes_Domain_t));
+    Debug_LOG_DEBUG("Size of ConfigLib_Domain: %zu", sizeof(OS_ConfigServiceLibTypes_Domain_t));
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
     result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 4,
@@ -40,7 +40,7 @@ seos_err_t createFileBackends(hPartition_t phandle)
         return result;
     }
 
-    Debug_LOG_DEBUG("Size of ConfigLib_Parameter: %d", sizeof(OS_ConfigServiceLibTypes_Parameter_t));
+    Debug_LOG_DEBUG("Size of ConfigLib_Parameter: %zu", sizeof(OS_ConfigServiceLibTypes_Parameter_t));
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN,
                    PARAMETER_FILE);
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
