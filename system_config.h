@@ -30,22 +30,13 @@
 // ChanMUX
 //-----------------------------------------------------------------------------
 
-enum
-{
-    CHANMUX_CHANNEL_UNUSED_0, // 0
-    CHANMUX_CHANNEL_UNUSED_1, // 1
-    CHANMUX_CHANNEL_UNUSED_2, // 2
-    CHANMUX_CHANNEL_UNUSED_3, // 3
-    CHANMUX_CHANNEL_UNUSED_4, // 4
-    CHANMUX_CHANNEL_UNUSED_5, // 5
-    CHANMUX_CHANNEL_NVM,      // 6
-    CHANMUX_CHANNEL_UNUSED_7, // 7
-    CHANMUX_CHANNEL_UNUSED_8, // 8
-    CHANMUX_NUM_CHANNELS // 9
-};
+#define CHANMUX_CHANNEL_NVM         6
 
-// ChanMux badges that need to match with the main CAmkES system file
-#define PM_BADGE_ID 101 // PartitionManager badge id
+//-----------------------------------------------------------------------------
+// ChanMUX clients
+//-----------------------------------------------------------------------------
+
+#define CHANMUX_ID_PM       101
 
 //-----------------------------------------------------------------------------
 // COMMON
@@ -71,6 +62,9 @@ enum
 //-----------------------------------------------------------------------------
 // PARTITION MANAGER
 //-----------------------------------------------------------------------------
+
+#if !defined(CAMKES_TOOL_PROCESSING)
+
 typedef struct
 {
     const char* partition_name;
@@ -89,6 +83,8 @@ static const Partition_cat_t partition_conf =
     .partition[0].partition_size = 0x300000,
     .partition[0].block_size = 512
 };
+
+#endif //!defined(CAMKES_TOOL_PROCESSING)
 
 // internal defines
 #define PM_CONF_ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))

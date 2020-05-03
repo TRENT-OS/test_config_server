@@ -16,12 +16,19 @@
 void
 api_pm_component__init(void)
 {
+    static const ChanMuxClientConfig_t chanMuxClientConfig = {
+        .port  = CHANMUX_DATAPORT_DUPLEX_SHARED_ASSIGN(chanMux_port),
+        .wait  = chanMux_event_hasData_wait,
+        .write = chanMux_rpc_write,
+        .read  = chanMux_rpc_read
+    };
+
     static ChanMuxNvmDriver chanMuxNvmDriver;
+
 
     if (!ChanMuxNvmDriver_ctor(
             &chanMuxNvmDriver,
-            CHANMUX_CHANNEL_NVM,
-            chanMuxDataPort))
+            &chanMuxClientConfig))
     {
         Debug_LOG_ERROR("Failed to construct ChanMuxNvmDriver");
         return;
