@@ -4,47 +4,34 @@
    *  Copyright (C) 2019, Hensoldt Cyber GmbH
 */
 
-#include "api_pm.h"                 // include path to partition_manager must be set in cmakelists.txt
-#include "ProxyNVM.h"               // needs seos libs
-#include "ChanMux/ChanMuxClient.h"  // needs seos libs
-#include "LibDebug/Debug.h"         // needs seos_libs
+
+#include "LibDebug/Debug.h"
+#include "ChanMuxNvmDriver.h"
+#include "api_pm.h"
 
 #include <camkes.h>
 
 
-static ChanMuxClient chanmux;
-static ProxyNVM proxy_NVM;
-
-// Internal message buffer in ProxyNvm that should have the same size as the
-// ChanMux dataport
-static char proxy_NVM_message_buffer[PAGE_SIZE] = {0};
-
-
-void api_pm_component__init(void)
+//------------------------------------------------------------------------------
+void
+api_pm_component__init(void)
 {
-    seos_err_t pm_stat;
+    static ChanMuxNvmDriver chanMuxNvmDriver;
 
-    if (!ChanMuxClient_ctor(&chanmux,
-                            0,  // ChanMux will resolve the channel number
-                            (void*)chanMuxDataPort,
-                            (void*)chanMuxDataPort))
+    if (!ChanMuxNvmDriver_ctor(
+            &chanMuxNvmDriver,
+            CHANMUX_CHANNEL_NVM,
+            chanMuxDataPort))
     {
-        Debug_LOG_ERROR("Failed to construct testChanMuxClient!");
+        Debug_LOG_ERROR("Failed to construct ChanMuxNvmDriver");
         return;
     }
 
-    if ( !ProxyNVM_ctor(&proxy_NVM,
-                        &chanmux,
-                        proxy_NVM_message_buffer,
-                        sizeof(proxy_NVM_message_buffer) ) )
+    seos_err_t ret = api_pm_partition_manager_init(
+                        ChanMuxNvmDriver_get_nvm(&chanMuxNvmDriver));
+    if (ret != SEOS_SUCCESS)
     {
-        Debug_LOG_ERROR("Failed to construct ProxyNVM!");
+        Debug_LOG_DEBUG("Fail to init partition manager, code %d", ret);
         return;
-    }
-
-    pm_stat = api_pm_partition_manager_init(&proxy_NVM);
-    if (pm_stat != SEOS_SUCCESS)
-    {
-        Debug_LOG_DEBUG("Fail to init partition manager, ret: %d", pm_stat);
     }
 }
