@@ -20,4 +20,3 @@ component PartitionManager {
     dataport  Buf                   pm_dataport_buf_configServer;
     dataport  Buf                   pm_dataport_buf_testApp;
 }
-
