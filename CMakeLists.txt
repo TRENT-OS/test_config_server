@@ -54,7 +54,7 @@ DeclareCAmkESComponent(ConfigFileInjector
 #-------------------------------------------------------------------------------
 DeclareCAmkESComponent(PartitionManager
     SOURCES
-        "components/PartitionManager/src/PartitionManager.c"
+        components/PartitionManager/PartitionManager.c
     C_FLAGS
         -Wall
         -Werror
