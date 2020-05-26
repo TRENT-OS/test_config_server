@@ -14,7 +14,7 @@ TestParameterReadAccessRight_ok(OS_ConfigServiceHandle_t* handle,
                                 const char* parameterValue,
                                 size_t parameterLength)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = verify_parameter(handle,
                            domainName,
@@ -47,7 +47,7 @@ TestParameterWriteAccessRight_ok(OS_ConfigServiceHandle_t* handle,
                                  const void* parameterValue,
                                  size_t parameterSize)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = set_parameter(handle,
                         domainName,

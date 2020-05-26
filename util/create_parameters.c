@@ -8,7 +8,7 @@
 #include "create_parameters.h"
 
 static
-seos_err_t
+OS_Error_t
 OS_ConfigService_writeVariableLengthBlob(
     OS_ConfigServiceBackend_t* backend,
     uint32_t index,
@@ -44,7 +44,7 @@ OS_ConfigService_writeVariableLengthBlob(
 
         memcpy(tmpBuf, (char*)buffer + bytesCopied, bytesToCopy);
 
-        seos_err_t fetchResult = OS_ConfigServiceBackend_writeRecord(
+        OS_Error_t fetchResult = OS_ConfigServiceBackend_writeRecord(
                                      backend,
                                      index,
                                      tmpBuf,

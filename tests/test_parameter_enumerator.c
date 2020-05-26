@@ -9,7 +9,7 @@ void
 TestParameterEnumerator_init_ok(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -29,7 +29,7 @@ void
 TestParameterEnumerator_init_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -62,7 +62,7 @@ void
 TestParameterEnumerator_close_ok(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -90,7 +90,7 @@ void
 TestParameterEnumerator_close_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -127,7 +127,7 @@ TestParameterEnumerator_increment_ok(OS_ConfigServiceHandle_t* handle,
                                      unsigned int maxDomainIndex,
                                      unsigned int maxParameterIndex)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -180,7 +180,7 @@ void
 TestParameterEnumerator_increment_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -228,7 +228,7 @@ TestParameterEnumerator_reset_ok(OS_ConfigServiceHandle_t* handle,
                                  unsigned int maxDomainIndex,
                                  unsigned int maxParameterIndex)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -303,7 +303,7 @@ void
 TestParameterEnumerator_reset_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -341,7 +341,7 @@ void
 TestParameterEnumerator_getElement_ok(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t    domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
@@ -377,7 +377,7 @@ void
 TestParameterEnumerator_getElement_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t    domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;

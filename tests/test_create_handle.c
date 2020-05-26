@@ -11,7 +11,7 @@ TestCreateHandle_ok(OS_ConfigServiceHandle_t* handle,
                     OS_ConfigServiceHandle_HandleKind_t handleKind,
                     const char* componentName)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     // Open local handle of API
     err = OS_ConfigService_createHandle(handleKind, 0, handle);
@@ -37,7 +37,7 @@ TestCreateHandle_fail(OS_ConfigServiceHandle_t* handle,
                       OS_ConfigServiceHandle_HandleKind_t handleKind,
                       const char* componentName)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     // Invalid handle type
     err = OS_ConfigService_createHandle(666, 0, handle);

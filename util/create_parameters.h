@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "SeosError.h"
+#include "OS_Error.h"
 #include "OS_ConfigService.h"
 
 int

@@ -24,9 +24,9 @@ void initializeName(char* buf, size_t bufSize, char const* name)
 }
 
 static
-seos_err_t createFileBackends(hPartition_t phandle)
+OS_Error_t createFileBackends(hPartition_t phandle)
 {
-    seos_err_t result = 0;
+    OS_Error_t result = 0;
     OS_ConfigServiceBackend_FileName_t name;
 
     // Create the file backends.
@@ -72,10 +72,10 @@ seos_err_t createFileBackends(hPartition_t phandle)
     return SEOS_SUCCESS;
 }
 
-seos_err_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
+OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                                       hPartition_t phandle)
 {
-    seos_err_t result = 0;
+    OS_Error_t result = 0;
 
     OS_ConfigServiceBackend_t parameterBackend;
     OS_ConfigServiceBackend_t domainBackend;

@@ -9,7 +9,7 @@
 
 #include "system_config.h"
 
-#include "SeosError.h"
+#include "OS_Error.h"
 #include "OS_ConfigService.h"
 
 #include "create_parameters.h"
@@ -54,7 +54,7 @@ sync_with_other_apps(void)
 static bool
 initializeConfigBackend(void)
 {
-    seos_err_t ret;
+    OS_Error_t ret;
 
     OS_ConfigServiceInstanceStore_t* clientInstanceStore =
         OS_ConfigService_getInstances();
@@ -63,7 +63,7 @@ initializeConfigBackend(void)
 
 #if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 
-    seos_err_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
+    OS_Error_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
     if (pm_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to get disk info: %d", pm_result);
@@ -79,7 +79,7 @@ initializeConfigBackend(void)
         return false;
     }
 
-    seos_err_t fs_result = OS_Filesystem_init(pm_partition_data.partition_id, 0);
+    OS_Error_t fs_result = OS_Filesystem_init(pm_partition_data.partition_id, 0);
     if (fs_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to init partition: %d!", fs_result);

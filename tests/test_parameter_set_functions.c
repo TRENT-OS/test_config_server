@@ -13,7 +13,7 @@ TestParameterSetValueAsU32_ok(
     const char* parameterName,
     const uint32_t parameterValue)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = set_integer32_parameter(handle,
                                   domainName,
@@ -51,7 +51,7 @@ TestParameterSetValueAsU64_ok(
     const char* parameterName,
     const uint64_t parameterValue)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = set_integer64_parameter(handle,
                                   domainName,
@@ -90,7 +90,7 @@ TestParameterSetValueAsString_ok(
     const char* parameterValue,
     size_t parameterSize)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = set_string_parameter(handle,
                                domainName,
@@ -132,7 +132,7 @@ TestParameterSetValueAsBlob_ok(
     const char* parameterValue,
     size_t parameterSize)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = set_blob_parameter(handle,
                              domainName,
@@ -174,7 +174,7 @@ TestParameterSetValue_ok(
     const void* parameterValue,
     size_t parameterSize)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = set_parameter(handle,
                         domainName,

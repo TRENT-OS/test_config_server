@@ -9,7 +9,7 @@
 
 #include "system_config.h"
 
-#include "SeosError.h"
+#include "OS_Error.h"
 #include "OS_ConfigService.h"
 
 #include "LibDebug/Debug.h"
@@ -36,7 +36,7 @@ sync_with_other_apps(void)
 int
 run(void)
 {
-    seos_err_t err = SEOS_ERROR_GENERIC;
+    OS_Error_t err = SEOS_ERROR_GENERIC;
 
     //Wait until App1 finishes the basic single client tests
     app2_test_done_wait();

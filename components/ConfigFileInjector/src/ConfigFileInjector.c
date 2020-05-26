@@ -39,7 +39,7 @@ void injector_component_backend_injected()
 static bool
 TestCreateFSBackend(void)
 {
-    seos_err_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
+    OS_Error_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
     if (pm_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to get disk info: %d", pm_result);
@@ -55,7 +55,7 @@ TestCreateFSBackend(void)
         return false;
     }
 
-    seos_err_t fs_result = OS_Filesystem_init(pm_partition_data.partition_id, 0);
+    OS_Error_t fs_result = OS_Filesystem_init(pm_partition_data.partition_id, 0);
     if (fs_result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to init partition: %d!", fs_result);
@@ -96,7 +96,7 @@ TestCreateFSBackend(void)
         OS_ConfigServiceInstanceStore_getInstance(serverInstanceStore, 0);
 
     // Create the file backends
-    seos_err_t result = initializeWithFileBackends(configLib, phandle);
+    OS_Error_t result = initializeWithFileBackends(configLib, phandle);
     if (result != SEOS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeWithFileBackends failed with: %d", result);

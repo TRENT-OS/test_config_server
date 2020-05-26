@@ -13,7 +13,7 @@ TestGetInteger32FromFsBackend_ok(
     const char* parameterName,
     const uint32_t parameterValue)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = verify_integer32_parameter(handle,
                                      domainName,
@@ -45,7 +45,7 @@ TestGetInteger64FromFsBackend_ok(
     const char* parameterName,
     const uint64_t parameterValue)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = verify_integer64_parameter(handle,
                                   domainName,
@@ -78,7 +78,7 @@ TestGetStringsFromFsBackend_ok(
     const char* parameterValue,
     size_t parameterLength)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = verify_string_parameter(handle,
                                   domainName,
@@ -113,7 +113,7 @@ TestGetBlobsFromFsBackend_ok(
     const char* parameterValue,
     size_t parameterLength)
 {
-    seos_err_t err;
+    OS_Error_t err;
 
     err = verify_blob_parameter(handle,
                                 domainName,

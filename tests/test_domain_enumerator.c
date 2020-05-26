@@ -9,7 +9,7 @@ void
 TestDomainEnumerator_init_ok(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
@@ -23,7 +23,7 @@ void
 TestDomainEnumerator_init_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
@@ -43,7 +43,7 @@ void
 TestDomainEnumerator_close_ok(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
@@ -60,7 +60,7 @@ void
 TestDomainEnumerator_close_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
@@ -90,7 +90,7 @@ TestDomainEnumerator_increment_ok(
     const char* componentName,
     unsigned int maxDomainIndex)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
@@ -128,7 +128,7 @@ void
 TestDomainEnumerator_increment_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
@@ -167,7 +167,7 @@ TestDomainEnumerator_reset_ok(
     const char* componentName,
     unsigned int maxDomainIndex)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
@@ -220,7 +220,7 @@ void
 TestDomainEnumerator_reset_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
@@ -248,7 +248,7 @@ void
 TestDomainEnumerator_getElement_ok(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_Domain_t           domain;
@@ -271,7 +271,7 @@ void
 TestDomainEnumerator_getElement_fail(
     OS_ConfigServiceHandle_t* handle)
 {
-    seos_err_t err;
+    OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_Domain_t           domain;
