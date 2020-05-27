@@ -35,7 +35,7 @@ OS_Error_t createFileBackends(hPartition_t phandle)
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
     result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 4,
                                                  sizeof(OS_ConfigServiceLibTypes_Domain_t));
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -46,7 +46,7 @@ OS_Error_t createFileBackends(hPartition_t phandle)
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
     result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 64,
                                                  sizeof(OS_ConfigServiceLibTypes_Parameter_t));
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -55,7 +55,7 @@ OS_Error_t createFileBackends(hPartition_t phandle)
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
     result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 16,
                                                  OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -64,12 +64,12 @@ OS_Error_t createFileBackends(hPartition_t phandle)
     Debug_LOG_DEBUG("Name.buffer: %s", name.buffer);
     result = OS_ConfigServiceBackend_createFileBackend(name, phandle, 144,
                                                  OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
@@ -84,7 +84,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
     OS_ConfigServiceBackend_FileName_t name;
     // Create the memory backends.
     result = createFileBackends(phandle);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -95,7 +95,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&domainBackend, name, phandle);
     Debug_LOG_DEBUG("Domain name: %s", name.buffer);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -104,7 +104,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                    PARAMETER_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&parameterBackend, name,
                                                      phandle);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -112,7 +112,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
 
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, STRING_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&stringBackend, name, phandle);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -120,7 +120,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
 
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, BLOB_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&blobBackend, name, phandle);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -132,7 +132,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                  &domainBackend,
                  &stringBackend,
                  &blobBackend);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("OS_ConfigServiceLib_Init failed with: %d", result);
         return result;

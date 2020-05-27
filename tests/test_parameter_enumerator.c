@@ -15,12 +15,12 @@ TestParameterEnumerator_init_ok(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -35,25 +35,25 @@ TestParameterEnumerator_init_fail(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle;
     err = OS_ConfigService_parameterEnumeratorInit(uninitializedHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
     // Empty domain enumerator
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     NULL, &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     // Empty parameter enumerator
     configHandle = *handle;
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator, NULL);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -68,20 +68,20 @@ TestParameterEnumerator_close_ok(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Close parameter enumerator
     err = OS_ConfigService_parameterEnumeratorClose(configHandle,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_domainEnumeratorClose(configHandle, &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -97,26 +97,26 @@ TestParameterEnumerator_close_fail(
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle,
                                                     &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle;
     err = OS_ConfigService_parameterEnumeratorClose(uninitializedHandle,
                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
     // Empty parameter enumerator
     err = OS_ConfigService_parameterEnumeratorClose(configHandle, NULL);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                           &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -135,18 +135,18 @@ TestParameterEnumerator_increment_ok(OS_ConfigServiceHandle_t* handle,
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle,
                                                     &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     for (int i = 0; i < (maxIndex-1); i++)
     {
         err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
                                                           &parameterEnumerator);
-        Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+        Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
         // Check if the index actually got incremented
         Debug_ASSERT_PRINTFLN((1+i) == parameterEnumerator.index,
                                   "Index value: %d", parameterEnumerator.index);
@@ -154,11 +154,11 @@ TestParameterEnumerator_increment_ok(OS_ConfigServiceHandle_t* handle,
 
     err = OS_ConfigService_parameterEnumeratorClose(configHandle,
                                                           &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                           &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -187,18 +187,18 @@ TestParameterEnumerator_increment_fail(
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle,
                                                     &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle;
     err = OS_ConfigService_parameterEnumeratorIncrement(uninitializedHandle,
                                                           &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
     // Make sure the index did not get incremented
     Debug_ASSERT_PRINTFLN(0 == parameterEnumerator.index,
                                 "Index value: %d", parameterEnumerator.index);
@@ -206,18 +206,18 @@ TestParameterEnumerator_increment_fail(
     // Empty parameter enumerator
     err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
                                                           NULL);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
     // Make sure the index did not get incremented
     Debug_ASSERT_PRINTFLN(0 == parameterEnumerator.index,
                                 "Index value: %d", parameterEnumerator.index);
 
     err = OS_ConfigService_parameterEnumeratorClose(configHandle,
                                                           &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                     &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -236,24 +236,24 @@ TestParameterEnumerator_reset_ok(OS_ConfigServiceHandle_t* handle,
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle,
                                                     &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Increment parameter enumerator index
     err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
                                                           &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
     // Check if the index actually got incremented
     Debug_ASSERT_PRINTFLN(1 == parameterEnumerator.index,
                                   "Index value: %d", parameterEnumerator.index);
 
     err = OS_ConfigService_parameterEnumeratorReset(configHandle,
                                                         &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
     // Check if the index actually got reset
     Debug_ASSERT_PRINTFLN(0 == parameterEnumerator.index,
                                   "Index value: %d", parameterEnumerator.index);
@@ -262,7 +262,7 @@ TestParameterEnumerator_reset_ok(OS_ConfigServiceHandle_t* handle,
     {
         err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
                                                           &parameterEnumerator);
-        Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+        Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
         // Check if the index actually got incremented
         Debug_ASSERT_PRINTFLN((1+i) == parameterEnumerator.index,
                                   "Index value: %d", parameterEnumerator.index);
@@ -270,18 +270,18 @@ TestParameterEnumerator_reset_ok(OS_ConfigServiceHandle_t* handle,
 
     err = OS_ConfigService_parameterEnumeratorReset(configHandle,
                                                         &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
     // Check if the index actually got reset
     Debug_ASSERT_PRINTFLN(0 == parameterEnumerator.index,
                                   "Index value: %d", parameterEnumerator.index);
 
     err = OS_ConfigService_parameterEnumeratorClose(configHandle,
                                                           &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                           &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -310,29 +310,29 @@ TestParameterEnumerator_reset_fail(
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle,
                                                     &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle;
     err = OS_ConfigService_parameterEnumeratorReset(uninitializedHandle, &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
     // Empty parameter enumerator
     err = OS_ConfigService_parameterEnumeratorReset(configHandle, NULL);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorClose(configHandle,
                                                           &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                             &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -349,26 +349,26 @@ TestParameterEnumerator_getElement_ok(
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle,
                                                     &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     //Retrieve parameter for parameter enumerator
     err = OS_ConfigService_parameterEnumeratorGetElement(configHandle,
                                                            &parameterEnumerator,
                                                            &parameter);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorClose(configHandle,
                                                           &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                             &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -385,38 +385,38 @@ TestParameterEnumerator_getElement_fail(
 
     err = OS_ConfigService_domainEnumeratorInit(configHandle,
                                                     &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorInit(configHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle;
     err = OS_ConfigService_parameterEnumeratorGetElement(uninitializedHandle,
                                                         &parameterEnumerator,
                                                         &parameter);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
     // Emtpy parameter enumerator
     err = OS_ConfigService_parameterEnumeratorGetElement(configHandle,
                                                     NULL, &parameter);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     // Empty parameter
     err = OS_ConfigService_parameterEnumeratorGetElement(uninitializedHandle,
                                                         &parameterEnumerator,
                                                         NULL);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
 
     err = OS_ConfigService_parameterEnumeratorClose(configHandle,
                                                           &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                             &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }

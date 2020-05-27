@@ -22,7 +22,7 @@ OS_ConfigService_writeVariableLengthBlob(
     if (bufferLength > blobCapacity)
     {
         Debug_LOG_DEBUG("Error: function: %s - line: %d\n", __FUNCTION__, __LINE__);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     // We anticipate a maximum size here which should be ok to place on the stack.
@@ -50,17 +50,17 @@ OS_ConfigService_writeVariableLengthBlob(
                                      tmpBuf,
                                      sizeof(tmpBuf));
 
-        if (SEOS_SUCCESS != fetchResult)
+        if (OS_SUCCESS != fetchResult)
         {
             Debug_LOG_DEBUG("Error: function: %s - line: %d\n", __FUNCTION__, __LINE__);
-            return SEOS_ERROR_GENERIC;
+            return OS_ERROR_GENERIC;
         }
 
         bytesCopied += bytesToCopy;
         index++;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 
@@ -119,7 +119,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     0,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -134,7 +134,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     1,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -149,7 +149,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     2,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -164,7 +164,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     3,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -179,7 +179,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     4,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -194,7 +194,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     5,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -209,7 +209,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     6,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -224,7 +224,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     7,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -491,7 +491,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     16,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -506,7 +506,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     17,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -521,7 +521,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     18,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -536,7 +536,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     19,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -551,7 +551,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     20,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -566,7 +566,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     21,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -581,7 +581,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     22,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -596,7 +596,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     23,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -868,7 +868,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     32,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -883,7 +883,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     33,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -898,7 +898,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     34,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -913,7 +913,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     35,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -928,7 +928,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     36,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -943,7 +943,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     37,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -958,7 +958,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     38,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -973,7 +973,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     39,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -1240,7 +1240,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     48,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -1255,7 +1255,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     49,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -1270,7 +1270,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     50,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -1285,7 +1285,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     51,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -1300,7 +1300,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     52,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -1315,7 +1315,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     53,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -1330,7 +1330,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     54,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }
@@ -1345,7 +1345,7 @@ initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* dom
                     55,
                     &parameter,
                     sizeof(parameter));
-        if (SEOS_SUCCESS != result)
+        if (OS_SUCCESS != result)
         {
             return result;
         }

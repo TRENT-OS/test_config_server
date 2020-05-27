@@ -36,7 +36,7 @@ api_pm_component__init(void)
 
     OS_Error_t ret = api_pm_partition_manager_init(
                         ChanMuxNvmDriver_get_nvm(&chanMuxNvmDriver));
-    if (ret != SEOS_SUCCESS)
+    if (ret != OS_SUCCESS)
     {
         Debug_LOG_DEBUG("Fail to init partition manager, code %d", ret);
         return;

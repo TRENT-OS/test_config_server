@@ -37,7 +37,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&domainBackend, name, phandle);
     Debug_LOG_DEBUG("Domain name: %s", name.buffer);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -46,7 +46,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                    PARAMETER_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&parameterBackend, name,
                                                      phandle);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -54,7 +54,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
 
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, STRING_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&stringBackend, name, phandle);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -62,7 +62,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
 
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, BLOB_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&blobBackend, name, phandle);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         return result;
     }
@@ -74,7 +74,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                  &domainBackend,
                  &stringBackend,
                  &blobBackend);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("OS_ConfigServiceLib_Init failed with: %d", result);
         return result;

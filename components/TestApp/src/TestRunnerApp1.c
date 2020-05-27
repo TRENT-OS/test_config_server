@@ -64,7 +64,7 @@ initializeConfigBackend(void)
 #if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
 
     OS_Error_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
-    if (pm_result != SEOS_SUCCESS)
+    if (pm_result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to get disk info: %d", pm_result);
         return false;
@@ -72,7 +72,7 @@ initializeConfigBackend(void)
 
     pm_result = partition_manager_get_info_partition(PARTITION_ID,
                                                      &pm_partition_data);
-    if (pm_result != SEOS_SUCCESS)
+    if (pm_result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to get partition info: %d!",
                         pm_partition_data.partition_id);
@@ -80,7 +80,7 @@ initializeConfigBackend(void)
     }
 
     OS_Error_t fs_result = OS_Filesystem_init(pm_partition_data.partition_id, 0);
-    if (fs_result != SEOS_SUCCESS)
+    if (fs_result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to init partition: %d!", fs_result);
         return false;
@@ -92,7 +92,7 @@ initializeConfigBackend(void)
         return false;
     }
 
-    if (OS_Filesystem_mount(phandle) != SEOS_SUCCESS)
+    if (OS_Filesystem_mount(phandle) != OS_SUCCESS)
     {
         return false;
     }
@@ -100,7 +100,7 @@ initializeConfigBackend(void)
     // Create the file backends
     Debug_LOG_INFO("Initializing with file backend");
     ret = initializeWithFileBackends(configLib, phandle);
-    if (ret != SEOS_SUCCESS)
+    if (ret != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeWithFileBackends failed with: %d", ret);
         return ret;
@@ -111,7 +111,7 @@ initializeConfigBackend(void)
     // Create the backends in the instance.
     Debug_LOG_INFO("%s: Initializing with mem backend", TEST_APP);
     ret = initializeWithMemoryBackends(configLib);
-    if (ret != SEOS_SUCCESS)
+    if (ret != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeWithMemoryBackends failed with: %d", ret);
         return false;
@@ -120,7 +120,7 @@ initializeConfigBackend(void)
     // Create the parameters in the instance.
     Debug_LOG_DEBUG("Enumerating %s", DOMAIN_APP1);
     ret = initializeDomainsAndParameters(configLib, DOMAIN_APP);
-    if (ret != SEOS_SUCCESS)
+    if (ret != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeDomainAndParameters for %s failed with: %d",
                         DOMAIN_APP, ret);
@@ -129,7 +129,7 @@ initializeConfigBackend(void)
 
     Debug_LOG_DEBUG("Enumerating %s", DOMAIN_APP2);
     ret = initializeDomainsAndParameters(configLib, DOMAIN_APP2);
-    if (ret != SEOS_SUCCESS)
+    if (ret != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeDomainAndParameters for %s failed with: %d",
                         DOMAIN_APP2, ret);
@@ -138,7 +138,7 @@ initializeConfigBackend(void)
 
     Debug_LOG_DEBUG("Enumerating %s", DOMAIN_APP3);
     ret = initializeDomainsAndParameters(configLib, DOMAIN_APP3);
-    if (ret != SEOS_SUCCESS)
+    if (ret != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeDomainAndParameters for %s failed with: %d",
                         DOMAIN_APP3, ret);
@@ -147,7 +147,7 @@ initializeConfigBackend(void)
 
     Debug_LOG_DEBUG("Enumerating %s", DOMAIN_APP4);
     ret = initializeDomainsAndParameters(configLib, DOMAIN_APP4);
-    if (ret != SEOS_SUCCESS)
+    if (ret != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeDomainAndParameters for %s failed with: %d",
                         DOMAIN_APP4, ret);

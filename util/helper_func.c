@@ -27,11 +27,11 @@ compareDomainName(OS_ConfigServiceLibTypes_DomainName_t const* a,
         if (a->name[k] != b->name[k])
         {
             Debug_LOG_DEBUG("Error: function: %s - line: %d\n", __FUNCTION__, __LINE__);
-            return SEOS_ERROR_GENERIC;
+            return OS_ERROR_GENERIC;
         }
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -56,15 +56,15 @@ find_domain(
         {
             Debug_LOG_ERROR("OS_ConfigService_domainEnumeratorGetElement() failed, ret %d",
                             ret);
-            return SEOS_ERROR_GENERIC;
+            return OS_ERROR_GENERIC;
         }
 
         OS_ConfigServiceLibTypes_DomainName_t domainNameTmp;
         OS_ConfigService_domainGetName(domain, &domainNameTmp);
-        if (SEOS_SUCCESS == compareDomainName(&domainNameTmp, domainName))
+        if (OS_SUCCESS == compareDomainName(&domainNameTmp, domainName))
         {
             // enumerator holds the right domain
-            return SEOS_SUCCESS;
+            return OS_SUCCESS;
         }
 
         ret = OS_ConfigService_domainEnumeratorIncrement(handle, enumerator);
@@ -72,7 +72,7 @@ find_domain(
         {
             Debug_LOG_ERROR("OS_ConfigService_domainEnumeratorIncrement() failed, ret %d",
                             ret);
-            return SEOS_ERROR_GENERIC;
+            return OS_ERROR_GENERIC;
         }
     } // end for(;;)
 }
@@ -98,27 +98,27 @@ get_parameter_enumerator(
     initializeParameterName(&parameterName, ParameterName);
 
     ret = find_domain(handle, &domainEnumerator, &domainName, &domain);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("find_domain() failed, ret %d", ret);
-        return SEOS_ERROR_CONFIG_DOMAIN_NOT_FOUND;
+        return OS_ERROR_CONFIG_DOMAIN_NOT_FOUND;
     }
 
     ret = OS_ConfigService_domainEnumeratorGetElement(handle, &domainEnumerator, &domain);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("OS_ConfigServiceLibTypes_DomainEnumerator_tGetElement() failed, ret %d", ret);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     ret = OS_ConfigService_domainCreateParameterEnumerator(handle, &domain, &parameterName, parameterEnumerator);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("OS_ConfigServiceLibTypes_Domain_tCreateParameterEnumerator() failed, ret %d", ret);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -140,20 +140,20 @@ get_parameter_element(
     initializeParameterName(parameterName, ParameterName);
 
     ret = find_domain(handle, &domainEnumerator, domainName, &domain);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("find_domain() failed, ret %d", ret);
-        return SEOS_ERROR_CONFIG_DOMAIN_NOT_FOUND;
+        return OS_ERROR_CONFIG_DOMAIN_NOT_FOUND;
     }
 
     ret = OS_ConfigService_domainGetElement(handle, &domain, parameterName, parameter);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("domainGetElement() failed, ret %d", ret);
-        return SEOS_ERROR_CONFIG_PARAMETER_NOT_FOUND;
+        return OS_ERROR_CONFIG_PARAMETER_NOT_FOUND;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -164,7 +164,7 @@ initializeDomainName(
 {
     initializeName(domainName->name, OS_CONFIG_LIB_DOMAIN_NAME_LEN, name);
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 OS_Error_t
@@ -174,7 +174,7 @@ initializeParameterName(
 {
     initializeName(parameterName->name, OS_CONFIG_LIB_PARAMETER_NAME_LEN, name);
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -192,7 +192,7 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
     uint32_t valueInteger32;
 
     ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
         return ret;
@@ -202,7 +202,7 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterSize != sizeof(uint32_t))
     {
         Debug_LOG_ERROR("retrieved integer size does not match expected size");
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     OS_ConfigServiceLibTypes_ParameterType_t parameterType;
@@ -210,11 +210,11 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterType != OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32)
     {
         Debug_LOG_ERROR("retrieved parameter does not match expected type");
-        return SEOS_ERROR_CONFIG_TYPE_MISMATCH;
+        return OS_ERROR_CONFIG_TYPE_MISMATCH;
     }
 
     ret = OS_ConfigService_parameterGetValueAsU32(configHandle, &parameter, &valueInteger32);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueAsU32() failed, ret %d", ret);
         return ret;
@@ -223,7 +223,7 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
     if (valueInteger32 != IntegerValue)
     {
         Debug_LOG_ERROR("retrieved integer value does not match expected value");
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     valueInteger32 = 0;
@@ -236,7 +236,7 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
                                                 &valueInteger32,
                                                 sizeof(valueInteger32),
                                                 &bytesCopied);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
         return ret;
@@ -245,10 +245,10 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
     if (valueInteger32 != IntegerValue)
     {
         Debug_LOG_ERROR("retrieved integer value does not match expected value");
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -266,7 +266,7 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
     uint64_t valueInteger64;
 
     ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
         return ret;
@@ -276,7 +276,7 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterSize != sizeof(uint64_t))
     {
         Debug_LOG_ERROR("retrieved integer size does not match expected size");
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     OS_ConfigServiceLibTypes_ParameterType_t parameterType;
@@ -284,11 +284,11 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterType != OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64)
     {
         Debug_LOG_ERROR("retrieved parameter does not match expected type");
-        return SEOS_ERROR_CONFIG_TYPE_MISMATCH;
+        return OS_ERROR_CONFIG_TYPE_MISMATCH;
     }
 
     ret = OS_ConfigService_parameterGetValueAsU64(configHandle, &parameter, &valueInteger64);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
         return ret;
@@ -297,7 +297,7 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
     if (valueInteger64 != IntegerValue)
     {
         Debug_LOG_ERROR("retrieved integer value does not match expected value");
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     valueInteger64 = 0;
@@ -310,7 +310,7 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
                                                 &valueInteger64,
                                                 sizeof(valueInteger64),
                                                 &bytesCopied);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
         return ret;
@@ -318,10 +318,10 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
 
     if (valueInteger64 != IntegerValue)
     {
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -340,7 +340,7 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceHandle_t configHandle = *handle;
 
     ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
         return ret;
@@ -350,7 +350,7 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterSize != parameterLength)
     {
         Debug_LOG_ERROR("retrieved string size does not match expected size for parameter %s", ParameterName);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     OS_ConfigServiceLibTypes_ParameterType_t parameterType;
@@ -358,21 +358,21 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterType != OS_CONFIG_LIB_PARAMETER_TYPE_STRING)
     {
         Debug_LOG_ERROR("retrieved parameter does not match expected type");
-        return SEOS_ERROR_CONFIG_TYPE_MISMATCH;
+        return OS_ERROR_CONFIG_TYPE_MISMATCH;
     }
 
     ret = OS_ConfigService_parameterGetValueAsString(configHandle,
                                                        &parameter,
                                                        configString,
                                                        sizeof(configString));
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueAsString() failed, ret %d", ret);
         return ret;
     }
 
     ret = strcmp(configString, StringValue);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("strcmp() failed, ret %d", ret);
         return ret;
@@ -388,20 +388,20 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
                                                 configString,
                                                 sizeof(configString),
                                                 &bytesCopied);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
         return ret;
     }
 
     ret = strcmp(configString, StringValue);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("strcmp() failed, ret %d", ret);
         return ret;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -420,7 +420,7 @@ OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceHandle_t configHandle = *handle;
 
     ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
         return ret;
@@ -430,7 +430,7 @@ OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterSize != parameterLength)
     {
         Debug_LOG_ERROR("retrieved blob size does not match expected size");
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     OS_ConfigServiceLibTypes_ParameterType_t parameterType;
@@ -438,21 +438,21 @@ OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterType != OS_CONFIG_LIB_PARAMETER_TYPE_BLOB)
     {
         Debug_LOG_ERROR("retrieved parameter does not match expected type");
-        return SEOS_ERROR_CONFIG_TYPE_MISMATCH;
+        return OS_ERROR_CONFIG_TYPE_MISMATCH;
     }
 
     ret = OS_ConfigService_parameterGetValueAsBlob(configHandle,
                                                        &parameter,
                                                        configBlob,
                                                        sizeof(configBlob));
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueAsBlob() failed, ret %d", ret);
         return ret;
     }
 
     ret = memcmp(configBlob, BlobValue, parameterLength);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("memcmp() failed, ret %d", ret);
         return ret;
@@ -468,20 +468,20 @@ OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
                                                 configBlob,
                                                 sizeof(configBlob),
                                                 &bytesCopied);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
         return ret;
     }
 
     ret = memcmp(configBlob, BlobValue, parameterLength);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("memcmp() failed, ret %d", ret);
         return ret;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -500,7 +500,7 @@ OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceHandle_t configHandle = *handle;
 
     ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
         return ret;
@@ -510,7 +510,7 @@ OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
     if (parameterSize != parameterLength)
     {
         Debug_LOG_ERROR("retrieved blob size does not match expected size");
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     OS_ConfigServiceLibTypes_ParameterType_t parameterType;
@@ -521,14 +521,14 @@ OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
                                                configBlob,
                                                sizeof(configBlob),
                                                &bytesCopied);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValue() failed, ret %d", ret);
         return ret;
     }
 
     ret = memcmp(configBlob, parameterValue, parameterLength);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("memcmp() failed, ret %d", ret);
         return ret;
@@ -542,20 +542,20 @@ OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
                                                 configBlob,
                                                 sizeof(configBlob),
                                                 &bytesCopied);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
         return ret;
     }
 
     ret = memcmp(configBlob, parameterValue, parameterLength);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("memcmp() failed, ret %d", ret);
         return ret;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -573,10 +573,10 @@ OS_Error_t set_integer32_parameter(OS_ConfigServiceHandle_t* handle,
                                    DomainName,
                                    ParameterName,
                                    &parameterEnumerator);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     ret = OS_ConfigService_parameterSetValueAsU32(configHandle,
@@ -587,10 +587,10 @@ OS_Error_t set_integer32_parameter(OS_ConfigServiceHandle_t* handle,
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
         // ToDo: OS_ConfigService_parameterSetValue() should return error codes
         //       about the actual problem, so we can return them
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -608,10 +608,10 @@ OS_Error_t set_integer64_parameter(OS_ConfigServiceHandle_t* handle,
                                    DomainName,
                                    ParameterName,
                                    &parameterEnumerator);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     ret = OS_ConfigService_parameterSetValueAsU64(configHandle,
@@ -622,10 +622,10 @@ OS_Error_t set_integer64_parameter(OS_ConfigServiceHandle_t* handle,
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
         // ToDo: OS_ConfigService_parameterSetValue() should return error codes
         //       about the actual problem, so we can return them
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -644,10 +644,10 @@ OS_Error_t set_string_parameter(OS_ConfigServiceHandle_t* handle,
                                    DomainName,
                                    ParameterName,
                                    &parameterEnumerator);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     ret = OS_ConfigService_parameterSetValueAsString(configHandle,
@@ -660,10 +660,10 @@ OS_Error_t set_string_parameter(OS_ConfigServiceHandle_t* handle,
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
         // ToDo: OS_ConfigService_parameterSetValue() should return error codes
         //       about the actual problem, so we can return them
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -682,10 +682,10 @@ OS_Error_t set_blob_parameter(OS_ConfigServiceHandle_t* handle,
                                    DomainName,
                                    ParameterName,
                                    &parameterEnumerator);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     ret = OS_ConfigService_parameterSetValueAsBlob(configHandle,
@@ -698,10 +698,10 @@ OS_Error_t set_blob_parameter(OS_ConfigServiceHandle_t* handle,
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
         // ToDo: OS_ConfigService_parameterSetValue() should return error codes
         //       about the actual problem, so we can return them
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 //------------------------------------------------------------------------------
@@ -719,7 +719,7 @@ OS_Error_t set_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceLibTypes_Parameter_t parameter;
 
     ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
         return ret;
@@ -729,10 +729,10 @@ OS_Error_t set_parameter(OS_ConfigServiceHandle_t* handle,
                                    DomainName,
                                    ParameterName,
                                    &parameterEnumerator);
-    if (SEOS_SUCCESS != ret)
+    if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
     OS_ConfigServiceLibTypes_ParameterType_t parameterType;
@@ -748,8 +748,8 @@ OS_Error_t set_parameter(OS_ConfigServiceHandle_t* handle,
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
         // ToDo: OS_ConfigService_parameterSetValue() should return error codes
         //       about the actual problem, so we can return them
-        return SEOS_ERROR_GENERIC;
+        return OS_ERROR_GENERIC;
     }
 
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }

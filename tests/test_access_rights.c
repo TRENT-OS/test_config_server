@@ -21,7 +21,7 @@ TestParameterReadAccessRight_ok(OS_ConfigServiceHandle_t* handle,
                            parameterName,
                            parameterValue,
                            parameterLength);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_CONFIG_PARAMETER_NOT_FOUND == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_CONFIG_PARAMETER_NOT_FOUND == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -54,7 +54,7 @@ TestParameterWriteAccessRight_ok(OS_ConfigServiceHandle_t* handle,
                         parameterName,
                         parameterValue,
                         parameterSize);
-    Debug_ASSERT_PRINTFLN(SEOS_ERROR_GENERIC == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_GENERIC == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(

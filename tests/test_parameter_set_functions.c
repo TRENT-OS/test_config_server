@@ -19,13 +19,13 @@ TestParameterSetValueAsU32_ok(
                                   domainName,
                                   parameterName,
                                   parameterValue);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = verify_integer32_parameter(handle,
                                      domainName,
                                      parameterName,
                                      parameterValue);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -57,13 +57,13 @@ TestParameterSetValueAsU64_ok(
                                   domainName,
                                   parameterName,
                                   parameterValue);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = verify_integer64_parameter(handle,
                                      domainName,
                                      parameterName,
                                      parameterValue);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -97,14 +97,14 @@ TestParameterSetValueAsString_ok(
                                parameterName,
                                parameterValue,
                                parameterSize);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = verify_string_parameter(handle,
                                   domainName,
                                   parameterName,
                                   parameterValue,
                                   parameterSize);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -139,14 +139,14 @@ TestParameterSetValueAsBlob_ok(
                              parameterName,
                              parameterValue,
                              parameterSize);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = verify_blob_parameter(handle,
                                 domainName,
                                 parameterName,
                                 parameterValue,
                                 parameterSize);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -181,14 +181,14 @@ TestParameterSetValue_ok(
                         parameterName,
                         parameterValue,
                         parameterSize);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     err = verify_parameter(handle,
                            domainName,
                            parameterName,
                            parameterValue,
                            parameterSize);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(

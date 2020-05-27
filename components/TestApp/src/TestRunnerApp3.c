@@ -36,7 +36,7 @@ sync_with_other_apps(void)
 int
 run(void)
 {
-    OS_Error_t err = SEOS_ERROR_GENERIC;
+    OS_Error_t err = OS_ERROR_GENERIC;
 
     //Wait until App1 finishes the basic single client tests
     app2_test_done_wait();
@@ -44,7 +44,7 @@ run(void)
     //Open remote handle of API
     OS_ConfigServiceHandle_t remoteHandle;
     err = OS_ConfigService_createHandle(OS_CONFIG_HANDLE_KIND_RPC, 0, &remoteHandle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+    Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
 
     Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n", TEST_APP);
     //Test get parameter functions in multiclient environment

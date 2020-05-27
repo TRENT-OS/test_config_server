@@ -27,7 +27,7 @@ formatMemoryBackends(OS_ConfigServiceLib_t* configLib)
     // Create the memory backends.
     result = OS_ConfigServiceBackend_createMemBackend(domainBuf, sizeof(domainBuf), 4,
                                                 sizeof(OS_ConfigServiceLibTypes_Domain_t));
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("createMemBackend failed with: %d", result);
         return result;
@@ -35,7 +35,7 @@ formatMemoryBackends(OS_ConfigServiceLib_t* configLib)
 
     result = OS_ConfigServiceBackend_createMemBackend(parameterBuf, sizeof(parameterBuf),
                                                 64, sizeof(OS_ConfigServiceLibTypes_Parameter_t));
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("createMemBackend failed with: %d", result);
         return result;
@@ -46,7 +46,7 @@ formatMemoryBackends(OS_ConfigServiceLib_t* configLib)
                  sizeof(stringBuf),
                  16,
                  OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("createMemBackend failed with: %d", result);
         return result;
@@ -57,13 +57,13 @@ formatMemoryBackends(OS_ConfigServiceLib_t* configLib)
                  sizeof(blobBuf),
                  144,
                  OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("createMemBackend failed with: %d", result);
         return result;
     }
     Debug_LOG_DEBUG("Memory backends formatted");
-    return SEOS_SUCCESS;
+    return OS_SUCCESS;
 }
 
 OS_Error_t
@@ -77,7 +77,7 @@ initializeWithMemoryBackends(OS_ConfigServiceLib_t* configLib)
 
     // Create the memory backends.
     result = formatMemoryBackends(configLib);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("formatMemoryBackends failed with: %d", result);
         return result;
@@ -86,7 +86,7 @@ initializeWithMemoryBackends(OS_ConfigServiceLib_t* configLib)
     // Initialize the backends in the config library object.
     result = OS_ConfigServiceBackend_initializeMemBackend(&domainBackend, domainBuf,
                                                     sizeof(domainBuf));
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeMemBackend failed with: %d", result);
         return result;
@@ -94,7 +94,7 @@ initializeWithMemoryBackends(OS_ConfigServiceLib_t* configLib)
 
     result = OS_ConfigServiceBackend_initializeMemBackend(&parameterBackend, parameterBuf,
                                                     sizeof(parameterBuf));
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeMemBackend failed with: %d", result);
         return result;
@@ -102,7 +102,7 @@ initializeWithMemoryBackends(OS_ConfigServiceLib_t* configLib)
 
     result = OS_ConfigServiceBackend_initializeMemBackend(&stringBackend, stringBuf,
                                                     sizeof(stringBuf));
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeMemBackend failed with: %d", result);
         return result;
@@ -110,7 +110,7 @@ initializeWithMemoryBackends(OS_ConfigServiceLib_t* configLib)
 
     result = OS_ConfigServiceBackend_initializeMemBackend(&blobBackend, blobBuf,
                                                     sizeof(blobBuf));
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("initializeMemBackend failed with: %d", result);
         return result;
@@ -122,7 +122,7 @@ initializeWithMemoryBackends(OS_ConfigServiceLib_t* configLib)
                  &domainBackend,
                  &stringBackend,
                  &blobBackend);
-    if (result != SEOS_SUCCESS)
+    if (result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("OS_ConfigServiceLib_Init failed with: %d", result);
         return result;

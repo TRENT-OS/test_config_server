@@ -19,7 +19,7 @@ TestGetInteger32FromFsBackend_ok(
                                      domainName,
                                      parameterName,
                                      parameterValue);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -51,7 +51,7 @@ TestGetInteger64FromFsBackend_ok(
                                   domainName,
                                   parameterName,
                                   parameterValue);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -85,7 +85,7 @@ TestGetStringsFromFsBackend_ok(
                                   parameterName,
                                   parameterValue,
                                   parameterLength);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
@@ -120,7 +120,7 @@ TestGetBlobsFromFsBackend_ok(
                                 parameterName,
                                 parameterValue,
                                 parameterLength);
-    Debug_ASSERT_PRINTFLN(SEOS_SUCCESS == err, "err %d", err);
+    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     char handleKind[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(

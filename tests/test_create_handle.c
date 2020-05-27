@@ -15,7 +15,7 @@ TestCreateHandle_ok(OS_ConfigServiceHandle_t* handle,
 
     // Open local handle of API
     err = OS_ConfigService_createHandle(handleKind, 0, handle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_SUCCESS, "err %d", err);
+    Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
 
     char handleType[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == handleKind)
@@ -41,11 +41,11 @@ TestCreateHandle_fail(OS_ConfigServiceHandle_t* handle,
 
     // Invalid handle type
     err = OS_ConfigService_createHandle(666, 0, handle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_ERROR_INVALID_PARAMETER, "err %d", err);
+    Debug_ASSERT_PRINTFLN(err == OS_ERROR_INVALID_PARAMETER, "err %d", err);
 
     // Invalid handle id
     err = OS_ConfigService_createHandle(handleKind, 8, handle);
-    Debug_ASSERT_PRINTFLN(err == SEOS_ERROR_INVALID_PARAMETER, "err %d", err);
+    Debug_ASSERT_PRINTFLN(err == OS_ERROR_INVALID_PARAMETER, "err %d", err);
 
     char handleType[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == handleKind)
