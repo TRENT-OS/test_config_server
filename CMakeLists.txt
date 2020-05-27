@@ -9,13 +9,13 @@ project(test_config_server C)
 seos_set_config_file(system_config.h)
 
 seos_use_libs(
-    SEOS_LIBS
-    SEOS_CHANMUX
-    SEOS_PARTITION_MANAGER
-    SEOS_FILESYSTEM_CORE
-    SEOS_FILESYSTEM_FAT
-    SEOS_FILESYSTEM_SPIFFS
-    SEOS_CONFIGURATION
+    OS_LIBS
+    OS_CHANMUX
+    OS_PARTITION_MANAGER
+    OS_FILESYSTEM_CORE
+    OS_FILESYSTEM_FAT
+    OS_FILESYSTEM_SPIFFS
+    OS_CONFIGURATION
 )
 
 
@@ -34,9 +34,9 @@ DeclareCAmkESComponent(ConfigFileInjector
         -Werror
         # filesystem
         #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
-        -DSEOS_FS_BUILD_AS_LIB_BASIC_HANDLE
+        -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
         # partition manager
-        -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
+        -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
     LIBS
         system_config
         seos_libs
@@ -58,7 +58,7 @@ DeclareCAmkESComponent(PartitionManager
     C_FLAGS
         -Wall
         -Werror
-        -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
+        -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
     LIBS
         system_config
         seos_libs
@@ -84,9 +84,9 @@ DeclareCAmkESComponent(ConfigServer
         # filesystem
         #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
         -DOS_CONFIG_SERVICE_BACKEND_MEMORY
-        -DSEOS_FS_BUILD_AS_LIB_BASIC_HANDLE
+        -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
         # partition manager
-        -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
+        -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
         # config server
         -DOS_CONFIG_SERVICE_CAMKES_SERVER     # indicates a camkes configuration server is being built
     LIBS
@@ -125,9 +125,9 @@ DeclareCAmkESComponent(TestApp1
         # filesystem
         #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
         -DOS_CONFIG_SERVICE_BACKEND_MEMORY
-        -DSEOS_FS_BUILD_AS_LIB_BASIC_HANDLE
+        -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
         # partition manager
-        -DSEOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
+        -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
