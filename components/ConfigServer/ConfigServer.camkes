@@ -5,7 +5,7 @@
 */
 
 import <if_OS_ConfigService.camkes>;
-import <seos_if_partitionManager.camkes>;
+import <if_OS_PartitionManager.camkes>;
 
 component ConfigServer {
 

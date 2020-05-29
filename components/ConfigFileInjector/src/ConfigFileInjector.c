@@ -26,8 +26,8 @@
 
 /* Private types -------------------------------------------------------------*/
 hPartition_t phandle;
-pm_disk_data_t pm_disk_data;
-pm_partition_data_t pm_partition_data;
+OS_PartitionManagerDataTypes_DiskData_t pm_disk_data;
+OS_PartitionManagerDataTypes_PartitionData_t pm_partition_data;
 #endif
 
 void injector_component_backend_injected()
@@ -39,14 +39,14 @@ void injector_component_backend_injected()
 static bool
 TestCreateFSBackend(void)
 {
-    OS_Error_t pm_result = partition_manager_get_info_disk(&pm_disk_data);
+    OS_Error_t pm_result = OS_PartitionManager_getInfoDisk(&pm_disk_data);
     if (pm_result != OS_SUCCESS)
     {
         Debug_LOG_ERROR("Fail to get disk info: %d", pm_result);
         return false;
     }
 
-    pm_result = partition_manager_get_info_partition(PARTITION_ID,
+    pm_result = OS_PartitionManager_getInfoPartition(PARTITION_ID,
                                                      &pm_partition_data);
     if (pm_result != OS_SUCCESS)
     {

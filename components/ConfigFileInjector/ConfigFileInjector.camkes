@@ -4,7 +4,7 @@
    *  Copyright (C) 2020, Hensoldt Cyber GmbH
 */
 
-import <seos_if_partitionManager.camkes>;
+import <if_OS_PartitionManager.camkes>;
 import "ConfigFileInjectorInf.camkes";
 
 
