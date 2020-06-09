@@ -39,13 +39,13 @@ DeclareCAmkESComponent(ConfigFileInjector
         -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
     LIBS
         system_config
-        seos_libs
-        seos_core_api
-        seos_configuration
-        seos_partition_manager_api
-        seos_filesystem_core
-        seos_filesystem_fat
-        seos_filesystem_spiffs
+        os_libs
+        os_core_api
+        os_configuration
+        os_partition_manager_api
+        os_filesystem_core
+        os_filesystem_fat
+        os_filesystem_spiffs
 )
 
 
@@ -61,9 +61,9 @@ DeclareCAmkESComponent(PartitionManager
         -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
     LIBS
         system_config
-        seos_libs
+        os_libs
         proxy_nvm
-        seos_partition_manager
+        os_partition_manager
 )
 
 
@@ -91,13 +91,13 @@ DeclareCAmkESComponent(ConfigServer
         -DOS_CONFIG_SERVICE_CAMKES_SERVER     # indicates a camkes configuration server is being built
     LIBS
         system_config
-        seos_libs
-        seos_core_api
-        seos_configuration
-        seos_partition_manager_api
-        seos_filesystem_core
-        seos_filesystem_fat
-        seos_filesystem_spiffs
+        os_libs
+        os_core_api
+        os_configuration
+        os_partition_manager_api
+        os_filesystem_core
+        os_filesystem_fat
+        os_filesystem_spiffs
 )
 
 #-------------------------------------------------------------------------------
@@ -131,13 +131,13 @@ DeclareCAmkESComponent(TestApp1
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        seos_libs
-        seos_core_api
-        seos_configuration
-        seos_partition_manager_api
-        seos_filesystem_core
-        seos_filesystem_fat
-        seos_filesystem_spiffs
+        os_libs
+        os_core_api
+        os_configuration
+        os_partition_manager_api
+        os_filesystem_core
+        os_filesystem_fat
+        os_filesystem_spiffs
 )
 
 #-------------------------------------------------------------------------------
@@ -161,9 +161,9 @@ DeclareCAmkESComponent(TestApp2
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        seos_libs
-        seos_core_api
-        seos_configuration
+        os_libs
+        os_core_api
+        os_configuration
 )
 
 #-------------------------------------------------------------------------------
@@ -187,9 +187,9 @@ DeclareCAmkESComponent(TestApp3
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        seos_libs
-        seos_core_api
-        seos_configuration
+        os_libs
+        os_core_api
+        os_configuration
 )
 
 #-------------------------------------------------------------------------------
@@ -213,9 +213,9 @@ DeclareCAmkESComponent(TestApp4
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        seos_libs
-        seos_core_api
-        seos_configuration
+        os_libs
+        os_core_api
+        os_configuration
 )
 
 #-------------------------------------------------------------------------------
