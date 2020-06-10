@@ -6,12 +6,6 @@
 
 cmake_minimum_required(VERSION 3.7.2)
 
-project(system_config C)
-add_library(${PROJECT_NAME} INTERFACE)
-target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_LIST_DIR})
-
-project(test_config_server C)
-
 os_set_config_file(system_config.h)
 
 os_use_libs(
@@ -26,9 +20,16 @@ os_use_libs(
 
 
 #-------------------------------------------------------------------------------
-# Component ConfigFileInjector
+project(system_config C)
+add_library(${PROJECT_NAME} INTERFACE)
+target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+
+
 #-------------------------------------------------------------------------------
-DeclareCAmkESComponent(ConfigFileInjector
+project(test_config_server C)
+
+DeclareCAmkESComponent(
+    ConfigFileInjector
     INCLUDES
         util
     SOURCES
@@ -38,10 +39,8 @@ DeclareCAmkESComponent(ConfigFileInjector
     C_FLAGS
         -Wall
         -Werror
-        # filesystem
         #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
         -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
-        # partition manager
         -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
     LIBS
         system_config
@@ -54,11 +53,8 @@ DeclareCAmkESComponent(ConfigFileInjector
         os_filesystem_spiffs
 )
 
-
-#-------------------------------------------------------------------------------
-# Component PartitionManager
-#-------------------------------------------------------------------------------
-DeclareCAmkESComponent(PartitionManager
+DeclareCAmkESComponent(
+    PartitionManager
     SOURCES
         components/PartitionManager/PartitionManager.c
     C_FLAGS
@@ -72,11 +68,8 @@ DeclareCAmkESComponent(PartitionManager
         os_partition_manager
 )
 
-
-#-------------------------------------------------------------------------------
-# Component ConfigServer
-#-------------------------------------------------------------------------------
-DeclareCAmkESComponent(ConfigServer
+DeclareCAmkESComponent(
+    ConfigServer
     INCLUDES
         util
     SOURCES
@@ -87,14 +80,11 @@ DeclareCAmkESComponent(ConfigServer
     C_FLAGS
         -Wall
         -Werror
-        # filesystem
         #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
         -DOS_CONFIG_SERVICE_BACKEND_MEMORY
         -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
-        # partition manager
         -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
-        # config server
-        -DOS_CONFIG_SERVICE_CAMKES_SERVER     # indicates a camkes configuration server is being built
+        -DOS_CONFIG_SERVICE_CAMKES_SERVER
     LIBS
         system_config
         os_libs
@@ -106,16 +96,15 @@ DeclareCAmkESComponent(ConfigServer
         os_filesystem_spiffs
 )
 
-#-------------------------------------------------------------------------------
-# Component TestApp1 (with additional local configServer as lib)
-#-------------------------------------------------------------------------------
-DeclareCAmkESComponent(TestApp1
+# contains an additional local configServer as lib
+DeclareCAmkESComponent(
+    TestApp1
     INCLUDES
         util
         tests
     SOURCES
         components/TestApp/src/TestRunnerApp1.c
-	util/init_lib_with_fs_backend.c
+        util/init_lib_with_fs_backend.c
         util/init_lib_with_mem_backend.c
         util/create_parameters.c
         util/helper_func.c
@@ -128,11 +117,9 @@ DeclareCAmkESComponent(TestApp1
     C_FLAGS
         -Wall
         -Werror
-        # filesystem
         #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
         -DOS_CONFIG_SERVICE_BACKEND_MEMORY
         -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
-        # partition manager
         -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
@@ -146,10 +133,8 @@ DeclareCAmkESComponent(TestApp1
         os_filesystem_spiffs
 )
 
-#-------------------------------------------------------------------------------
-# Component TestApp2
-#-------------------------------------------------------------------------------
-DeclareCAmkESComponent(TestApp2
+DeclareCAmkESComponent(
+    TestApp2
     INCLUDES
         util
         tests
@@ -172,10 +157,8 @@ DeclareCAmkESComponent(TestApp2
         os_configuration
 )
 
-#-------------------------------------------------------------------------------
-# Component TestApp3
-#-------------------------------------------------------------------------------
-DeclareCAmkESComponent(TestApp3
+DeclareCAmkESComponent(
+    TestApp3
     INCLUDES
         util
         tests
@@ -198,10 +181,8 @@ DeclareCAmkESComponent(TestApp3
         os_configuration
 )
 
-#-------------------------------------------------------------------------------
-# Component TestApp4
-#-------------------------------------------------------------------------------
-DeclareCAmkESComponent(TestApp4
+DeclareCAmkESComponent(
+    TestApp4
     INCLUDES
         util
         tests
@@ -224,16 +205,10 @@ DeclareCAmkESComponent(TestApp4
         os_configuration
 )
 
-#-------------------------------------------------------------------------------
-# Component UartDrv
-#-------------------------------------------------------------------------------
 DeclareCAmkESComponent_UART(
     UART
 )
 
-#-------------------------------------------------------------------------------
-# Component ChanMux
-#-------------------------------------------------------------------------------
 DeclareCAmkESComponent_ChanMux(
     ChanMux
     components/ChanMux/ChanMux_config.c
