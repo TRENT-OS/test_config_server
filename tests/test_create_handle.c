@@ -13,18 +13,22 @@ TestCreateHandle_ok(OS_ConfigServiceHandle_t* handle,
 {
     OS_Error_t err;
 
-    // Open local handle of API
-    err = OS_ConfigService_createHandle(handleKind, 0, handle);
-    Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
-
     char handleType[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == handleKind)
     {
+        // Open local handle of API
+        err = OS_ConfigService_createHandleRemote(0, handle);
+        Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
+
         initializeName(handleType, sizeof(handleType), "Rpc");
     }
 
     else if (OS_CONFIG_HANDLE_KIND_LOCAL == handleKind)
     {
+        // Open local handle of API
+        err = OS_ConfigService_createHandleLocal(0, handle);
+        Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
+
         initializeName(handleType, sizeof(handleType), "Local");
     }
 
@@ -39,22 +43,21 @@ TestCreateHandle_fail(OS_ConfigServiceHandle_t* handle,
 {
     OS_Error_t err;
 
-    // Invalid handle type
-    err = OS_ConfigService_createHandle(666, 0, handle);
-    Debug_ASSERT_PRINTFLN(err == OS_ERROR_INVALID_PARAMETER, "err %d", err);
-
-    // Invalid handle id
-    err = OS_ConfigService_createHandle(handleKind, 8, handle);
-    Debug_ASSERT_PRINTFLN(err == OS_ERROR_INVALID_PARAMETER, "err %d", err);
-
     char handleType[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == handleKind)
     {
+        // Invalid handle id
+        err = OS_ConfigService_createHandleRemote(8, handle);
+        Debug_ASSERT_PRINTFLN(err == OS_ERROR_INVALID_PARAMETER, "err %d", err);
+
         initializeName(handleType, sizeof(handleType), "Rpc");
     }
 
     else if (OS_CONFIG_HANDLE_KIND_LOCAL == handleKind)
     {
+        // Invalid handle id
+        err = OS_ConfigService_createHandleLocal(8, handle);
+        Debug_ASSERT_PRINTFLN(err == OS_ERROR_INVALID_PARAMETER, "err %d", err);
         initializeName(handleType, sizeof(handleType), "Local");
     }
 

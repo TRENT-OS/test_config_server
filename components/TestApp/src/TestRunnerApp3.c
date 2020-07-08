@@ -43,7 +43,7 @@ run(void)
 
     //Open remote handle of API
     OS_ConfigServiceHandle_t remoteHandle;
-    err = OS_ConfigService_createHandle(OS_CONFIG_HANDLE_KIND_RPC, 0, &remoteHandle);
+    err = OS_ConfigService_createHandleRemote(0, &remoteHandle);
     Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
 
     Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n", TEST_APP);
