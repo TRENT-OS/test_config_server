@@ -29,33 +29,13 @@ DeclareCAmkESComponent(
     C_FLAGS
         -Wall
         -Werror
-        #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
-        -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
-        -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
+        -DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
     LIBS
         system_config
         os_libs
         os_core_api
         os_configuration
-        os_partition_manager_api
-        os_filesystem_core
-        os_filesystem_fat
-        os_filesystem_spiffs
-)
-
-DeclareCAmkESComponent(
-    PartitionManager
-    SOURCES
-        components/PartitionManager/PartitionManager.c
-    C_FLAGS
-        -Wall
-        -Werror
-        -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
-    LIBS
-        system_config
-        os_libs
-        proxy_nvm
-        os_partition_manager
+        os_filesystem
 )
 
 DeclareCAmkESComponent(
@@ -65,25 +45,18 @@ DeclareCAmkESComponent(
     SOURCES
         components/ConfigServer/src/ConfigServer.c
         util/init_lib_with_fs_backend.c
-        util/init_lib_with_mem_backend.c
         util/create_parameters.c
     C_FLAGS
         -Wall
         -Werror
-        #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
-        -DOS_CONFIG_SERVICE_BACKEND_MEMORY
-        -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
-        -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
         -DOS_CONFIG_SERVICE_CAMKES_SERVER
+        -DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
     LIBS
         system_config
         os_libs
         os_core_api
         os_configuration
-        os_partition_manager_api
-        os_filesystem_core
-        os_filesystem_fat
-        os_filesystem_spiffs
+        os_filesystem
 )
 
 # contains an additional local configServer as lib
@@ -95,7 +68,6 @@ DeclareCAmkESComponent(
     SOURCES
         components/TestApp/src/TestRunnerApp1.c
         util/init_lib_with_fs_backend.c
-        util/init_lib_with_mem_backend.c
         util/create_parameters.c
         util/helper_func.c
         tests/test_create_handle.c
@@ -107,20 +79,14 @@ DeclareCAmkESComponent(
     C_FLAGS
         -Wall
         -Werror
-        #-DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
-        -DOS_CONFIG_SERVICE_BACKEND_MEMORY
-        -DOS_FS_BUILD_AS_LIB_BASIC_HANDLE
-        -DOS_PARTITION_MANAGER_BUILD_AS_COMPONENT
+        -DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
         os_libs
         os_core_api
         os_configuration
-        os_partition_manager_api
-        os_filesystem_core
-        os_filesystem_fat
-        os_filesystem_spiffs
+        os_filesystem
 )
 
 DeclareCAmkESComponent(
@@ -195,13 +161,8 @@ DeclareCAmkESComponent(
         os_configuration
 )
 
-DeclareCAmkESComponent_UART(
-    UART
-)
-
-DeclareCAmkESComponent_ChanMux(
-    ChanMux
-    components/ChanMux/ChanMux_config.c
+DeclareCAmkESComponent_RamDisk(
+    RamDisk
     system_config
 )
 

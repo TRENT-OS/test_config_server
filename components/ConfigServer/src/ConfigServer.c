@@ -20,122 +20,55 @@
 #include "create_parameters.h"
 
 #include "init_lib_with_fs_backend.h"
-#include "init_lib_with_mem_backend.h"
-
-
-/* Defines -------------------------------------------------------------------*/
-#define PARTITION_ID            0
 
 
 /* Private types -------------------------------------------------------------*/
-#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
-hPartition_t phandle;
-OS_PartitionManagerDataTypes_DiskData_t pm_disk_data;
-OS_PartitionManagerDataTypes_PartitionData_t pm_partition_data;
-#endif
+static OS_FileSystem_Config_t cfg =
+{
+    .type = OS_FileSystem_Type_LITTLEFS,
+    .storage = OS_FILESYSTEM_ASSIGN_Storage(
+        OS_FileSystem_STORAGE_MAX,
+        storage_rpc_write,
+        storage_rpc_read,
+        storage_rpc_erase,
+        storage_rpc_getSize,
+        storage_rpc_getState,
+        storage_dp),
+};
 
 static bool
 initializeConfigBackend(void)
 {
-    OS_Error_t ret;
-
     OS_ConfigServiceInstanceStore_t* serverInstanceStore =
         OS_ConfigService_getInstances();
     OS_ConfigServiceLib_t* configLib =
         OS_ConfigServiceInstanceStore_getInstance(serverInstanceStore, 0);
 
-#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
-    OS_Error_t pm_result = OS_PartitionManager_getInfoDisk(&pm_disk_data);
-    if (pm_result != OS_SUCCESS)
+    // Wait until Tester1 is done with its local tests
+    app1_local_test_done_wait();
+
+    OS_FileSystem_Handle_t hFs;
+
+    if (OS_FileSystem_init(&hFs, &cfg) != OS_SUCCESS)
     {
-        Debug_LOG_ERROR("Fail to get disk info: %d", pm_result);
+        Debug_LOG_ERROR("OS_FileSystem_init() failed.");
         return false;
     }
 
-    pm_result = OS_PartitionManager_getInfoPartition(PARTITION_ID,
-                                                     &pm_partition_data);
-    if (pm_result != OS_SUCCESS)
+    if (OS_FileSystem_mount(hFs) != OS_SUCCESS)
     {
-        Debug_LOG_ERROR("Fail to get partition info: %d!",
-                        pm_partition_data.partition_id);
-        return false;
-    }
-
-    OS_Error_t fs_result = OS_Filesystem_init(pm_partition_data.partition_id, 0);
-    if (fs_result != OS_SUCCESS)
-    {
-        Debug_LOG_ERROR("Fail to init partition: %d!", fs_result);
-        return false;
-    }
-
-    if ( (phandle = OS_Filesystem_open(pm_partition_data.partition_id)) < 0)
-    {
-        Debug_LOG_ERROR("Fail to open partition: %d!", pm_partition_data.partition_id);
-        return false;
-    }
-
-    if (OS_Filesystem_mount(phandle) != OS_SUCCESS)
-    {
+        Debug_LOG_ERROR("OS_FileSystem_mount() failed.");
         return false;
     }
 
     // Create the file backends
-    Debug_LOG_INFO("ConfigServer: Initializing with file backend...");
-    ret = initializeWithFileBackends(configLib, phandle);
-    if (ret != OS_SUCCESS)
+    Debug_LOG_INFO("Initializing with file backend");
+    if (initializeWithFileBackends(configLib, hFs) != OS_SUCCESS)
     {
-        Debug_LOG_ERROR("initializeWithFileBackends failed with: %d", ret);
-        return false;
-    }
-#endif
-
-#if defined(OS_CONFIG_SERVICE_BACKEND_MEMORY)
-    // Create the backends in the instance.
-    Debug_LOG_INFO("ConfigServer: Initializing with mem backend...");
-    ret = initializeWithMemoryBackends(configLib);
-    if (ret != OS_SUCCESS)
-    {
-        Debug_LOG_ERROR("initializeWithMemoryBackends failed with: %d", ret);
+        Debug_LOG_ERROR("initializeWithFileBackends() failed.");
         return false;
     }
 
-    // Create the parameters in the instance.
-    Debug_LOG_DEBUG("Enumerating %s", DOMAIN_APP1);
-    ret = initializeDomainsAndParameters(configLib, DOMAIN_APP1);
-    if (ret != OS_SUCCESS)
-    {
-        Debug_LOG_ERROR("initializeDomainAndParameters for %s failed with: %d",
-                        DOMAIN_APP1, ret);
-        return false;
-    }
-
-    Debug_LOG_DEBUG("Enumerating %s", DOMAIN_APP2);
-    ret = initializeDomainsAndParameters(configLib, DOMAIN_APP2);
-    if (ret != OS_SUCCESS)
-    {
-        Debug_LOG_ERROR("initializeDomainAndParameters for %s failed with: %d",
-                        DOMAIN_APP2, ret);
-        return false;
-    }
-
-    Debug_LOG_DEBUG("Enumerating %s", DOMAIN_APP3);
-    ret = initializeDomainsAndParameters(configLib, DOMAIN_APP3);
-    if (ret != OS_SUCCESS)
-    {
-        Debug_LOG_ERROR("initializeDomainAndParameters for %s failed with: %d",
-                        DOMAIN_APP3, ret);
-        return false;
-    }
-
-    Debug_LOG_DEBUG("Enumerating %s", DOMAIN_APP4);
-    ret = initializeDomainsAndParameters(configLib, DOMAIN_APP4);
-    if (ret != OS_SUCCESS)
-    {
-        Debug_LOG_ERROR("initializeDomainAndParameters for %s failed with: %d",
-                        DOMAIN_APP4, ret);
-        return false;
-    }
-#endif
     return true;
 }
 
@@ -143,12 +76,9 @@ initializeConfigBackend(void)
 void pre_init(void)
 {
     Debug_LOG_INFO("Starting ConfigServer...");
-#if defined(OS_CONFIG_SERVICE_BACKEND_FILESYSTEM)
     //Wait for ConfigFileInjector component to create the config file
     Debug_LOG_INFO("ConfigServer waiting for ConfigFileInjector to create file...");
     injector_component_backend_injected();
-
-#endif
 
     if (!initializeConfigBackend())
     {

@@ -4,7 +4,7 @@
    *  Copyright (C) 2020, Hensoldt Cyber GmbH
 */
 
-import <if_OS_PartitionManager.camkes>;
+import <if_OS_Storage.camkes>;
 import "ConfigFileInjectorInf.camkes";
 
 
@@ -13,7 +13,7 @@ component ConfigFileInjector {
     provides config_file_injector_interface injector_component;
 
     //-------------------------------------------------
-    // PartitionManager
-    dataport Buf pm_dataport_buf;
-    uses     partition_manager_interface api_pm_component;
+    // RamDisk interface
+    uses     if_OS_Storage storage_rpc;
+    dataport Buf           storage_dp;
 }

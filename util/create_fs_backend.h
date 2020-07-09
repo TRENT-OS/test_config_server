@@ -8,5 +8,5 @@
 #include "OS_ConfigService.h"
 
 OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
-                                      hPartition_t phandle);
+                                      OS_FileSystem_Handle_t hFs);
 

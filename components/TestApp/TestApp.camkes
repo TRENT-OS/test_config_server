@@ -5,9 +5,8 @@
  */
 
 
-import <if_ChanMux.camkes>;
+import <if_OS_Storage.camkes>;
 import <if_OS_ConfigService.camkes>;
-import <if_OS_PartitionManager.camkes>;
 import "../ConfigFileInjector/ConfigFileInjectorInf.camkes";
 
 
@@ -16,6 +15,7 @@ component TestApp1 {
     control;
 
     emits       DataAvailableEvent  test_done;
+    emits       DataAvailableEvent  local_test_done;
     consumes    DataAvailableEvent  app4_test_done;
 
     //-------------------------------------------------
@@ -24,9 +24,9 @@ component TestApp1 {
     uses if_OS_ConfigService OS_ConfigServiceServer;
 
     //-------------------------------------------------
-    // PartitionManager
-    dataport Buf pm_dataport_buf;
-    uses     partition_manager_interface api_pm_component;
+    // RamDisk interface
+    uses     if_OS_Storage storage_rpc;
+    dataport Buf           storage_dp;
 
     //-------------------------------------------------
     // ConfigFileInjector
