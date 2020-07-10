@@ -2,6 +2,7 @@
  * Copyright (C) 2020, Hensoldt Cyber GmbH
  */
 
+#include "camkes.h"
 #include "test_create_handle.h"
 
 
@@ -16,8 +17,15 @@ TestCreateHandle_ok(OS_ConfigServiceHandle_t* handle,
     char handleType[15];
     if (OS_CONFIG_HANDLE_KIND_RPC == handleKind)
     {
+        static OS_ConfigService_ClientCtx_t ctx =
+        {
+            .dataport = OS_DATAPORT_ASSIGN(cfg_dataport_buf)
+        };
         // Open local handle of API
-        err = OS_ConfigService_createHandleRemote(0, handle);
+        err = OS_ConfigService_createHandleRemote(
+                0,
+                &ctx,
+                handle);
         Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
 
         initializeName(handleType, sizeof(handleType), "Rpc");
@@ -47,7 +55,14 @@ TestCreateHandle_fail(OS_ConfigServiceHandle_t* handle,
     if (OS_CONFIG_HANDLE_KIND_RPC == handleKind)
     {
         // Invalid handle id
-        err = OS_ConfigService_createHandleRemote(8, handle);
+        static OS_ConfigService_ClientCtx_t ctx =
+        {
+            .dataport = OS_DATAPORT_ASSIGN(cfg_dataport_buf)
+        };
+        err = OS_ConfigService_createHandleRemote(
+                8,
+                &ctx,
+                handle);
         Debug_ASSERT_PRINTFLN(err == OS_ERROR_INVALID_PARAMETER, "err %d", err);
 
         initializeName(handleType, sizeof(handleType), "Rpc");

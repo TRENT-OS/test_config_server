@@ -10,6 +10,7 @@
 
 #include "OS_Error.h"
 #include "OS_ConfigService.h"
+#include "OS_Dataport.h"
 
 #include "LibDebug/Debug.h"
 
@@ -41,7 +42,14 @@ run(void)
 
     //Open remote handle of API
     OS_ConfigServiceHandle_t remoteHandle;
-    err = OS_ConfigService_createHandleRemote(0, &remoteHandle);
+    static OS_ConfigService_ClientCtx_t ctx =
+    {
+        .dataport = OS_DATAPORT_ASSIGN(cfg_dataport_buf)
+    };
+    err = OS_ConfigService_createHandleRemote(
+            0,
+            &ctx,
+            &remoteHandle);
     Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
 
     Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n", TEST_APP);
