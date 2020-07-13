@@ -28,13 +28,9 @@ void injector_component_backend_injected()
 static OS_FileSystem_Config_t cfg =
 {
     .type = OS_FileSystem_Type_LITTLEFS,
+    .size = OS_FileSystem_STORAGE_MAX,
     .storage = OS_FILESYSTEM_ASSIGN_Storage(
-        OS_FileSystem_STORAGE_MAX,
-        storage_rpc_write,
-        storage_rpc_read,
-        storage_rpc_erase,
-        storage_rpc_getSize,
-        storage_rpc_getState,
+        storage_rpc,
         storage_dp),
 };
 
