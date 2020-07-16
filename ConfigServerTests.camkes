@@ -43,13 +43,13 @@ assembly {
         //----------------------------------------------------------------------
         component   TestApp1         testApp1;
 
-        connection  seL4RPCCall      testApp1_configServer        (from testApp1.OS_ConfigServiceServer, to configServer.OS_ConfigServiceServer);
-        connection  seL4SharedData   testApp1_configServer_data   (from testApp1.cfg_dataport_buf, to configServer.cfg_dataport_buf1);
-        connection  seL4RPCCall      testApp1_configFileInjector  (from testApp1.injector_component, to configFileInjector.injector_component);
-        connection  seL4Notification testApp2_testDone            (from testApp1.test_done,          to testApp2.app1_test_done);
-        connection  seL4NotificationNative testApp1_local_testDone (from testApp1.local_test_done,    to configServer.app1_local_test_done);
-        connection  seL4RPCCall      testApp1_ramDisk             (from testApp1.storage_rpc,         to ramDisk.storage_rpc);
-        connection  seL4SharedData   testApp1_storage_dp          (from testApp1.storage_dp,        to ramDisk.storage_port);
+        connection  seL4RPCCall      testApp1_configServer          (from testApp1.OS_ConfigServiceServer,      to configServer.OS_ConfigServiceServer);
+        connection  seL4SharedData   testApp1_configServer_data     (from testApp1.cfg_dataport_buf,            to configServer.cfg_dataport_buf1);
+        connection  seL4RPCCall      testApp1_configFileInjector    (from testApp1.injector_component,          to configFileInjector.injector_component);
+        connection  seL4Notification testApp2_testDone              (from testApp1.test_done,                   to testApp2.app1_test_done);
+        connection  seL4NotificationNative testApp1_local_testDone  (from testApp1.local_test_done,             to configServer.app1_local_test_done);
+        connection  seL4RPCCall      testApp1_ramDisk               (from testApp1.storage_rpc,                 to ramDisk.storage_rpc);
+        connection  seL4SharedData   testApp1_storage_dp            (from testApp1.storage_dp,                  to ramDisk.storage_port);
 
 
 

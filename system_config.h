@@ -30,7 +30,7 @@
 // RamDisk
 //-----------------------------------------------------------------------------
 // arbitrary size that should be able to hold the config parameters
-#define RAMDISK_SIZE_BYTES 4096*50
+#define RAMDISK_SIZE_BYTES (1024*1024)
 
 
 #define CREATE_FS_BACKEND //Can be set to create the ConfigFile by the ConfigFileInjector on system startup
