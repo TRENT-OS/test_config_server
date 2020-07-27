@@ -59,7 +59,6 @@ runBasicTestSuite(
     OS_ConfigServiceHandle_t configHandle;
 
     TestCreateHandle_ok(&configHandle, handleKind, TEST_APP);
-    TestCreateHandle_fail(&configHandle, handleKind, TEST_APP);
 
     TestDomainEnumerator_increment_ok(&configHandle, TEST_APP,
                                       instance->domainBackend.numberOfRecords);
@@ -314,10 +313,8 @@ run(void)
     // Wait until the remote backend is injected
     injector_component_backend_injected();
 
-    OS_ConfigServiceInstanceStore_t* instanceStore =
-        OS_ConfigService_getInstances();
     OS_ConfigServiceLib_t* instance =
-        OS_ConfigServiceInstanceStore_getInstance(instanceStore, 0);
+        OS_ConfigService_getInstance();
 
     // Run basic tests on the local ConfigServer instance
     if (!runTestsOnLocalConfigServiceInstance(instance))

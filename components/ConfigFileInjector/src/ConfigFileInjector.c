@@ -58,10 +58,8 @@ TestCreateFSBackend(void)
         return false;
     }
 
-    OS_ConfigServiceInstanceStore_t* serverInstanceStore =
-        OS_ConfigService_getInstances();
     OS_ConfigServiceLib_t* configLib =
-        OS_ConfigServiceInstanceStore_getInstance(serverInstanceStore, 0);
+        OS_ConfigService_getInstance();
 
     // Create the file backends
     Debug_LOG_INFO("Initializing with file backend");

@@ -35,10 +35,8 @@ static OS_FileSystem_Config_t cfg =
 static bool
 initializeConfigBackend(void)
 {
-    OS_ConfigServiceInstanceStore_t* serverInstanceStore =
-        OS_ConfigService_getInstances();
     OS_ConfigServiceLib_t* configLib =
-        OS_ConfigServiceInstanceStore_getInstance(serverInstanceStore, 0);
+        OS_ConfigService_getInstance();
 
     // Wait until Tester1 is done with its local tests
     app1_local_test_done_wait();

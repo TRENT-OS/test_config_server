@@ -48,9 +48,8 @@ run(void)
         .dataport = OS_DATAPORT_ASSIGN(cfg_dataport_buf)
     };
     err = OS_ConfigService_createHandleRemote(
-        0,
-        &ctx,
-        &remoteHandle);
+              &ctx,
+              &remoteHandle);
     Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
 
     Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n", TEST_APP);

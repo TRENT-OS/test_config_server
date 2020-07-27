@@ -15,7 +15,3 @@
 void TestCreateHandle_ok(OS_ConfigServiceHandle_t* handle,
                          OS_ConfigServiceHandle_HandleKind_t handleKind,
                          const char* componentName);
-
-void TestCreateHandle_fail(OS_ConfigServiceHandle_t* handle,
-                           OS_ConfigServiceHandle_HandleKind_t handleKind,
-                           const char* componentName);
