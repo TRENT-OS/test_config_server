@@ -6,6 +6,9 @@
 
 #include "util/TestMacros.h"
 
+#include "util/helper_func.h"
+
+
 // -----------------------------------------------------------------------------
 void
 test_GetInteger32FromFsBackend_pos(

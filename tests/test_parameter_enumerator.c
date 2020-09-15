@@ -5,6 +5,10 @@
 #include "test_parameter_enumerator.h"
 
 #include "util/TestMacros.h"
+
+#include "util/helper_func.h"
+
+
 // -----------------------------------------------------------------------------
 void
 test_ParameterEnumerator_init_pos(

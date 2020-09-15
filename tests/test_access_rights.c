@@ -6,6 +6,8 @@
 
 #include "util/TestMacros.h"
 
+#include "util/helper_func.h"
+
 // -----------------------------------------------------------------------------
 void
 test_ParameterReadAccessRight_pos(OS_ConfigServiceHandle_t* handle,

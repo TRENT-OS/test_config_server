@@ -7,6 +7,9 @@
 
 #include "util/TestMacros.h"
 
+#include "util/helper_func.h"
+
+
 // -----------------------------------------------------------------------------
 void
 test_CreateHandle_pos(OS_ConfigServiceHandle_t* handle,

@@ -4,12 +4,6 @@
 
 #include "OS_ConfigService.h"
 
-#include "LibDebug/Debug.h"
-
-#include "util/helper_func.h"
-
-#include <string.h>
-
 
 // -----------------------------------------------------------------------------
 void test_DomainEnumerator_increment_pos(
