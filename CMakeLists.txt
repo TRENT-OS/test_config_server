@@ -59,6 +59,25 @@ DeclareCAmkESComponent(
         os_filesystem
 )
 
+DeclareCAmkESComponent(
+    ConfigServerNoInit
+    INCLUDES
+        util
+    SOURCES
+        util/create_parameters.c
+    C_FLAGS
+        -Wall
+        -Werror
+        -DOS_CONFIG_SERVICE_CAMKES_SERVER
+        -DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
+    LIBS
+        system_config
+        os_libs
+        os_core_api
+        os_configuration
+        os_filesystem
+)
+
 # contains an additional local configServer as lib
 DeclareCAmkESComponent(
     TestApp1
@@ -146,6 +165,29 @@ DeclareCAmkESComponent(
         components/TestApp/src/TestRunnerApp4.c
         util/helper_func.c
         tests/test_create_handle.c
+        tests/test_domain_enumerator.c
+        tests/test_parameter_enumerator.c
+        tests/test_parameter_get_functions.c
+        tests/test_parameter_set_functions.c
+    C_FLAGS
+        -Wall
+        -Werror
+        -DOS_CONFIG_SERVICE_CAMKES_CLIENT
+    LIBS
+        system_config
+        os_libs
+        os_core_api
+        os_configuration
+)
+
+DeclareCAmkESComponent(
+    TestAppNoServerInit
+    INCLUDES
+        util
+        tests
+    SOURCES
+        components/TestApp/src/TestRunnerAppNoServerInit.c
+        util/helper_func.c
         tests/test_domain_enumerator.c
         tests/test_parameter_enumerator.c
         tests/test_parameter_get_functions.c

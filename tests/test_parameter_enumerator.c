@@ -59,6 +59,23 @@ TestParameterEnumerator_init_fail(
 }
 
 void
+TestParameterEnumerator_init_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_Error_t err;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator = { 0 };
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = { 0 };
+
+    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
+                                                    &domainEnumerator,
+                                                    &parameterEnumerator);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
 TestParameterEnumerator_close_ok(
     OS_ConfigServiceHandle_t* handle)
 {
@@ -117,6 +134,21 @@ TestParameterEnumerator_close_fail(
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                           &domainEnumerator);
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
+TestParameterEnumerator_close_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_Error_t err;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
+
+    err = OS_ConfigService_domainEnumeratorClose(configHandle,
+                                                    &domainEnumerator);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -218,6 +250,21 @@ TestParameterEnumerator_increment_fail(
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                     &domainEnumerator);
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
+TestParameterEnumerator_increment_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_Error_t err;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
+
+    err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
+                                                          &parameterEnumerator);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }
@@ -338,6 +385,21 @@ TestParameterEnumerator_reset_fail(
 }
 
 void
+TestParameterEnumerator_reset_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_Error_t err;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
+
+    err = OS_ConfigService_parameterEnumeratorReset(configHandle,
+                                                        &parameterEnumerator);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
 TestParameterEnumerator_getElement_ok(
     OS_ConfigServiceHandle_t* handle)
 {
@@ -417,6 +479,23 @@ TestParameterEnumerator_getElement_fail(
     err = OS_ConfigService_domainEnumeratorClose(configHandle,
                                                             &domainEnumerator);
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
+TestParameterEnumerator_getElement_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_Error_t err;
+    OS_ConfigServiceHandle_t configHandle = *handle;
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = { 0 };
+    OS_ConfigServiceLibTypes_Parameter_t           parameter = { 0 };
+
+    err = OS_ConfigService_parameterEnumeratorGetElement(configHandle,
+                                                           &parameterEnumerator,
+                                                           &parameter);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
 
     Debug_LOG_INFO("->%s: OK\n", __func__);
 }

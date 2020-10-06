@@ -454,3 +454,6 @@
     "-----END CERTIFICATE-----\r\n"
 
 #define APP4_PARAMETER_BLOB_VALUE_3_NEW   "App4_Blob: Hello World!_3_NEW"
+
+#define TEST_APP_SERVER_NO_INIT   "TestAppServerNoInit"
+#define DOMAIN_APP_SERVER_NO_INIT "Domain_AppServerNoInit"

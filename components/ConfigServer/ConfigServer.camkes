@@ -29,3 +29,9 @@ component ConfigServer {
     // ConfigFileInjector
     uses config_file_injector_interface injector_component;
 }
+
+component ConfigServerNoInit {
+
+    provides if_OS_ConfigService OS_ConfigServiceServer;
+    dataport Buf cfg_dataport_buf;
+}

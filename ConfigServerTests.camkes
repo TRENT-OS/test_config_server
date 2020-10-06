@@ -30,7 +30,8 @@ assembly {
         //----------------------------------------------------------------------
         // ConfigServer
         //----------------------------------------------------------------------
-        component   ConfigServer   configServer;
+        component   ConfigServer        configServer;
+        component   ConfigServerNoInit  configServerNoInit;
 
         connection  seL4RPCCall         configServer_ramDisk             (from configServer.storage_rpc,         to ramDisk.storage_rpc);
         connection  seL4SharedData      configServer_storage_dp        (from configServer.storage_dp,        to ramDisk.storage_port);
@@ -82,6 +83,13 @@ assembly {
         connection  seL4SharedData   testApp4_configServer_data  (from testApp4.cfg_dataport_buf, to configServer.cfg_dataport_buf4);
         connection  seL4Notification testApp1_testDone           (from testApp4.test_done, to testApp1.app4_test_done);
 
+        //----------------------------------------------------------------------
+        // TestAppNoServerInit
+        //----------------------------------------------------------------------
+        component   TestAppNoServerInit         testAppNoServerInit;
+
+        connection  seL4RPCCall      testAppNoServerInit_configServerNoInit (from testAppNoServerInit.OS_ConfigServiceServer, to configServerNoInit.OS_ConfigServiceServer);
+        connection  seL4SharedData   testAppNoServerInit_configServer_data  (from testAppNoServerInit.cfg_dataport_buf, to configServerNoInit.cfg_dataport_buf);
     }
 
     configuration {

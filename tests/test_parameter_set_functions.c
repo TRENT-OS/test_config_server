@@ -205,3 +205,93 @@ TestParameterSetValue_ok(
 
     Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
 }
+
+void
+TestParameterSetValue_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
+    OS_ConfigServiceLibTypes_ParameterType_t parameterType =
+        OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
+    char buffer;
+
+    OS_Error_t err = OS_ConfigService_parameterSetValue(
+                        *handle,
+                        &enumerator,
+                        parameterType,
+                        &buffer,
+                        sizeof(buffer));
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
+TestParameterSetValueAsU32_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
+
+    OS_Error_t err = OS_ConfigService_parameterSetValueAsU32(
+                        *handle,
+                        &enumerator,
+                        0);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
+TestParameterSetValueAsU64_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
+
+    OS_Error_t err = OS_ConfigService_parameterSetValueAsU64(
+                        *handle,
+                        &enumerator,
+                        0);
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
+TestParameterSetValueAsString_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
+    OS_ConfigServiceLibTypes_ParameterType_t parameterType =
+        OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
+    char buffer;
+
+    OS_Error_t err = OS_ConfigService_parameterSetValueAsString(
+                        *handle,
+                        &enumerator,
+                        parameterType,
+                        &buffer,
+                        sizeof(buffer));
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}
+
+void
+TestParameterSetValueAsBlob_fail_no_server_init(
+    OS_ConfigServiceHandle_t* handle)
+{
+   OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
+    OS_ConfigServiceLibTypes_ParameterType_t parameterType =
+        OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
+    char buffer;
+
+    OS_Error_t err = OS_ConfigService_parameterSetValueAsBlob(
+                        *handle,
+                        &enumerator,
+                        parameterType,
+                        &buffer,
+                        sizeof(buffer));
+    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+
+    Debug_LOG_INFO("->%s: OK\n", __func__);
+}

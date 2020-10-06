@@ -72,3 +72,13 @@ component TestApp4 {
     dataport Buf cfg_dataport_buf;
     uses if_OS_ConfigService OS_ConfigServiceServer;
 }
+
+component TestAppNoServerInit {
+
+    control;
+
+    //-------------------------------------------------
+    // ConfigServer
+    dataport Buf cfg_dataport_buf;
+    uses if_OS_ConfigService OS_ConfigServiceServer;
+}
