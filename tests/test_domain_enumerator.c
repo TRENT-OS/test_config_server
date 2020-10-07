@@ -24,7 +24,7 @@ TestDomainEnumerator_init_fail(
     OS_ConfigServiceHandle_t* handle)
 {
     OS_Error_t err;
-    OS_ConfigServiceHandle_t configHandle;
+    OS_ConfigServiceHandle_t configHandle = { 0 };
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     // Uninitialized config handle
@@ -73,7 +73,7 @@ TestDomainEnumerator_close_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_domainEnumeratorClose(uninitializedHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
@@ -143,7 +143,7 @@ TestDomainEnumerator_increment_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_domainEnumeratorIncrement(uninitializedHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
     // Make sure the index did not get incremented
@@ -233,7 +233,7 @@ TestDomainEnumerator_reset_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_domainEnumeratorReset(uninitializedHandle, &domainEnumerator);
     Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
@@ -273,7 +273,7 @@ TestDomainEnumerator_getElement_fail(
 {
     OS_Error_t err;
     OS_ConfigServiceHandle_t configHandle = *handle;
-    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
+    OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator = { 0 };
     OS_ConfigServiceLibTypes_Domain_t           domain;
 
     // Uninitialized domain enumerator
@@ -286,7 +286,7 @@ TestDomainEnumerator_getElement_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_domainEnumeratorGetElement(uninitializedHandle,
                                                     &domainEnumerator, &domain);
     Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);

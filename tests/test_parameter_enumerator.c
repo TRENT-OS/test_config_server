@@ -38,7 +38,7 @@ TestParameterEnumerator_init_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_parameterEnumeratorInit(uninitializedHandle,
                                                     &domainEnumerator,
                                                     &parameterEnumerator);
@@ -105,7 +105,7 @@ TestParameterEnumerator_close_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_parameterEnumeratorClose(uninitializedHandle,
                                                          &parameterEnumerator);
     Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
@@ -195,7 +195,7 @@ TestParameterEnumerator_increment_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_parameterEnumeratorIncrement(uninitializedHandle,
                                                           &parameterEnumerator);
     Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
@@ -318,7 +318,7 @@ TestParameterEnumerator_reset_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_parameterEnumeratorReset(uninitializedHandle, &parameterEnumerator);
     Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
 
@@ -393,7 +393,7 @@ TestParameterEnumerator_getElement_fail(
     Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
 
     // Uninitialized config handle
-    OS_ConfigServiceHandle_t uninitializedHandle;
+    OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     err = OS_ConfigService_parameterEnumeratorGetElement(uninitializedHandle,
                                                         &parameterEnumerator,
                                                         &parameter);
