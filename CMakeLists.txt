@@ -1,5 +1,5 @@
 #
-# Test Configuration Server
+# Test Configuration server
 #
 # Copyright (C) 2020, Hensoldt Cyber GmbH
 #
