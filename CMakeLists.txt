@@ -207,7 +207,7 @@ DeclareCAmkESComponent(
         os_configuration
 )
 
-DeclareCAmkESComponent_RamDisk(
+RamDisk_DeclareCAmkESComponent(
     RamDisk
     system_config
 )
