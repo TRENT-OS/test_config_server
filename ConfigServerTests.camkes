@@ -14,7 +14,7 @@ import "components/ConfigFileInjector/ConfigFileInjector.camkes";
 #include "system_config.h"
 
 #include "RamDisk/RamDisk.camkes"
-RamDisk_COMPONENT_DECLARE(RamDisk)
+RamDisk_COMPONENT_DEFINE(RamDisk)
 
 assembly {
     composition {
