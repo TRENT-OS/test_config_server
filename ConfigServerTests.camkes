@@ -14,7 +14,7 @@ import "components/ConfigFileInjector/ConfigFileInjector.camkes";
 #include "system_config.h"
 
 #include "RamDisk/RamDisk.camkes"
-DECLARE_COMPONENT_RamDisk(RamDisk)
+RamDisk_COMPONENT_DECLARE(RamDisk)
 
 assembly {
     composition {
@@ -33,8 +33,11 @@ assembly {
         component   ConfigServer        configServer;
         component   ConfigServerNoInit  configServerNoInit;
 
-        connection  seL4RPCCall         configServer_ramDisk             (from configServer.storage_rpc,         to ramDisk.storage_rpc);
-        connection  seL4SharedData      configServer_storage_dp        (from configServer.storage_dp,        to ramDisk.storage_port);
+        RamDisk_INSTANCE_CONNECT_CLIENT(
+          ramDisk,
+          configServer.storage_rpc,
+          configServer.storage_dp
+        )
 
         connection  seL4RPCCall    configServer_configFileInjector       (from configServer.injector_component,  to configFileInjector.injector_component);
 
