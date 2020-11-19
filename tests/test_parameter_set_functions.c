@@ -4,7 +4,7 @@
 
 #include "test_parameter_set_functions.h"
 
-#include "util/TestMacros.h"
+#include "LibMacros/Test.h"
 
 #include "util/helper_func.h"
 
@@ -21,7 +21,7 @@ test_ParameterSetValueAsU32_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(set_integer32_parameter(
                      handle,
@@ -49,7 +49,7 @@ test_ParameterSetValueAsU64_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(set_integer64_parameter(
                      handle,
@@ -78,7 +78,7 @@ test_ParameterSetValueAsString_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(set_string_parameter(
                      handle,
@@ -110,7 +110,7 @@ test_ParameterSetValueAsBlob_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(set_blob_parameter(
                      handle,
@@ -142,7 +142,7 @@ test_ParameterSetValue_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(set_parameter(
                      handle,

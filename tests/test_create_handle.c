@@ -6,7 +6,7 @@
 
 #include "test_create_handle.h"
 
-#include "util/TestMacros.h"
+#include "LibMacros/Test.h"
 
 #include "util/helper_func.h"
 
@@ -18,7 +18,7 @@ test_CreateHandle_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind,
     const char* componentName)
 {
-    TEST_START(handleKind, componentName);
+    TEST_START("i", handleKind, "s", componentName);
 
     if (OS_CONFIG_HANDLE_KIND_RPC == handleKind)
     {

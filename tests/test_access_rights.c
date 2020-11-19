@@ -4,7 +4,7 @@
 
 #include "test_create_handle.h"
 
-#include "util/TestMacros.h"
+#include "LibMacros/Test.h"
 
 #include "util/helper_func.h"
 
@@ -21,14 +21,15 @@ test_ParameterReadAccessRight_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName);
+    TEST_START("i", handleKind, "s", componentName);
 
-    TEST_CFG_PARAMETER_NOT_FOUND(verify_parameter(
-                                     handle,
-                                     domainName,
-                                     parameterName,
-                                     parameterValue,
-                                     parameterLength));
+    TEST_CFG_PARAM_NOT_FOUND(
+        verify_parameter(
+            handle,
+            domainName,
+            parameterName,
+            parameterValue,
+            parameterLength));
 
     TEST_FINISH();
 }
@@ -45,7 +46,7 @@ test_ParameterWriteAccessRight_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName);
+    TEST_START("i", handleKind, "s", componentName);
 
     TEST_GENERIC(set_parameter(
                      handle,

@@ -4,7 +4,7 @@
 
 #include "test_parameter_get_functions.h"
 
-#include "util/TestMacros.h"
+#include "LibMacros/Test.h"
 
 #include "util/helper_func.h"
 
@@ -21,7 +21,7 @@ test_GetInteger32FromFsBackend_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(verify_integer32_parameter(
                      handle,
@@ -43,7 +43,7 @@ test_GetInteger64FromFsBackend_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(verify_integer64_parameter(
                      handle,
@@ -66,7 +66,7 @@ test_GetStringsFromFsBackend_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(verify_string_parameter(
                      handle,
@@ -90,7 +90,7 @@ test_GetBlobsFromFsBackend_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName, parameterName);
+    TEST_START("i", handleKind, "s", componentName, "s", parameterName);
 
     TEST_SUCCESS(verify_blob_parameter(
                      handle,

@@ -4,7 +4,7 @@
 
 #include "test_parameter_enumerator.h"
 
-#include "util/TestMacros.h"
+#include "LibMacros/Test.h"
 
 #include "util/helper_func.h"
 
@@ -181,7 +181,7 @@ test_ParameterEnumerator_increment_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName);
+    TEST_START("i", handleKind, "s", componentName);
 
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
@@ -291,7 +291,7 @@ test_ParameterEnumerator_reset_pos(
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    TEST_START(handleKind, componentName);
+    TEST_START("i", handleKind, "s", componentName);
 
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
