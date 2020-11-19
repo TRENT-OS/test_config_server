@@ -92,6 +92,7 @@ DeclareCAmkESComponent(
         tests/test_create_handle.c
         tests/test_access_rights.c
         tests/test_domain_enumerator.c
+        tests/test_multiclient_env.c
         tests/test_parameter_enumerator.c
         tests/test_parameter_get_functions.c
         tests/test_parameter_set_functions.c
@@ -118,6 +119,7 @@ DeclareCAmkESComponent(
         util/helper_func.c
         tests/test_create_handle.c
         tests/test_domain_enumerator.c
+        tests/test_multiclient_env.c
         tests/test_parameter_enumerator.c
         tests/test_parameter_get_functions.c
         tests/test_parameter_set_functions.c
@@ -142,6 +144,7 @@ DeclareCAmkESComponent(
         util/helper_func.c
         tests/test_create_handle.c
         tests/test_domain_enumerator.c
+        tests/test_multiclient_env.c
         tests/test_parameter_enumerator.c
         tests/test_parameter_get_functions.c
         tests/test_parameter_set_functions.c
@@ -166,6 +169,7 @@ DeclareCAmkESComponent(
         util/helper_func.c
         tests/test_create_handle.c
         tests/test_domain_enumerator.c
+        tests/test_multiclient_env.c
         tests/test_parameter_enumerator.c
         tests/test_parameter_get_functions.c
         tests/test_parameter_set_functions.c

@@ -14,15 +14,142 @@
 
 #include "LibDebug/Debug.h"
 
-#include "test_parameter_get_functions.h"
-#include "test_parameter_set_functions.h"
+#include "test_types.h"
+#include "test_multiclient_env.h"
 
 #include <string.h>
 #include <camkes.h>
 
-/* Defines -------------------------------------------------------------------*/
-#define TEST_APP     TEST_APP3
-#define DOMAIN_APP   DOMAIN_APP3
+/* Private variables ---------------------------------------------------------*/
+static TestApp_t testApp =
+{
+    .appDomainName    = DOMAIN_APP3,
+    .appComponentName = TEST_APP3,
+    .uint32TestData =
+    {
+        .parameterName =
+        {
+            APP3_PARAMETER_32_NAME_0,
+            APP3_PARAMETER_32_NAME_1,
+            APP3_PARAMETER_32_NAME_2,
+            APP3_PARAMETER_32_NAME_3
+        },
+        .parameterValue.uint32Value =
+        {
+            APP3_PARAMETER_32_VALUE_0,
+            APP3_PARAMETER_32_VALUE_1,
+            APP3_PARAMETER_32_VALUE_2,
+            APP3_PARAMETER_32_VALUE_3
+        },
+        .newParameterValue.uint32Value =
+        {
+            APP3_PARAMETER_32_VALUE_0_NEW,
+            APP3_PARAMETER_32_VALUE_1_NEW,
+            APP3_PARAMETER_32_VALUE_2_NEW,
+            APP3_PARAMETER_32_VALUE_3_NEW
+        }
+    },
+    .uint64TestData =
+    {
+        .parameterName =
+        {
+            APP3_PARAMETER_64_NAME_0,
+            APP3_PARAMETER_64_NAME_1,
+            APP3_PARAMETER_64_NAME_2,
+            APP3_PARAMETER_64_NAME_3
+        },
+        .parameterValue.uint64Value =
+        {
+            APP3_PARAMETER_64_VALUE_0,
+            APP3_PARAMETER_64_VALUE_1,
+            APP3_PARAMETER_64_VALUE_2,
+            APP3_PARAMETER_64_VALUE_3
+        },
+        .newParameterValue.uint64Value =
+        {
+            APP3_PARAMETER_64_VALUE_0_NEW,
+            APP3_PARAMETER_64_VALUE_1_NEW,
+            APP3_PARAMETER_64_VALUE_2_NEW,
+            APP3_PARAMETER_64_VALUE_3_NEW
+        }
+    },
+    .strTestData =
+    {
+        .parameterName =
+        {
+            APP3_PARAMETER_STRING_NAME_0,
+            APP3_PARAMETER_STRING_NAME_1,
+            APP3_PARAMETER_STRING_NAME_2,
+            APP3_PARAMETER_STRING_NAME_3
+        },
+        .parameterValue.stringValue =
+        {
+            APP3_PARAMETER_STRING_VALUE_0,
+            APP3_PARAMETER_STRING_VALUE_1,
+            APP3_PARAMETER_STRING_VALUE_2,
+            APP3_PARAMETER_STRING_VALUE_3
+        },
+        .parameterSize =
+        {
+            (strlen(APP3_PARAMETER_STRING_VALUE_0) + 1),
+            (strlen(APP3_PARAMETER_STRING_VALUE_1) + 1),
+            (strlen(APP3_PARAMETER_STRING_VALUE_2) + 1),
+            (strlen(APP3_PARAMETER_STRING_VALUE_3) + 1)
+        },
+        .newParameterValue.stringValue =
+        {
+            APP3_PARAMETER_STRING_VALUE_0_NEW,
+            APP3_PARAMETER_STRING_VALUE_1_NEW,
+            APP3_PARAMETER_STRING_VALUE_2_NEW,
+            APP3_PARAMETER_STRING_VALUE_3_NEW
+        },
+        .newParameterSize =
+        {
+            (strlen(APP3_PARAMETER_STRING_VALUE_0_NEW) + 1),
+            (strlen(APP3_PARAMETER_STRING_VALUE_1_NEW) + 1),
+            (strlen(APP3_PARAMETER_STRING_VALUE_2_NEW) + 1),
+            (strlen(APP3_PARAMETER_STRING_VALUE_3_NEW) + 1)
+        }
+    },
+    .blobTestData =
+    {
+        .parameterName =
+        {
+            APP3_PARAMETER_BLOB_NAME_0,
+            APP3_PARAMETER_BLOB_NAME_1,
+            APP3_PARAMETER_BLOB_NAME_2,
+            APP3_PARAMETER_BLOB_NAME_3
+        },
+        .parameterValue.rawValue =
+        {
+            APP3_PARAMETER_BLOB_VALUE_0,
+            APP3_PARAMETER_BLOB_VALUE_1,
+            APP3_PARAMETER_BLOB_VALUE_2,
+            APP3_PARAMETER_BLOB_VALUE_3
+        },
+        .parameterSize =
+        {
+            sizeof(APP3_PARAMETER_BLOB_VALUE_0),
+            sizeof(APP3_PARAMETER_BLOB_VALUE_1),
+            sizeof(APP3_PARAMETER_BLOB_VALUE_2),
+            sizeof(APP3_PARAMETER_BLOB_VALUE_3)
+        },
+        .newParameterValue.rawValue =
+        {
+            APP3_PARAMETER_BLOB_VALUE_0_NEW,
+            APP3_PARAMETER_BLOB_VALUE_1_NEW,
+            APP3_PARAMETER_BLOB_VALUE_2_NEW,
+            APP3_PARAMETER_BLOB_VALUE_3_NEW
+        },
+        .newParameterSize =
+        {
+            sizeof(APP3_PARAMETER_BLOB_VALUE_0_NEW),
+            sizeof(APP3_PARAMETER_BLOB_VALUE_1_NEW),
+            sizeof(APP3_PARAMETER_BLOB_VALUE_2_NEW),
+            sizeof(APP3_PARAMETER_BLOB_VALUE_3_NEW)
+        }
+    }
+};
 
 //------------------------------------------------------------------------------
 static void
@@ -55,48 +182,13 @@ run(void)
         return -1;
     }
 
-    Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n", TEST_APP);
-    //Test get parameter functions in multiclient environment
-    test_GetInteger32FromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                     APP3_PARAMETER_32_NAME_0, APP3_PARAMETER_32_VALUE_0);
-    sync_with_other_apps();
-    test_GetInteger64FromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                     APP3_PARAMETER_64_NAME_0, APP3_PARAMETER_64_VALUE_0);
-    sync_with_other_apps();
-    test_GetStringsFromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                   APP3_PARAMETER_STRING_NAME_0, APP3_PARAMETER_STRING_VALUE_0,
-                                   sizeof(APP3_PARAMETER_STRING_VALUE_0));
-    sync_with_other_apps();
-    test_GetBlobsFromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                 APP3_PARAMETER_BLOB_NAME_0, APP3_PARAMETER_BLOB_VALUE_0,
-                                 sizeof(APP3_PARAMETER_BLOB_VALUE_0));
-    sync_with_other_apps();
-    test_GetBlobsFromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                 APP3_PARAMETER_BLOB_NAME_3, APP3_PARAMETER_BLOB_VALUE_3,
-                                 sizeof(APP3_PARAMETER_BLOB_VALUE_3));
-    sync_with_other_apps();
+    Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n",
+                            testApp.appComponentName);
 
-    //Test set parameter functions in multiclient environment
-    test_ParameterSetValueAsU32_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                  APP3_PARAMETER_32_NAME_0, APP3_PARAMETER_32_VALUE_0_NEW);
-    sync_with_other_apps();
-    test_ParameterSetValueAsU64_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                  APP3_PARAMETER_64_NAME_0, APP3_PARAMETER_64_VALUE_0_NEW);
-    sync_with_other_apps();
-    test_ParameterSetValueAsString_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                     APP3_PARAMETER_STRING_NAME_0, APP3_PARAMETER_STRING_VALUE_0_NEW,
-                                     sizeof(APP3_PARAMETER_STRING_VALUE_0_NEW));
-    sync_with_other_apps();
-    test_ParameterSetValueAsBlob_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                   APP3_PARAMETER_BLOB_NAME_0, APP3_PARAMETER_BLOB_VALUE_0_NEW,
-                                   sizeof(APP3_PARAMETER_BLOB_VALUE_0_NEW));
-    sync_with_other_apps();
-    test_ParameterSetValueAsBlob_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
-                                   APP3_PARAMETER_BLOB_NAME_3, APP3_PARAMETER_BLOB_VALUE_3_NEW,
-                                   sizeof(APP3_PARAMETER_BLOB_VALUE_3_NEW));
-    sync_with_other_apps();
+    //Test the remote Server in a multiclient environment
+    test_multiClient_environment(&remoteHandle, &testApp, sync_with_other_apps);
 
-    Debug_LOG_DEBUG("%s: All tests completed.\n", TEST_APP);
+    Debug_LOG_DEBUG("%s: All tests completed.\n", testApp.appComponentName);
 
     return 0;
 }

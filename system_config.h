@@ -35,6 +35,9 @@
 
 #define CREATE_FS_BACKEND //Can be set to create the ConfigFile by the ConfigFileInjector on system startup
 
+// number of parameters per parameter type
+#define NUM_TEST_PARAMETERS 4
+
 //App1
 #define TEST_APP1   "TestApp1"
 #define DOMAIN_APP1 "Domain_App1"
