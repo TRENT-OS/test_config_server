@@ -10,12 +10,13 @@
 
 // -----------------------------------------------------------------------------
 void
-test_ParameterReadAccessRight_pos(OS_ConfigServiceHandle_t* handle,
-                                const char* domainName,
-                                const char* componentName,
-                                const char* parameterName,
-                                const char* parameterValue,
-                                size_t parameterLength)
+test_ParameterReadAccessRight_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const char* parameterValue,
+    size_t parameterLength)
 {
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
@@ -23,22 +24,23 @@ test_ParameterReadAccessRight_pos(OS_ConfigServiceHandle_t* handle,
     TEST_START(handleKind, componentName);
 
     TEST_CFG_PARAMETER_NOT_FOUND(verify_parameter(
-                                        handle,
-                                        domainName,
-                                        parameterName,
-                                        parameterValue,
-                                        parameterLength));
+                                     handle,
+                                     domainName,
+                                     parameterName,
+                                     parameterValue,
+                                     parameterLength));
 
     TEST_FINISH();
 }
 
 void
-test_ParameterWriteAccessRight_pos(OS_ConfigServiceHandle_t* handle,
-                                 const char* domainName,
-                                 const char* componentName,
-                                 const char* parameterName,
-                                 const void* parameterValue,
-                                 size_t parameterSize)
+test_ParameterWriteAccessRight_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const void* parameterValue,
+    size_t parameterSize)
 {
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
@@ -46,11 +48,11 @@ test_ParameterWriteAccessRight_pos(OS_ConfigServiceHandle_t* handle,
     TEST_START(handleKind, componentName);
 
     TEST_GENERIC(set_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue,
-                    parameterSize));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterSize));
 
     TEST_FINISH();
 }

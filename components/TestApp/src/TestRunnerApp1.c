@@ -29,6 +29,7 @@
 #include <string.h>
 #include <camkes.h>
 
+
 /* Private variables ---------------------------------------------------------*/
 static TestApp_t testApp =
 {
@@ -437,11 +438,12 @@ run(void)
                     testApp.appComponentName);
 
     Debug_LOG_INFO("%s: Starting multiclient test of ConfigServer...\n",
-                            testApp.appComponentName);
+                   testApp.appComponentName);
 
     // Initialize a handle to the remote ConfigServer component
     OS_ConfigServiceHandle_t remoteHandle;
-    test_CreateHandle_pos(&remoteHandle, OS_CONFIG_HANDLE_KIND_RPC, testApp.appComponentName);
+    test_CreateHandle_pos(&remoteHandle, OS_CONFIG_HANDLE_KIND_RPC,
+                          testApp.appComponentName);
 
     //Test the remote Server in a multiclient environment
     test_multiClient_environment(&remoteHandle, &testApp, sync_with_other_apps);

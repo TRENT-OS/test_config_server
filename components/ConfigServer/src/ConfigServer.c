@@ -22,7 +22,7 @@
 #include "init_lib_with_fs_backend.h"
 
 
-/* Private types -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
 static OS_FileSystem_Config_t cfg =
 {
     .type = OS_FileSystem_Type_FATFS,
@@ -32,6 +32,7 @@ static OS_FileSystem_Config_t cfg =
         storage_dp),
 };
 
+/* Private functions ---------------------------------------------------------*/
 static bool
 initializeConfigBackend(void)
 {

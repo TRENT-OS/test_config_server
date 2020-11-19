@@ -3,6 +3,7 @@
  */
 
 #include "camkes.h"
+
 #include "test_create_handle.h"
 
 #include "util/TestMacros.h"
@@ -12,9 +13,10 @@
 
 // -----------------------------------------------------------------------------
 void
-test_CreateHandle_pos(OS_ConfigServiceHandle_t* handle,
-                    OS_ConfigServiceHandle_HandleKind_t handleKind,
-                    const char* componentName)
+test_CreateHandle_pos(
+    OS_ConfigServiceHandle_t* handle,
+    OS_ConfigServiceHandle_HandleKind_t handleKind,
+    const char* componentName)
 {
     TEST_START(handleKind, componentName);
 
@@ -26,8 +28,8 @@ test_CreateHandle_pos(OS_ConfigServiceHandle_t* handle,
         };
 
         TEST_SUCCESS(OS_ConfigService_createHandleRemote(
-                &ctx,
-                handle));
+                         &ctx,
+                         handle));
     }
 
     else if (OS_CONFIG_HANDLE_KIND_LOCAL == handleKind)

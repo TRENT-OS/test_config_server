@@ -21,13 +21,13 @@ test_ParameterEnumerator_init_pos(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator,
-                    &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
     TEST_FINISH();
 }
@@ -43,27 +43,28 @@ test_ParameterEnumerator_init_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
-    TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorInit(uninitializedHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator));
+    TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorInit(
+                          uninitializedHandle,
+                          &domainEnumerator,
+                          &parameterEnumerator));
 
     // Empty domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        NULL,
-                        &parameterEnumerator));
+                         configHandle,
+                         NULL,
+                         &parameterEnumerator));
 
     // Empty parameter enumerator
     configHandle = *handle;
     TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        NULL));
+                         configHandle,
+                         &domainEnumerator,
+                         NULL));
 
     TEST_FINISH();
 }
@@ -79,9 +80,9 @@ test_ParameterEnumerator_init_no_server_init_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = { 0 };
 
     TEST_INVAL_STATE(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        &parameterEnumerator));
+                         configHandle,
+                         &domainEnumerator,
+                         &parameterEnumerator));
 
     TEST_FINISH();
 }
@@ -97,22 +98,22 @@ test_ParameterEnumerator_close_pos(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
     // Close parameter enumerator
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -128,28 +129,28 @@ test_ParameterEnumerator_close_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorClose(
-                            uninitializedHandle,
-                            &parameterEnumerator));
+                          uninitializedHandle,
+                          &parameterEnumerator));
 
     // Empty parameter enumerator
     TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorClose(
-                        configHandle,
-                        NULL));
+                         configHandle,
+                         NULL));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -164,17 +165,18 @@ test_ParameterEnumerator_close_no_server_init_neg(
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     TEST_INVAL_STATE(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
     TEST_FINISH();
 }
 
 void
-test_ParameterEnumerator_increment_pos(OS_ConfigServiceHandle_t* handle,
-                                     const char* componentName,
-                                     unsigned int maxDomainIndex,
-                                     unsigned int maxParameterIndex)
+test_ParameterEnumerator_increment_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* componentName,
+    unsigned int maxDomainIndex,
+    unsigned int maxParameterIndex)
 {
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
@@ -187,31 +189,31 @@ test_ParameterEnumerator_increment_pos(OS_ConfigServiceHandle_t* handle,
     unsigned int maxIndex = (maxParameterIndex / maxDomainIndex);
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
-    for (int i = 0; i < (maxIndex-1); i++)
+    for (int i = 0; i < (maxIndex - 1); i++)
     {
         TEST_SUCCESS(OS_ConfigService_parameterEnumeratorIncrement(
-                        configHandle,
-                        &parameterEnumerator));
+                         configHandle,
+                         &parameterEnumerator));
 
         // Check if the index actually got incremented
-        TEST_TRUE((1+i) == parameterEnumerator.index);
+        TEST_TRUE((1 + i) == parameterEnumerator.index);
     }
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -227,38 +229,38 @@ test_ParameterEnumerator_increment_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator,
-                    &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorIncrement(
-                            uninitializedHandle,
-                            &parameterEnumerator));
+                          uninitializedHandle,
+                          &parameterEnumerator));
 
     // Make sure the index did not get incremented
     TEST_TRUE(0 == parameterEnumerator.index);
 
     // Empty parameter enumerator
     TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorIncrement(
-                        configHandle,
-                        NULL));
+                         configHandle,
+                         NULL));
 
     // Make sure the index did not get incremented
     TEST_TRUE(0 == parameterEnumerator.index);
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -273,17 +275,18 @@ test_ParameterEnumerator_increment_no_server_init_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterEnumeratorIncrement(
-                        configHandle,
-                        &parameterEnumerator));
+                         configHandle,
+                         &parameterEnumerator));
 
     TEST_FINISH();
 }
 
 void
-test_ParameterEnumerator_reset_pos(OS_ConfigServiceHandle_t* handle,
-                                 const char* componentName,
-                                 unsigned int maxDomainIndex,
-                                 unsigned int maxParameterIndex)
+test_ParameterEnumerator_reset_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* componentName,
+    unsigned int maxDomainIndex,
+    unsigned int maxParameterIndex)
 {
     OS_ConfigServiceHandle_HandleKind_t handleKind =
         OS_ConfigServiceHandle_getHandleKind(*handle);
@@ -296,52 +299,53 @@ test_ParameterEnumerator_reset_pos(OS_ConfigServiceHandle_t* handle,
     unsigned int maxIndex = (maxParameterIndex / maxDomainIndex);
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
     // Increment parameter enumerator index
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorIncrement(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     // Check if the index actually got incremented
     TEST_TRUE(1 == parameterEnumerator.index);
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorReset(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     // Check if the index actually got reset
     TEST_TRUE(0 == parameterEnumerator.index);
 
-    for (int i = 0; i < (maxIndex-1); i++)
+    for (int i = 0; i < (maxIndex - 1); i++)
     {
         TEST_SUCCESS(OS_ConfigService_parameterEnumeratorIncrement(
-                        configHandle,
-                        &parameterEnumerator));
+                         configHandle,
+                         &parameterEnumerator));
 
         // Check if the index actually got incremented
-        TEST_TRUE((1+i) == parameterEnumerator.index);
+        TEST_TRUE((1 + i) == parameterEnumerator.index);
     }
 
-    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorReset(configHandle,
-                                                        &parameterEnumerator));
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorReset(
+                     configHandle,
+                     &parameterEnumerator));
 
     // Check if the index actually got reset
     TEST_TRUE(0 == parameterEnumerator.index);
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -357,32 +361,32 @@ test_ParameterEnumerator_reset_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorReset(
-                            uninitializedHandle,
-                            &parameterEnumerator));
+                          uninitializedHandle,
+                          &parameterEnumerator));
 
     // Empty parameter enumerator
     TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorReset(
-                        configHandle,
-                        NULL));
+                         configHandle,
+                         NULL));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -397,8 +401,8 @@ test_ParameterEnumerator_reset_no_server_init_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterEnumeratorReset(
-                        configHandle,
-                        &parameterEnumerator));
+                         configHandle,
+                         &parameterEnumerator));
 
     TEST_FINISH();
 }
@@ -415,27 +419,27 @@ test_ParameterEnumerator_getElement_pos(
     OS_ConfigServiceLibTypes_Parameter_t           parameter;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
     //Retrieve parameter for parameter enumerator
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorGetElement(
-                        configHandle,
-                        &parameterEnumerator,
-                        &parameter));
+                     configHandle,
+                     &parameterEnumerator,
+                     &parameter));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -452,40 +456,40 @@ test_ParameterEnumerator_getElement_neg(
     OS_ConfigServiceLibTypes_Parameter_t           parameter;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator,
-                        &parameterEnumerator));
+                     configHandle,
+                     &domainEnumerator,
+                     &parameterEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorGetElement(
-                            uninitializedHandle,
-                            &parameterEnumerator,
-                            &parameter));
+                          uninitializedHandle,
+                          &parameterEnumerator,
+                          &parameter));
 
     // Emtpy parameter enumerator
     TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorGetElement(
-                        configHandle,
-                        NULL,
-                        &parameter));
+                         configHandle,
+                         NULL,
+                         &parameter));
 
     // Empty parameter
     TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorGetElement(
-                        uninitializedHandle,
-                        &parameterEnumerator,
-                        NULL));
+                         uninitializedHandle,
+                         &parameterEnumerator,
+                         NULL));
 
     TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
-                        configHandle,
-                        &parameterEnumerator));
+                     configHandle,
+                     &parameterEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -501,16 +505,20 @@ test_ParameterEnumerator_getElement_no_server_init_neg(
     OS_ConfigServiceLibTypes_Parameter_t           parameter = { 0 };
 
     TEST_INVAL_STATE(OS_ConfigService_parameterEnumeratorGetElement(
-                        configHandle,
-                        &parameterEnumerator,
-                        &parameter));
+                         configHandle,
+                         &parameterEnumerator,
+                         &parameter));
 
     TEST_FINISH();
 }
 
 // -----------------------------------------------------------------------------
 
-void test_ParameterEnumerator_testAll(OS_ConfigServiceHandle_t* handle,const char* componentName, unsigned int maxDomainIndex, unsigned int maxParameterIndex)
+void test_ParameterEnumerator_testAll(
+    OS_ConfigServiceHandle_t* handle,
+    const char* componentName,
+    unsigned int maxDomainIndex,
+    unsigned int maxParameterIndex)
 {
     Debug_LOG_DEBUG("Executing Test Parameter Enumerator tests");
 
@@ -520,10 +528,12 @@ void test_ParameterEnumerator_testAll(OS_ConfigServiceHandle_t* handle,const cha
     test_ParameterEnumerator_close_pos(handle);
     test_ParameterEnumerator_close_neg(handle);
 
-    test_ParameterEnumerator_increment_pos(handle, componentName, maxDomainIndex, maxParameterIndex);
+    test_ParameterEnumerator_increment_pos(handle, componentName, maxDomainIndex,
+                                           maxParameterIndex);
     test_ParameterEnumerator_increment_neg(handle);
 
-    test_ParameterEnumerator_reset_pos(handle, componentName, maxDomainIndex, maxParameterIndex);
+    test_ParameterEnumerator_reset_pos(handle, componentName, maxDomainIndex,
+                                       maxParameterIndex);
     test_ParameterEnumerator_reset_neg(handle);
 
     test_ParameterEnumerator_getElement_pos(handle);

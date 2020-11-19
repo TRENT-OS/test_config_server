@@ -27,6 +27,7 @@ void injector_component_backend_injected()
     Debug_LOG_DEBUG("injector_component_backend_injected call received");
 }
 
+/* Private variables ---------------------------------------------------------*/
 static OS_FileSystem_Config_t cfg =
 {
     .type = OS_FileSystem_Type_FATFS,
@@ -36,6 +37,7 @@ static OS_FileSystem_Config_t cfg =
         storage_dp),
 };
 
+/* Private functions ---------------------------------------------------------*/
 static bool
 test_CreateFSBackend_pos(void)
 {

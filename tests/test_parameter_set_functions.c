@@ -24,16 +24,16 @@ test_ParameterSetValueAsU32_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(set_integer32_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue));
 
     TEST_SUCCESS(verify_integer32_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue));
 
     TEST_FINISH();
 }
@@ -52,16 +52,16 @@ test_ParameterSetValueAsU64_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(set_integer64_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue));
 
     TEST_SUCCESS(verify_integer64_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue));
 
     TEST_FINISH();
 }
@@ -81,18 +81,18 @@ test_ParameterSetValueAsString_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(set_string_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue,
-                    parameterSize));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterSize));
 
     TEST_SUCCESS(set_string_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue,
-                    parameterSize));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterSize));
 
     TEST_FINISH();
 }
@@ -113,18 +113,18 @@ test_ParameterSetValueAsBlob_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(set_blob_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue,
-                    parameterSize));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterSize));
 
     TEST_SUCCESS(set_blob_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue,
-                    parameterSize));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterSize));
 
     TEST_FINISH();
 }
@@ -145,18 +145,18 @@ test_ParameterSetValue_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(set_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue,
-                    parameterSize));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterSize));
 
     TEST_SUCCESS(verify_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue,
-                    parameterSize));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterSize));
 
     TEST_FINISH();
 }
@@ -173,11 +173,11 @@ test_ParameterSetValue_no_server_init_neg(
     char buffer;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterSetValue(
-                        *handle,
-                        &enumerator,
-                        parameterType,
-                        &buffer,
-                        sizeof(buffer)));
+                         *handle,
+                         &enumerator,
+                         parameterType,
+                         &buffer,
+                         sizeof(buffer)));
 
     TEST_FINISH();
 }
@@ -191,9 +191,9 @@ test_ParameterSetValueAsU32_no_server_init_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterSetValueAsU32(
-                        *handle,
-                        &enumerator,
-                        0));
+                         *handle,
+                         &enumerator,
+                         0));
 
     TEST_FINISH();
 }
@@ -207,9 +207,9 @@ test_ParameterSetValueAsU64_no_server_init_neg(
     OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterSetValueAsU64(
-                        *handle,
-                        &enumerator,
-                        0));
+                         *handle,
+                         &enumerator,
+                         0));
 
     TEST_FINISH();
 }
@@ -226,11 +226,11 @@ test_ParameterSetValueAsString_no_server_init_neg(
     char buffer;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterSetValueAsString(
-                        *handle,
-                        &enumerator,
-                        parameterType,
-                        &buffer,
-                        sizeof(buffer)));
+                         *handle,
+                         &enumerator,
+                         parameterType,
+                         &buffer,
+                         sizeof(buffer)));
 
     TEST_FINISH();
 }
@@ -239,19 +239,19 @@ void
 test_ParameterSetValueAsBlob_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-   TEST_START();
+    TEST_START();
 
-   OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
+    OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
     OS_ConfigServiceLibTypes_ParameterType_t parameterType =
         OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
     char buffer;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterSetValueAsBlob(
-                        *handle,
-                        &enumerator,
-                        parameterType,
-                        &buffer,
-                        sizeof(buffer)));
+                         *handle,
+                         &enumerator,
+                         parameterType,
+                         &buffer,
+                         sizeof(buffer)));
 
     TEST_FINISH();
 }

@@ -20,6 +20,7 @@
 #include <string.h>
 #include <camkes.h>
 
+
 /* Private variables ---------------------------------------------------------*/
 static TestApp_t testApp =
 {
@@ -183,7 +184,7 @@ run(void)
     }
 
     Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n",
-                            testApp.appComponentName);
+                    testApp.appComponentName);
 
     //Test the remote Server in a multiclient environment
     test_multiClient_environment(&remoteHandle, &testApp, sync_with_other_apps);

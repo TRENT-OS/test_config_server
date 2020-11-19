@@ -20,8 +20,8 @@ test_DomainEnumerator_init_pos(
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -37,14 +37,14 @@ test_DomainEnumerator_init_neg(
 
     // Uninitialized config handle
     TEST_INVAL_HANDLE(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                          configHandle,
+                          &domainEnumerator));
 
     // Empty domain enumerator
     configHandle = *handle;
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        NULL));
+                         configHandle,
+                         NULL));
 
     TEST_FINISH();
 }
@@ -60,8 +60,8 @@ test_DomainEnumerator_init_no_server_init_neg(
 
     configHandle = *handle;
     TEST_INVAL_STATE(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &enumerator));
+                         configHandle,
+                         &enumerator));
 
     TEST_FINISH();
 }
@@ -76,12 +76,12 @@ test_DomainEnumerator_close_pos(
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -97,24 +97,24 @@ test_DomainEnumerator_close_neg(
 
     // Uninitialized domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
     // Initialize domain enumerator
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     TEST_INVAL_HANDLE(OS_ConfigService_domainEnumeratorClose(
-                        uninitializedHandle,
-                        &domainEnumerator));
+                          uninitializedHandle,
+                          &domainEnumerator));
 
     // Empty domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        NULL));
+                         configHandle,
+                         NULL));
 
     TEST_FINISH();
 }
@@ -129,8 +129,8 @@ test_DomainEnumerator_close_no_server_init_neg(
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     TEST_INVAL_STATE(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -150,22 +150,22 @@ test_DomainEnumerator_increment_pos(
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
-    for (int i = 0; i < (maxDomainIndex-1); i++)
+    for (int i = 0; i < (maxDomainIndex - 1); i++)
     {
         TEST_SUCCESS(OS_ConfigService_domainEnumeratorIncrement(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
         // Check if the index actually got incremented
-        TEST_TRUE((1+i) == domainEnumerator.index);
+        TEST_TRUE((1 + i) == domainEnumerator.index);
     }
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -181,37 +181,37 @@ test_DomainEnumerator_increment_neg(
 
     // Uninitialized domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorIncrement(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
     // Make sure the index did not get incremented
     TEST_TRUE(0 == domainEnumerator.index);
 
     // Initialize domain enumerator
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     TEST_INVAL_HANDLE(OS_ConfigService_domainEnumeratorIncrement(
-                        uninitializedHandle,
-                        &domainEnumerator));
+                          uninitializedHandle,
+                          &domainEnumerator));
 
     // Make sure the index did not get incremented
     TEST_TRUE(0 == domainEnumerator.index);
 
     // Empty domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorIncrement(
-                        configHandle,
-                        NULL));
+                         configHandle,
+                         NULL));
 
     // Make sure the index did not get incremented
     TEST_TRUE(0 == domainEnumerator.index);
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -226,8 +226,8 @@ test_DomainEnumerator_increment_no_server_init_neg(
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     TEST_INVAL_STATE(OS_ConfigService_domainEnumeratorIncrement(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -247,43 +247,43 @@ test_DomainEnumerator_reset_pos(
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorIncrement(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     // Check if the index actually got incremented
     TEST_TRUE(1 == domainEnumerator.index);
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorReset(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     // Check if the index actually got reset
     TEST_TRUE(0 == domainEnumerator.index);
 
-    for (int i = 0; i < (maxDomainIndex-1); i++)
+    for (int i = 0; i < (maxDomainIndex - 1); i++)
     {
         TEST_SUCCESS(OS_ConfigService_domainEnumeratorIncrement(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
         // Check if the index actually got incremented
-        TEST_TRUE((1+i) == domainEnumerator.index);
+        TEST_TRUE((1 + i) == domainEnumerator.index);
     }
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorReset(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     // Check if the index actually got reset
     TEST_TRUE(0 == domainEnumerator.index);
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -299,24 +299,24 @@ test_DomainEnumerator_reset_neg(
 
     // Uninitialized domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorReset(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
     // Initialize domain enumerator
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     TEST_INVAL_HANDLE(OS_ConfigService_domainEnumeratorReset(
-                        uninitializedHandle,
-                        &domainEnumerator));
+                          uninitializedHandle,
+                          &domainEnumerator));
 
     // Empty domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorReset(
-                        configHandle,
-                        NULL));
+                         configHandle,
+                         NULL));
 
     TEST_FINISH();
 }
@@ -331,8 +331,8 @@ test_DomainEnumerator_reset_no_server_init_neg(
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
     TEST_INVAL_STATE(OS_ConfigService_domainEnumeratorReset(
-                        configHandle,
-                        &domainEnumerator));
+                         configHandle,
+                         &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -348,17 +348,17 @@ test_DomainEnumerator_getElement_pos(
     OS_ConfigServiceLibTypes_Domain_t           domain;
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorGetElement(
-                    configHandle,
-                    &domainEnumerator,
-                    &domain));
+                     configHandle,
+                     &domainEnumerator,
+                     &domain));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                    configHandle,
-                    &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -375,37 +375,37 @@ test_DomainEnumerator_getElement_neg(
 
     // Uninitialized domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorGetElement(
-                        configHandle,
-                        &domainEnumerator,
-                        &domain));
+                         configHandle,
+                         &domainEnumerator,
+                         &domain));
 
     // Initialize domain enumerator
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
     TEST_INVAL_HANDLE(OS_ConfigService_domainEnumeratorGetElement(
-                        uninitializedHandle,
-                        &domainEnumerator,
-                        &domain));
+                          uninitializedHandle,
+                          &domainEnumerator,
+                          &domain));
 
     // Empty domain enumerator
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorGetElement(
-                        configHandle,
-                        NULL,
-                        &domain));
+                         configHandle,
+                         NULL,
+                         &domain));
 
     // Empty domain
     TEST_INVAL_PARAM(OS_ConfigService_domainEnumeratorGetElement(
-                        configHandle,
-                        &domainEnumerator,
-                        NULL));
+                         configHandle,
+                         &domainEnumerator,
+                         NULL));
 
     TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
-                        configHandle,
-                        &domainEnumerator));
+                     configHandle,
+                     &domainEnumerator));
 
     TEST_FINISH();
 }
@@ -421,16 +421,18 @@ test_DomainEnumerator_getElement_no_server_init_neg(
     OS_ConfigServiceLibTypes_Domain_t           domain = { 0 };
 
     TEST_INVAL_STATE(OS_ConfigService_domainEnumeratorGetElement(
-                        configHandle,
-                        &domainEnumerator,
-                        &domain));
+                         configHandle,
+                         &domainEnumerator,
+                         &domain));
 
     TEST_FINISH();
 }
 
 // -----------------------------------------------------------------------------
-
-void test_DomainEnumerator_testAll(OS_ConfigServiceHandle_t* handle,const char* componentName, unsigned int maxDomainIndex)
+void test_DomainEnumerator_testAll(
+    OS_ConfigServiceHandle_t* handle,
+    const char* componentName,
+    unsigned int maxDomainIndex)
 {
     Debug_LOG_DEBUG("Executing Test Domain Enumerator tests");
 

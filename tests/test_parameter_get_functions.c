@@ -24,10 +24,10 @@ test_GetInteger32FromFsBackend_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(verify_integer32_parameter(
-                    handle,
-                    domainName,
-                    parameterName,
-                    parameterValue));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue));
 
     TEST_FINISH();
 }
@@ -46,10 +46,10 @@ test_GetInteger64FromFsBackend_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(verify_integer64_parameter(
-                        handle,
-                        domainName,
-                        parameterName,
-                        parameterValue));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue));
 
     TEST_FINISH();
 }
@@ -69,11 +69,11 @@ test_GetStringsFromFsBackend_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(verify_string_parameter(
-                        handle,
-                        domainName,
-                        parameterName,
-                        parameterValue,
-                        parameterLength));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterLength));
 
     TEST_FINISH();
 }
@@ -93,11 +93,11 @@ test_GetBlobsFromFsBackend_pos(
     TEST_START(handleKind, componentName, parameterName);
 
     TEST_SUCCESS(verify_blob_parameter(
-                        handle,
-                        domainName,
-                        parameterName,
-                        parameterValue,
-                        parameterLength));
+                     handle,
+                     domainName,
+                     parameterName,
+                     parameterValue,
+                     parameterLength));
 
     TEST_FINISH();
 }
@@ -113,11 +113,11 @@ test_ParameterGetValue_no_server_init_neg(
     size_t read;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterGetValue(
-                        *handle,
-                        &dummy,
-                        &buffer,
-                        sizeof(buffer),
-                        &read));
+                         *handle,
+                         &dummy,
+                         &buffer,
+                         sizeof(buffer),
+                         &read));
 
     TEST_FINISH();
 }
@@ -132,9 +132,9 @@ test_ParameterGetValueAsU32_no_server_init_neg(
     uint32_t value;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterGetValueAsU32(
-                        *handle,
-                        &dummy,
-                        &value));
+                         *handle,
+                         &dummy,
+                         &value));
 
     TEST_FINISH();
 }
@@ -149,9 +149,9 @@ test_ParameterGetValueAsU64_no_server_init_neg(
     uint64_t value;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterGetValueAsU64(
-                        *handle,
-                        &dummy,
-                        &value));
+                         *handle,
+                         &dummy,
+                         &value));
 
     TEST_FINISH();
 }
@@ -166,10 +166,10 @@ test_ParameterGetValueAsString_no_server_init_neg(
     char buffer;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterGetValueAsString(
-                        *handle,
-                        &dummy,
-                        &buffer,
-                        sizeof(buffer)));
+                         *handle,
+                         &dummy,
+                         &buffer,
+                         sizeof(buffer)));
 
     TEST_FINISH();
 }
@@ -184,10 +184,10 @@ test_ParameterGetValueAsBlob_no_server_init_neg(
     char buffer;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterGetValueAsBlob(
-                        *handle,
-                        &dummy,
-                        &buffer,
-                        sizeof(buffer)));
+                         *handle,
+                         &dummy,
+                         &buffer,
+                         sizeof(buffer)));
 
     TEST_FINISH();
 }
@@ -206,13 +206,13 @@ test_ParameterGetValueFromDomainName_no_server_init_neg(
     size_t read;
 
     TEST_INVAL_STATE(OS_ConfigService_parameterGetValueFromDomainName(
-                        *handle,
-                        &domainName,
-                        &parameterName,
-                        parameterType,
-                        &buffer,
-                        sizeof(buffer),
-                        &read));
+                         *handle,
+                         &domainName,
+                         &parameterName,
+                         parameterType,
+                         &buffer,
+                         sizeof(buffer),
+                         &read));
 
     TEST_FINISH();
 }

@@ -43,7 +43,8 @@ run(void)
               &remoteHandle);
     Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
 
-    Debug_LOG_DEBUG("%s: Starting test of not initialized ConfigServer...\n", TEST_APP);
+    Debug_LOG_DEBUG("%s: Starting test of not initialized ConfigServer...\n",
+                    TEST_APP);
 
     test_DomainEnumerator_init_no_server_init_neg(&remoteHandle);
     test_DomainEnumerator_close_no_server_init_neg(&remoteHandle);
