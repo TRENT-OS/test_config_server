@@ -27,7 +27,6 @@
 #include <string.h>
 #include <camkes.h>
 
-
 /* Defines -------------------------------------------------------------------*/
 #define TEST_APP     TEST_APP1
 #define DOMAIN_APP   DOMAIN_APP1
@@ -58,204 +57,204 @@ runBasicTestSuite(
 {
     OS_ConfigServiceHandle_t configHandle;
 
-    TestCreateHandle_ok(&configHandle, handleKind, TEST_APP);
+    test_CreateHandle_pos(&configHandle, handleKind, TEST_APP);
 
-    TestDomainEnumerator_increment_ok(&configHandle, TEST_APP,
+    test_DomainEnumerator_increment_pos(&configHandle, TEST_APP,
                                       instance->domainBackend.numberOfRecords);
 
-    TestDomainEnumerator_reset_ok(&configHandle, TEST_APP,
+    test_DomainEnumerator_reset_pos(&configHandle, TEST_APP,
                                   instance->domainBackend.numberOfRecords);
 
-    TestParameterEnumerator_increment_ok(&configHandle,
+    test_ParameterEnumerator_increment_pos(&configHandle,
                                          TEST_APP,
                                          instance->domainBackend.numberOfRecords,
                                          instance->parameterBackend.numberOfRecords);
 
-    TestParameterEnumerator_reset_ok(&configHandle,
+    test_ParameterEnumerator_reset_pos(&configHandle,
                                      TEST_APP,
                                      instance->domainBackend.numberOfRecords,
                                      instance->parameterBackend.numberOfRecords);
 
     //Test get parameter functions
-    TestGetInteger32FromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger32FromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_32_NAME_0, APP1_PARAMETER_32_VALUE_0);
 
-    TestGetInteger32FromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger32FromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_32_NAME_1, APP1_PARAMETER_32_VALUE_1);
 
-    TestGetInteger32FromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger32FromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_32_NAME_2, APP1_PARAMETER_32_VALUE_2);
 
-    TestGetInteger32FromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger32FromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_32_NAME_3, APP1_PARAMETER_32_VALUE_3);
 
-    TestGetInteger64FromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger64FromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_64_NAME_0, APP1_PARAMETER_64_VALUE_0);
 
-    TestGetInteger64FromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger64FromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_64_NAME_1, APP1_PARAMETER_64_VALUE_1);
 
-    TestGetInteger64FromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger64FromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_64_NAME_2, APP1_PARAMETER_64_VALUE_2);
 
-    TestGetInteger64FromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger64FromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_64_NAME_3, APP1_PARAMETER_64_VALUE_3);
 
-    TestGetStringsFromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetStringsFromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_STRING_NAME_0, APP1_PARAMETER_STRING_VALUE_0,
                                    sizeof(APP1_PARAMETER_STRING_VALUE_0));
 
-    TestGetStringsFromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetStringsFromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_STRING_NAME_1, APP1_PARAMETER_STRING_VALUE_1,
                                    sizeof(APP1_PARAMETER_STRING_VALUE_1));
 
-    TestGetStringsFromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetStringsFromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_STRING_NAME_2, APP1_PARAMETER_STRING_VALUE_2,
                                    sizeof(APP1_PARAMETER_STRING_VALUE_2));
 
-    TestGetStringsFromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetStringsFromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_STRING_NAME_3, APP1_PARAMETER_STRING_VALUE_3,
                                    sizeof(APP1_PARAMETER_STRING_VALUE_3));
 
-    TestGetBlobsFromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetBlobsFromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                  APP1_PARAMETER_BLOB_NAME_0, APP1_PARAMETER_BLOB_VALUE_0,
                                  sizeof(APP1_PARAMETER_BLOB_VALUE_0));
 
-    TestGetBlobsFromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetBlobsFromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                  APP1_PARAMETER_BLOB_NAME_1, APP1_PARAMETER_BLOB_VALUE_1,
                                  sizeof(APP1_PARAMETER_BLOB_VALUE_1));
 
-    TestGetBlobsFromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetBlobsFromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                  APP1_PARAMETER_BLOB_NAME_2, APP1_PARAMETER_BLOB_VALUE_2,
                                  sizeof(APP1_PARAMETER_BLOB_VALUE_2));
 
-    TestGetBlobsFromFsBackend_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_GetBlobsFromFsBackend_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                  APP1_PARAMETER_BLOB_NAME_3, APP1_PARAMETER_BLOB_VALUE_3,
                                  sizeof(APP1_PARAMETER_BLOB_VALUE_3));
 
     //Test fetching a parameter that has no read access rights
-    TestParameterReadAccessRight_ok(&configHandle, DOMAIN_APP2, TEST_APP,
+    test_ParameterReadAccessRight_pos(&configHandle, DOMAIN_APP2, TEST_APP,
                                     APP2_PARAMETER_BLOB_NAME_2, APP2_PARAMETER_BLOB_VALUE_2,
                                     sizeof(APP2_PARAMETER_BLOB_VALUE_2));
 
     //Test set parameter functions
-    TestParameterSetValueAsU32_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_32_NAME_0, APP1_PARAMETER_32_VALUE_0_NEW);
 
-    TestParameterSetValueAsU32_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_32_NAME_1, APP1_PARAMETER_32_VALUE_1_NEW);
 
-    TestParameterSetValueAsU32_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_32_NAME_2, APP1_PARAMETER_32_VALUE_2_NEW);
 
-    TestParameterSetValueAsU32_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_32_NAME_3, APP1_PARAMETER_32_VALUE_3_NEW);
 
-    TestParameterSetValueAsU64_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_64_NAME_0, APP1_PARAMETER_64_VALUE_0_NEW);
 
-    TestParameterSetValueAsU64_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_64_NAME_1, APP1_PARAMETER_64_VALUE_1_NEW);
 
-    TestParameterSetValueAsU64_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_64_NAME_2, APP1_PARAMETER_64_VALUE_2_NEW);
 
-    TestParameterSetValueAsU64_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_64_NAME_3, APP1_PARAMETER_64_VALUE_3_NEW);
 
-    TestParameterSetValueAsString_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_STRING_NAME_0, APP1_PARAMETER_STRING_VALUE_0_NEW,
                                      sizeof(APP1_PARAMETER_STRING_VALUE_0_NEW));
 
-    TestParameterSetValueAsString_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_STRING_NAME_1, APP1_PARAMETER_STRING_VALUE_1_NEW,
                                      sizeof(APP1_PARAMETER_STRING_VALUE_1_NEW));
 
-    TestParameterSetValueAsString_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_STRING_NAME_2, APP1_PARAMETER_STRING_VALUE_2_NEW,
                                      sizeof(APP1_PARAMETER_STRING_VALUE_2_NEW));
 
-    TestParameterSetValueAsString_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_STRING_NAME_3, APP1_PARAMETER_STRING_VALUE_3_NEW,
                                      sizeof(APP1_PARAMETER_STRING_VALUE_3_NEW));
 
-    TestParameterSetValueAsBlob_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_0, APP1_PARAMETER_BLOB_VALUE_0_NEW,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_0_NEW));
 
-    TestParameterSetValueAsBlob_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_1, APP1_PARAMETER_BLOB_VALUE_1_NEW,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_1_NEW));
 
-    TestParameterSetValueAsBlob_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_2, APP1_PARAMETER_BLOB_VALUE_2_NEW,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_2_NEW));
 
-    TestParameterSetValueAsBlob_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_3, APP1_PARAMETER_BLOB_VALUE_3_NEW,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_3_NEW));
 
     // Test setting a parameter that has no write access rights
-    TestParameterWriteAccessRight_ok(&configHandle, DOMAIN_APP2, TEST_APP,
+    test_ParameterWriteAccessRight_pos(&configHandle, DOMAIN_APP2, TEST_APP,
                                      APP2_PARAMETER_BLOB_NAME_1, APP2_PARAMETER_BLOB_VALUE_1_NEW,
                                      sizeof(APP2_PARAMETER_BLOB_VALUE_1_NEW));
     // Test generic SetValue
     uint32_t interger32Value = APP1_PARAMETER_32_VALUE_0;
     uint64_t integer64Value = APP1_PARAMETER_64_VALUE_0;
-    TestParameterSetValue_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValue_pos(&configHandle, DOMAIN_APP, TEST_APP,
                              APP1_PARAMETER_32_NAME_0, &interger32Value, sizeof(interger32Value));
 
-    TestParameterSetValue_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValue_pos(&configHandle, DOMAIN_APP, TEST_APP,
                              APP1_PARAMETER_64_NAME_0, &integer64Value, sizeof(integer64Value));
 
-    TestParameterSetValue_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValue_pos(&configHandle, DOMAIN_APP, TEST_APP,
                              APP1_PARAMETER_STRING_NAME_0, APP1_PARAMETER_STRING_VALUE_0,
                              sizeof(APP1_PARAMETER_STRING_VALUE_0));
 
-    TestParameterSetValue_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValue_pos(&configHandle, DOMAIN_APP, TEST_APP,
                              APP1_PARAMETER_BLOB_NAME_0, APP1_PARAMETER_BLOB_VALUE_0,
                              sizeof(APP1_PARAMETER_BLOB_VALUE_0));
 
     // Reset altered parameters to original values
-    TestParameterSetValueAsU32_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_32_NAME_1, APP1_PARAMETER_32_VALUE_1);
 
-    TestParameterSetValueAsU32_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_32_NAME_2, APP1_PARAMETER_32_VALUE_2);
 
-    TestParameterSetValueAsU32_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_32_NAME_3, APP1_PARAMETER_32_VALUE_3);
 
-    TestParameterSetValueAsU64_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_64_NAME_1, APP1_PARAMETER_64_VALUE_1);
 
-    TestParameterSetValueAsU64_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_64_NAME_2, APP1_PARAMETER_64_VALUE_2);
 
-    TestParameterSetValueAsU64_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_64_NAME_3, APP1_PARAMETER_64_VALUE_3);
 
-    TestParameterSetValueAsString_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_STRING_NAME_1, APP1_PARAMETER_STRING_VALUE_1,
                                      sizeof(APP1_PARAMETER_STRING_VALUE_1));
 
-    TestParameterSetValueAsString_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_STRING_NAME_2, APP1_PARAMETER_STRING_VALUE_2,
                                      sizeof(APP1_PARAMETER_STRING_VALUE_2));
 
-    TestParameterSetValueAsString_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_STRING_NAME_3, APP1_PARAMETER_STRING_VALUE_3,
                                      sizeof(APP1_PARAMETER_STRING_VALUE_3));
 
-    TestParameterSetValueAsBlob_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_1, APP1_PARAMETER_BLOB_VALUE_1,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_1));
 
-    TestParameterSetValueAsBlob_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_2, APP1_PARAMETER_BLOB_VALUE_2,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_2));
 
-    TestParameterSetValueAsBlob_ok(&configHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&configHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_3, APP1_PARAMETER_BLOB_VALUE_3,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_3));
 }
@@ -332,43 +331,43 @@ run(void)
 
     Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...", TEST_APP);
     OS_ConfigServiceHandle_t remoteHandle;
-    TestCreateHandle_ok(&remoteHandle, OS_CONFIG_HANDLE_KIND_RPC, TEST_APP);
+    test_CreateHandle_pos(&remoteHandle, OS_CONFIG_HANDLE_KIND_RPC, TEST_APP);
     //Test get parameter functions in multiclient environment
-    TestGetInteger32FromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger32FromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_32_NAME_0, APP1_PARAMETER_32_VALUE_0);
     sync_with_other_apps();
-    TestGetInteger64FromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger64FromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_64_NAME_0, APP1_PARAMETER_64_VALUE_0);
     sync_with_other_apps();
-    TestGetStringsFromFsBackend_ok(&remoteHandle,  DOMAIN_APP, TEST_APP,
+    test_GetStringsFromFsBackend_pos(&remoteHandle,  DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_STRING_NAME_0, APP1_PARAMETER_STRING_VALUE_0,
                                    sizeof(APP1_PARAMETER_STRING_VALUE_0));
     sync_with_other_apps();
-    TestGetBlobsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetBlobsFromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                  APP1_PARAMETER_BLOB_NAME_0, APP1_PARAMETER_BLOB_VALUE_0,
                                  sizeof(APP1_PARAMETER_BLOB_VALUE_0));
     sync_with_other_apps();
-    TestGetBlobsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetBlobsFromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                  APP1_PARAMETER_BLOB_NAME_3, APP1_PARAMETER_BLOB_VALUE_3,
                                  sizeof(APP1_PARAMETER_BLOB_VALUE_3));
     sync_with_other_apps();
 
     //Test set parameter functions in multiclient environment
-    TestParameterSetValueAsU32_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_32_NAME_0, APP1_PARAMETER_32_VALUE_0_NEW);
     sync_with_other_apps();
-    TestParameterSetValueAsU64_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                   APP1_PARAMETER_64_NAME_0, APP1_PARAMETER_64_VALUE_0_NEW);
     sync_with_other_apps();
-    TestParameterSetValueAsString_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                      APP1_PARAMETER_STRING_NAME_0, APP1_PARAMETER_STRING_VALUE_0_NEW,
                                      sizeof(APP1_PARAMETER_STRING_VALUE_0_NEW));
     sync_with_other_apps();
-    TestParameterSetValueAsBlob_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_0, APP1_PARAMETER_BLOB_VALUE_0_NEW,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_0_NEW));
     sync_with_other_apps();
-    TestParameterSetValueAsBlob_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                    APP1_PARAMETER_BLOB_NAME_3, APP1_PARAMETER_BLOB_VALUE_3_NEW,
                                    sizeof(APP1_PARAMETER_BLOB_VALUE_3_NEW));
     sync_with_other_apps();

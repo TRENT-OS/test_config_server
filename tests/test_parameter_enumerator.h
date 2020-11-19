@@ -12,28 +12,30 @@
 
 
 // -----------------------------------------------------------------------------
-void TestParameterEnumerator_increment_ok(OS_ConfigServiceHandle_t* handle,
-                                          const char* componentName,
-                                          unsigned int maxDomainIndex,
-                                          unsigned int maxParameterIndex);
+void test_ParameterEnumerator_increment_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* componentName,
+    unsigned int maxDomainIndex,
+    unsigned int maxParameterIndex);
 
-void TestParameterEnumerator_reset_ok(OS_ConfigServiceHandle_t* handle,
-                                      const char* componentName,
-                                      unsigned int maxDomainIndex,
-                                      unsigned int maxParameterIndex);
+void test_ParameterEnumerator_reset_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* componentName,
+    unsigned int maxDomainIndex,
+    unsigned int maxParameterIndex);
 
 void
-TestParameterEnumerator_init_fail_no_server_init(
+test_ParameterEnumerator_init_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
 void
-TestParameterEnumerator_close_fail_no_server_init(
+test_ParameterEnumerator_close_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
 void
-TestParameterEnumerator_reset_fail_no_server_init(
+test_ParameterEnumerator_reset_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
 void
-TestParameterEnumerator_increment_fail_no_server_init(
+test_ParameterEnumerator_increment_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
 void
-TestParameterEnumerator_getElement_fail_no_server_init(
+test_ParameterEnumerator_getElement_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);

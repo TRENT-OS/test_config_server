@@ -4,520 +4,524 @@
 
 #include "test_parameter_enumerator.h"
 
+#include "util/TestMacros.h"
 // -----------------------------------------------------------------------------
 void
-TestParameterEnumerator_init_ok(
+test_ParameterEnumerator_init_pos(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                    configHandle,
+                    &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                    configHandle,
+                    &domainEnumerator,
+                    &parameterEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_init_fail(
+test_ParameterEnumerator_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                    configHandle,
+                    &domainEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
-    err = OS_ConfigService_parameterEnumeratorInit(uninitializedHandle,
+    TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorInit(uninitializedHandle,
                                                     &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
+                                                    &parameterEnumerator));
 
     // Empty domain enumerator
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    NULL, &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        NULL,
+                        &parameterEnumerator));
 
     // Empty parameter enumerator
     configHandle = *handle;
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator, NULL);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        NULL));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_init_fail_no_server_init(
+test_ParameterEnumerator_init_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator = { 0 };
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = { 0 };
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+    TEST_INVAL_STATE(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        &parameterEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_close_ok(
+test_ParameterEnumerator_close_pos(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle, &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        &parameterEnumerator));
 
     // Close parameter enumerator
-    err = OS_ConfigService_parameterEnumeratorClose(configHandle,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
+                        configHandle,
+                        &parameterEnumerator));
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle, &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_close_fail(
+test_ParameterEnumerator_close_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        &parameterEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
-    err = OS_ConfigService_parameterEnumeratorClose(uninitializedHandle,
-                                                         &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorClose(
+                            uninitializedHandle,
+                            &parameterEnumerator));
 
     // Empty parameter enumerator
-    err = OS_ConfigService_parameterEnumeratorClose(configHandle, NULL);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorClose(
+                        configHandle,
+                        NULL));
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle,
-                                                          &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_close_fail_no_server_init(
+test_ParameterEnumerator_close_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+    TEST_INVAL_STATE(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_increment_ok(OS_ConfigServiceHandle_t* handle,
+test_ParameterEnumerator_increment_pos(OS_ConfigServiceHandle_t* handle,
                                      const char* componentName,
                                      unsigned int maxDomainIndex,
                                      unsigned int maxParameterIndex)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
+
+    TEST_START(handleKind, componentName);
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
     unsigned int maxIndex = (maxParameterIndex / maxDomainIndex);
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        &parameterEnumerator));
 
     for (int i = 0; i < (maxIndex-1); i++)
     {
-        err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
-                                                          &parameterEnumerator);
-        Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+        TEST_SUCCESS(OS_ConfigService_parameterEnumeratorIncrement(
+                        configHandle,
+                        &parameterEnumerator));
+
         // Check if the index actually got incremented
-        Debug_ASSERT_PRINTFLN((1+i) == parameterEnumerator.index,
-                                  "Index value: %d", parameterEnumerator.index);
+        TEST_TRUE((1+i) == parameterEnumerator.index);
     }
 
-    err = OS_ConfigService_parameterEnumeratorClose(configHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
+                        configHandle,
+                        &parameterEnumerator));
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle,
-                                                          &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
-
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s OK\n", __func__, componentName, handleKind);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_increment_fail(
+test_ParameterEnumerator_increment_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                    configHandle,
+                    &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                    configHandle,
+                    &domainEnumerator,
+                    &parameterEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
-    err = OS_ConfigService_parameterEnumeratorIncrement(uninitializedHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorIncrement(
+                            uninitializedHandle,
+                            &parameterEnumerator));
+
     // Make sure the index did not get incremented
-    Debug_ASSERT_PRINTFLN(0 == parameterEnumerator.index,
-                                "Index value: %d", parameterEnumerator.index);
+    TEST_TRUE(0 == parameterEnumerator.index);
 
     // Empty parameter enumerator
-    err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
-                                                          NULL);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorIncrement(
+                        configHandle,
+                        NULL));
+
     // Make sure the index did not get incremented
-    Debug_ASSERT_PRINTFLN(0 == parameterEnumerator.index,
-                                "Index value: %d", parameterEnumerator.index);
+    TEST_TRUE(0 == parameterEnumerator.index);
 
-    err = OS_ConfigService_parameterEnumeratorClose(configHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
+                        configHandle,
+                        &parameterEnumerator));
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_increment_fail_no_server_init(
+test_ParameterEnumerator_increment_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
-    err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+    TEST_INVAL_STATE(OS_ConfigService_parameterEnumeratorIncrement(
+                        configHandle,
+                        &parameterEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_reset_ok(OS_ConfigServiceHandle_t* handle,
+test_ParameterEnumerator_reset_pos(OS_ConfigServiceHandle_t* handle,
                                  const char* componentName,
                                  unsigned int maxDomainIndex,
                                  unsigned int maxParameterIndex)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
+
+    TEST_START(handleKind, componentName);
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
     unsigned int maxIndex = (maxParameterIndex / maxDomainIndex);
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        &parameterEnumerator));
 
     // Increment parameter enumerator index
-    err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
-    // Check if the index actually got incremented
-    Debug_ASSERT_PRINTFLN(1 == parameterEnumerator.index,
-                                  "Index value: %d", parameterEnumerator.index);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorIncrement(
+                        configHandle,
+                        &parameterEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorReset(configHandle,
-                                                        &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    // Check if the index actually got incremented
+    TEST_TRUE(1 == parameterEnumerator.index);
+
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorReset(
+                        configHandle,
+                        &parameterEnumerator));
+
     // Check if the index actually got reset
-    Debug_ASSERT_PRINTFLN(0 == parameterEnumerator.index,
-                                  "Index value: %d", parameterEnumerator.index);
+    TEST_TRUE(0 == parameterEnumerator.index);
 
     for (int i = 0; i < (maxIndex-1); i++)
     {
-        err = OS_ConfigService_parameterEnumeratorIncrement(configHandle,
-                                                          &parameterEnumerator);
-        Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+        TEST_SUCCESS(OS_ConfigService_parameterEnumeratorIncrement(
+                        configHandle,
+                        &parameterEnumerator));
+
         // Check if the index actually got incremented
-        Debug_ASSERT_PRINTFLN((1+i) == parameterEnumerator.index,
-                                  "Index value: %d", parameterEnumerator.index);
+        TEST_TRUE((1+i) == parameterEnumerator.index);
     }
 
-    err = OS_ConfigService_parameterEnumeratorReset(configHandle,
-                                                        &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorReset(configHandle,
+                                                        &parameterEnumerator));
+
     // Check if the index actually got reset
-    Debug_ASSERT_PRINTFLN(0 == parameterEnumerator.index,
-                                  "Index value: %d", parameterEnumerator.index);
+    TEST_TRUE(0 == parameterEnumerator.index);
 
-    err = OS_ConfigService_parameterEnumeratorClose(configHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
+                        configHandle,
+                        &parameterEnumerator));
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle,
-                                                          &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
-
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s OK\n", __func__, componentName, handleKind);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_reset_fail(
+test_ParameterEnumerator_reset_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        &parameterEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
-    err = OS_ConfigService_parameterEnumeratorReset(uninitializedHandle, &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorReset(
+                            uninitializedHandle,
+                            &parameterEnumerator));
 
     // Empty parameter enumerator
-    err = OS_ConfigService_parameterEnumeratorReset(configHandle, NULL);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorReset(
+                        configHandle,
+                        NULL));
 
-    err = OS_ConfigService_parameterEnumeratorClose(configHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
+                        configHandle,
+                        &parameterEnumerator));
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle,
-                                                            &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_reset_fail_no_server_init(
+test_ParameterEnumerator_reset_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
 
-    err = OS_ConfigService_parameterEnumeratorReset(configHandle,
-                                                        &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+    TEST_INVAL_STATE(OS_ConfigService_parameterEnumeratorReset(
+                        configHandle,
+                        &parameterEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_getElement_ok(
+test_ParameterEnumerator_getElement_pos(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t    domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
     OS_ConfigServiceLibTypes_Parameter_t           parameter;
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        &parameterEnumerator));
 
     //Retrieve parameter for parameter enumerator
-    err = OS_ConfigService_parameterEnumeratorGetElement(configHandle,
-                                                           &parameterEnumerator,
-                                                           &parameter);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorGetElement(
+                        configHandle,
+                        &parameterEnumerator,
+                        &parameter));
 
-    err = OS_ConfigService_parameterEnumeratorClose(configHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
+                        configHandle,
+                        &parameterEnumerator));
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle,
-                                                            &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_getElement_fail(
+test_ParameterEnumerator_getElement_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_DomainEnumerator_t    domainEnumerator;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator;
     OS_ConfigServiceLibTypes_Parameter_t           parameter;
 
-    err = OS_ConfigService_domainEnumeratorInit(configHandle,
-                                                    &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator));
 
-    err = OS_ConfigService_parameterEnumeratorInit(configHandle,
-                                                    &domainEnumerator,
-                                                    &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorInit(
+                        configHandle,
+                        &domainEnumerator,
+                        &parameterEnumerator));
 
     // Uninitialized config handle
     OS_ConfigServiceHandle_t uninitializedHandle = { 0 };
-    err = OS_ConfigService_parameterEnumeratorGetElement(uninitializedHandle,
-                                                        &parameterEnumerator,
-                                                        &parameter);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_HANDLE == err, "err %d", err);
+    TEST_INVAL_HANDLE(OS_ConfigService_parameterEnumeratorGetElement(
+                            uninitializedHandle,
+                            &parameterEnumerator,
+                            &parameter));
 
     // Emtpy parameter enumerator
-    err = OS_ConfigService_parameterEnumeratorGetElement(configHandle,
-                                                    NULL, &parameter);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorGetElement(
+                        configHandle,
+                        NULL,
+                        &parameter));
 
     // Empty parameter
-    err = OS_ConfigService_parameterEnumeratorGetElement(uninitializedHandle,
-                                                        &parameterEnumerator,
-                                                        NULL);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_PARAMETER == err, "err %d", err);
+    TEST_INVAL_PARAM(OS_ConfigService_parameterEnumeratorGetElement(
+                        uninitializedHandle,
+                        &parameterEnumerator,
+                        NULL));
 
-    err = OS_ConfigService_parameterEnumeratorClose(configHandle,
-                                                          &parameterEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_parameterEnumeratorClose(
+                        configHandle,
+                        &parameterEnumerator));
 
-    err = OS_ConfigService_domainEnumeratorClose(configHandle,
-                                                            &domainEnumerator);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(OS_ConfigService_domainEnumeratorClose(
+                        configHandle,
+                        &domainEnumerator));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterEnumerator_getElement_fail_no_server_init(
+test_ParameterEnumerator_getElement_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
-    OS_Error_t err;
+    TEST_START();
+
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = { 0 };
     OS_ConfigServiceLibTypes_Parameter_t           parameter = { 0 };
 
-    err = OS_ConfigService_parameterEnumeratorGetElement(configHandle,
-                                                           &parameterEnumerator,
-                                                           &parameter);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+    TEST_INVAL_STATE(OS_ConfigService_parameterEnumeratorGetElement(
+                        configHandle,
+                        &parameterEnumerator,
+                        &parameter));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 // -----------------------------------------------------------------------------
 
-void TestParameterEnumerator_testAll(OS_ConfigServiceHandle_t* handle,const char* componentName, unsigned int maxDomainIndex, unsigned int maxParameterIndex)
+void test_ParameterEnumerator_testAll(OS_ConfigServiceHandle_t* handle,const char* componentName, unsigned int maxDomainIndex, unsigned int maxParameterIndex)
 {
     Debug_LOG_DEBUG("Executing Test Parameter Enumerator tests");
 
-    TestParameterEnumerator_init_ok(handle);
-    TestParameterEnumerator_init_fail(handle);
+    test_ParameterEnumerator_init_pos(handle);
+    test_ParameterEnumerator_init_neg(handle);
 
-    TestParameterEnumerator_close_ok(handle);
-    TestParameterEnumerator_close_fail(handle);
+    test_ParameterEnumerator_close_pos(handle);
+    test_ParameterEnumerator_close_neg(handle);
 
-    TestParameterEnumerator_increment_ok(handle, componentName, maxDomainIndex, maxParameterIndex);
-    TestParameterEnumerator_increment_fail(handle);
+    test_ParameterEnumerator_increment_pos(handle, componentName, maxDomainIndex, maxParameterIndex);
+    test_ParameterEnumerator_increment_neg(handle);
 
-    TestParameterEnumerator_reset_ok(handle, componentName, maxDomainIndex, maxParameterIndex);
-    TestParameterEnumerator_reset_fail(handle);
+    test_ParameterEnumerator_reset_pos(handle, componentName, maxDomainIndex, maxParameterIndex);
+    test_ParameterEnumerator_reset_neg(handle);
 
-    TestParameterEnumerator_getElement_ok(handle);
-    TestParameterEnumerator_getElement_fail(handle);
+    test_ParameterEnumerator_getElement_pos(handle);
+    test_ParameterEnumerator_getElement_neg(handle);
 }

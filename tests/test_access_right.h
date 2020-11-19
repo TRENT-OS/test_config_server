@@ -12,14 +12,14 @@
 
 
 // -----------------------------------------------------------------------------
-void TestParameterReadAccessRight_ok(OS_ConfigServiceHandle_t* handle,
+void test_ParameterReadAccessRight_pos(OS_ConfigServiceHandle_t* handle,
                                      const char* domainName,
                                      const char* componentName,
                                      const char* parameterName,
                                      const char* parameterValue,
                                      size_t parameterLength);
 
-void TestParameterWriteAccessRight_ok(OS_ConfigServiceHandle_t* handle,
+void test_ParameterWriteAccessRight_pos(OS_ConfigServiceHandle_t* handle,
                                       const char* domainName,
                                       const char* componentName,
                                       const char* parameterName,

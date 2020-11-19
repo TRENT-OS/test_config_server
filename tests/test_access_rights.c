@@ -4,70 +4,51 @@
 
 #include "test_create_handle.h"
 
+#include "util/TestMacros.h"
 
 // -----------------------------------------------------------------------------
 void
-TestParameterReadAccessRight_ok(OS_ConfigServiceHandle_t* handle,
+test_ParameterReadAccessRight_pos(OS_ConfigServiceHandle_t* handle,
                                 const char* domainName,
                                 const char* componentName,
                                 const char* parameterName,
                                 const char* parameterValue,
                                 size_t parameterLength)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = verify_parameter(handle,
-                           domainName,
-                           parameterName,
-                           parameterValue,
-                           parameterLength);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_CONFIG_PARAMETER_NOT_FOUND == err, "err %d", err);
+    TEST_START(handleKind, componentName);
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_CFG_PARAMETER_NOT_FOUND(verify_parameter(
+                                        handle,
+                                        domainName,
+                                        parameterName,
+                                        parameterValue,
+                                        parameterLength));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 void
-TestParameterWriteAccessRight_ok(OS_ConfigServiceHandle_t* handle,
+test_ParameterWriteAccessRight_pos(OS_ConfigServiceHandle_t* handle,
                                  const char* domainName,
                                  const char* componentName,
                                  const char* parameterName,
                                  const void* parameterValue,
                                  size_t parameterSize)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = set_parameter(handle,
-                        domainName,
-                        parameterName,
-                        parameterValue,
-                        parameterSize);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_GENERIC == err, "err %d", err);
+    TEST_START(handleKind, componentName);
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_GENERIC(set_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue,
+                    parameterSize));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }

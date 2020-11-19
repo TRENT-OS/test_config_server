@@ -4,73 +4,55 @@
 
 #include "test_parameter_get_functions.h"
 
+#include "util/TestMacros.h"
+
 // -----------------------------------------------------------------------------
 void
-TestGetInteger32FromFsBackend_ok(
+test_GetInteger32FromFsBackend_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
     const char* parameterName,
     const uint32_t parameterValue)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = verify_integer32_parameter(handle,
-                                     domainName,
-                                     parameterName,
-                                     parameterValue);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(verify_integer32_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 void
-TestGetInteger64FromFsBackend_ok(
+test_GetInteger64FromFsBackend_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
     const char* parameterName,
     const uint64_t parameterValue)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = verify_integer64_parameter(handle,
-                                  domainName,
-                                  parameterName,
-                                  parameterValue);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(verify_integer64_parameter(
+                        handle,
+                        domainName,
+                        parameterName,
+                        parameterValue));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 void
-TestGetStringsFromFsBackend_ok(
+test_GetStringsFromFsBackend_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
@@ -78,34 +60,23 @@ TestGetStringsFromFsBackend_ok(
     const char* parameterValue,
     size_t parameterLength)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = verify_string_parameter(handle,
-                                  domainName,
-                                  parameterName,
-                                  parameterValue,
-                                  parameterLength);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(verify_string_parameter(
+                        handle,
+                        domainName,
+                        parameterName,
+                        parameterValue,
+                        parameterLength));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
-
 void
-TestGetBlobsFromFsBackend_ok(
+test_GetBlobsFromFsBackend_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
@@ -113,120 +84,117 @@ TestGetBlobsFromFsBackend_ok(
     const char* parameterValue,
     size_t parameterLength)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = verify_blob_parameter(handle,
-                                domainName,
-                                parameterName,
-                                parameterValue,
-                                parameterLength);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(verify_blob_parameter(
+                        handle,
+                        domainName,
+                        parameterName,
+                        parameterValue,
+                        parameterLength));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 void
-TestParameterGetValue_fail_no_server_init(
+test_ParameterGetValue_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_Parameter_t dummy;
     char buffer;
     size_t read;
 
-    OS_Error_t err = OS_ConfigService_parameterGetValue(
+    TEST_INVAL_STATE(OS_ConfigService_parameterGetValue(
                         *handle,
                         &dummy,
                         &buffer,
                         sizeof(buffer),
-                        &read);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        &read));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterGetValueAsU32_fail_no_server_init(
+test_ParameterGetValueAsU32_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_Parameter_t dummy;
     uint32_t value;
 
-    OS_Error_t err = OS_ConfigService_parameterGetValueAsU32(
+    TEST_INVAL_STATE(OS_ConfigService_parameterGetValueAsU32(
                         *handle,
                         &dummy,
-                        &value);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        &value));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterGetValueAsU64_fail_no_server_init(
+test_ParameterGetValueAsU64_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_Parameter_t dummy;
     uint64_t value;
 
-    OS_Error_t err = OS_ConfigService_parameterGetValueAsU64(
+    TEST_INVAL_STATE(OS_ConfigService_parameterGetValueAsU64(
                         *handle,
                         &dummy,
-                        &value);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        &value));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterGetValueAsString_fail_no_server_init(
+test_ParameterGetValueAsString_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_Parameter_t dummy;
     char buffer;
 
-    OS_Error_t err = OS_ConfigService_parameterGetValueAsString(
+    TEST_INVAL_STATE(OS_ConfigService_parameterGetValueAsString(
                         *handle,
                         &dummy,
                         &buffer,
-                        sizeof(buffer));
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        sizeof(buffer)));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterGetValueAsBlob_fail_no_server_init(
+test_ParameterGetValueAsBlob_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_Parameter_t dummy;
     char buffer;
 
-    OS_Error_t err = OS_ConfigService_parameterGetValueAsBlob(
+    TEST_INVAL_STATE(OS_ConfigService_parameterGetValueAsBlob(
                         *handle,
                         &dummy,
                         &buffer,
-                        sizeof(buffer));
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        sizeof(buffer)));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterGetValueFromDomainName_fail_no_server_init(
+test_ParameterGetValueFromDomainName_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_ParameterType_t parameterType =
         OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
     OS_ConfigServiceLibTypes_DomainName_t domainName;
@@ -234,15 +202,14 @@ TestParameterGetValueFromDomainName_fail_no_server_init(
     char buffer;
     size_t read;
 
-    OS_Error_t err = OS_ConfigService_parameterGetValueFromDomainName(
+    TEST_INVAL_STATE(OS_ConfigService_parameterGetValueFromDomainName(
                         *handle,
                         &domainName,
                         &parameterName,
                         parameterType,
                         &buffer,
                         sizeof(buffer),
-                        &read);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        &read));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }

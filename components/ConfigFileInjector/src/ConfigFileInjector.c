@@ -14,6 +14,8 @@
 
 #include "LibDebug/Debug.h"
 
+#include "util/TestMacros.h"
+
 #include "OS_ConfigService.h"
 
 #include "create_fs_backend.h"
@@ -35,8 +37,10 @@ static OS_FileSystem_Config_t cfg =
 };
 
 static bool
-TestCreateFSBackend(void)
+test_CreateFSBackend_pos(void)
 {
+    TEST_START();
+
     OS_Error_t err;
     OS_FileSystem_Handle_t hFs;
 
@@ -118,7 +122,7 @@ TestCreateFSBackend(void)
         return false;
     }
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 
     return true;
 }
@@ -127,7 +131,7 @@ void pre_init(void)
 {
     Debug_LOG_INFO("Starting ConfigFileInjector...");
     // Create the fs backend
-    if (!TestCreateFSBackend())
+    if (!test_CreateFSBackend_pos())
     {
         Debug_LOG_ERROR("Failed to create filesystem backend!");
     }

@@ -4,85 +4,67 @@
 
 #include "test_parameter_set_functions.h"
 
+#include "util/TestMacros.h"
+
 // -----------------------------------------------------------------------------
 void
-TestParameterSetValueAsU32_ok(
+test_ParameterSetValueAsU32_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
     const char* parameterName,
     const uint32_t parameterValue)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = set_integer32_parameter(handle,
-                                  domainName,
-                                  parameterName,
-                                  parameterValue);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    err = verify_integer32_parameter(handle,
-                                     domainName,
-                                     parameterName,
-                                     parameterValue);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(set_integer32_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue));
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(verify_integer32_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 void
-TestParameterSetValueAsU64_ok(
+test_ParameterSetValueAsU64_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
     const char* parameterName,
     const uint64_t parameterValue)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = set_integer64_parameter(handle,
-                                  domainName,
-                                  parameterName,
-                                  parameterValue);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    err = verify_integer64_parameter(handle,
-                                     domainName,
-                                     parameterName,
-                                     parameterValue);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(set_integer64_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue));
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(verify_integer64_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 void
-TestParameterSetValueAsString_ok(
+test_ParameterSetValueAsString_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
@@ -90,41 +72,31 @@ TestParameterSetValueAsString_ok(
     const char* parameterValue,
     size_t parameterSize)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = set_string_parameter(handle,
-                               domainName,
-                               parameterName,
-                               parameterValue,
-                               parameterSize);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    err = verify_string_parameter(handle,
-                                  domainName,
-                                  parameterName,
-                                  parameterValue,
-                                  parameterSize);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(set_string_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue,
+                    parameterSize));
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(set_string_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue,
+                    parameterSize));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 
 void
-TestParameterSetValueAsBlob_ok(
+test_ParameterSetValueAsBlob_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
@@ -132,41 +104,31 @@ TestParameterSetValueAsBlob_ok(
     const char* parameterValue,
     size_t parameterSize)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = set_blob_parameter(handle,
-                             domainName,
-                             parameterName,
-                             parameterValue,
-                             parameterSize);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    err = verify_blob_parameter(handle,
-                                domainName,
-                                parameterName,
-                                parameterValue,
-                                parameterSize);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(set_blob_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue,
+                    parameterSize));
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(set_blob_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue,
+                    parameterSize));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 
 void
-TestParameterSetValue_ok(
+test_ParameterSetValue_pos(
     OS_ConfigServiceHandle_t* handle,
     const char* domainName,
     const char* componentName,
@@ -174,124 +136,119 @@ TestParameterSetValue_ok(
     const void* parameterValue,
     size_t parameterSize)
 {
-    OS_Error_t err;
+    OS_ConfigServiceHandle_HandleKind_t handleKind =
+        OS_ConfigServiceHandle_getHandleKind(*handle);
 
-    err = set_parameter(handle,
-                        domainName,
-                        parameterName,
-                        parameterValue,
-                        parameterSize);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_START(handleKind, componentName, parameterName);
 
-    err = verify_parameter(handle,
-                           domainName,
-                           parameterName,
-                           parameterValue,
-                           parameterSize);
-    Debug_ASSERT_PRINTFLN(OS_SUCCESS == err, "err %d", err);
+    TEST_SUCCESS(set_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue,
+                    parameterSize));
 
-    char handleKind[15];
-    if (OS_CONFIG_HANDLE_KIND_RPC == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Rpc");
-    }
+    TEST_SUCCESS(verify_parameter(
+                    handle,
+                    domainName,
+                    parameterName,
+                    parameterValue,
+                    parameterSize));
 
-    else if (OS_CONFIG_HANDLE_KIND_LOCAL == OS_ConfigServiceHandle_getHandleKind(
-            *handle))
-    {
-        initializeName(handleKind, sizeof(handleKind), "Local");
-    }
-
-    Debug_LOG_INFO("->%s: %s HandleKind:%s Parameter:%s OK\n", __func__, componentName, handleKind, parameterName);
+    TEST_FINISH();
 }
 
 void
-TestParameterSetValue_fail_no_server_init(
+test_ParameterSetValue_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
     OS_ConfigServiceLibTypes_ParameterType_t parameterType =
         OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
     char buffer;
 
-    OS_Error_t err = OS_ConfigService_parameterSetValue(
+    TEST_INVAL_STATE(OS_ConfigService_parameterSetValue(
                         *handle,
                         &enumerator,
                         parameterType,
                         &buffer,
-                        sizeof(buffer));
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        sizeof(buffer)));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterSetValueAsU32_fail_no_server_init(
+test_ParameterSetValueAsU32_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
 
-    OS_Error_t err = OS_ConfigService_parameterSetValueAsU32(
+    TEST_INVAL_STATE(OS_ConfigService_parameterSetValueAsU32(
                         *handle,
                         &enumerator,
-                        0);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        0));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterSetValueAsU64_fail_no_server_init(
+test_ParameterSetValueAsU64_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
 
-    OS_Error_t err = OS_ConfigService_parameterSetValueAsU64(
+    TEST_INVAL_STATE(OS_ConfigService_parameterSetValueAsU64(
                         *handle,
                         &enumerator,
-                        0);
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        0));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterSetValueAsString_fail_no_server_init(
+test_ParameterSetValueAsString_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+    TEST_START();
+
     OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
     OS_ConfigServiceLibTypes_ParameterType_t parameterType =
         OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
     char buffer;
 
-    OS_Error_t err = OS_ConfigService_parameterSetValueAsString(
+    TEST_INVAL_STATE(OS_ConfigService_parameterSetValueAsString(
                         *handle,
                         &enumerator,
                         parameterType,
                         &buffer,
-                        sizeof(buffer));
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        sizeof(buffer)));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }
 
 void
-TestParameterSetValueAsBlob_fail_no_server_init(
+test_ParameterSetValueAsBlob_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle)
 {
+   TEST_START();
+
    OS_ConfigServiceLibTypes_ParameterEnumerator_t enumerator;
     OS_ConfigServiceLibTypes_ParameterType_t parameterType =
         OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
     char buffer;
 
-    OS_Error_t err = OS_ConfigService_parameterSetValueAsBlob(
+    TEST_INVAL_STATE(OS_ConfigService_parameterSetValueAsBlob(
                         *handle,
                         &enumerator,
                         parameterType,
                         &buffer,
-                        sizeof(buffer));
-    Debug_ASSERT_PRINTFLN(OS_ERROR_INVALID_STATE == err, "err %d", err);
+                        sizeof(buffer)));
 
-    Debug_LOG_INFO("->%s: OK\n", __func__);
+    TEST_FINISH();
 }

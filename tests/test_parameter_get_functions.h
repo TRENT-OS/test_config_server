@@ -12,65 +12,76 @@
 
 
 // -----------------------------------------------------------------------------
-void TestGetInteger32FromFsBackend_ok(OS_ConfigServiceHandle_t* handle,
-                                      const char* domainName,
-                                      const char* componentName,
-                                      const char* parameterName,
-                                      const uint32_t parameterValue);
+void test_GetInteger32FromFsBackend_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const uint32_t parameterValue);
 
-void TestGetInteger64FromFsBackend_ok(OS_ConfigServiceHandle_t* handle,
-                                      const char* domainName,
-                                      const char* componentName,
-                                      const char* parameterName,
-                                      const uint64_t parameterValue);
+void test_GetInteger64FromFsBackend_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const uint64_t parameterValue);
 
-void TestGetStringsFromFsBackend_ok(OS_ConfigServiceHandle_t* handle,
-                                    const char* domainName,
-                                    const char* componentName,
-                                    const char* parameterName,
-                                    const char* parameterValue,
-                                    size_t parameterLength);
+void test_GetStringsFromFsBackend_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const char* parameterValue,
+    size_t parameterLength);
 
-void TestGetBlobsFromFsBackend_ok(OS_ConfigServiceHandle_t* handle,
-                                  const char* domainName,
-                                  const char* componentName,
-                                  const char* parameterName,
-                                  const char* parameterValue,
-                                  size_t parameterLength);
+void test_GetBlobsFromFsBackend_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const char* parameterValue,
+    size_t parameterLength);
 
 void
-TestParameterGetValue_fail_no_server_init(
+test_ParameterGetValue_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterGetValue_fail_no_server_init(
+test_ParameterGetValueAsU32_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterGetValueAsU32_fail_no_server_init(
+test_ParameterGetValueAsU64_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterGetValueAsU64_fail_no_server_init(
+test_ParameterGetValueAsString_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterGetValueAsString_fail_no_server_init(
+test_ParameterGetValueAsBlob_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterGetValueAsBlob_fail_no_server_init(
+test_ParameterGetValueFromDomainName_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterGetValueFromDomainName_fail_no_server_init(
+test_ParameterSetValue_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterSetValue_fail_no_server_init(
+test_ParameterSetValueAsU32_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterSetValueAsU32_fail_no_server_init(
+test_ParameterSetValueAsU64_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterSetValueAsU64_fail_no_server_init(
+test_ParameterSetValueAsString_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
+
 void
-TestParameterSetValueAsString_fail_no_server_init(
-    OS_ConfigServiceHandle_t* handle);
-void
-TestParameterSetValueAsBlob_fail_no_server_init(
+test_ParameterSetValueAsBlob_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);

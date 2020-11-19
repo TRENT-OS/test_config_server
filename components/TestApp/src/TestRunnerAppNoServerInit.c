@@ -45,30 +45,30 @@ run(void)
 
     Debug_LOG_DEBUG("%s: Starting test of not initialized ConfigServer...\n", TEST_APP);
 
-    TestDomainEnumerator_init_fail_no_server_init(&remoteHandle);
-    TestDomainEnumerator_close_fail_no_server_init(&remoteHandle);
-    TestDomainEnumerator_reset_fail_no_server_init(&remoteHandle);
-    TestDomainEnumerator_increment_fail_no_server_init(&remoteHandle);
-    TestDomainEnumerator_getElement_fail_no_server_init(&remoteHandle);
+    test_DomainEnumerator_init_no_server_init_neg(&remoteHandle);
+    test_DomainEnumerator_close_no_server_init_neg(&remoteHandle);
+    test_DomainEnumerator_reset_no_server_init_neg(&remoteHandle);
+    test_DomainEnumerator_increment_no_server_init_neg(&remoteHandle);
+    test_DomainEnumerator_getElement_no_server_init_neg(&remoteHandle);
 
-    TestParameterEnumerator_init_fail_no_server_init(&remoteHandle);
-    TestParameterEnumerator_close_fail_no_server_init(&remoteHandle);
-    TestParameterEnumerator_reset_fail_no_server_init(&remoteHandle);
-    TestParameterEnumerator_increment_fail_no_server_init(&remoteHandle);
-    TestParameterEnumerator_getElement_fail_no_server_init(&remoteHandle);
+    test_ParameterEnumerator_init_no_server_init_neg(&remoteHandle);
+    test_ParameterEnumerator_close_no_server_init_neg(&remoteHandle);
+    test_ParameterEnumerator_reset_no_server_init_neg(&remoteHandle);
+    test_ParameterEnumerator_increment_no_server_init_neg(&remoteHandle);
+    test_ParameterEnumerator_getElement_no_server_init_neg(&remoteHandle);
 
-    TestParameterGetValue_fail_no_server_init(&remoteHandle);
-    TestParameterGetValueAsU32_fail_no_server_init(&remoteHandle);
-    TestParameterGetValueAsU64_fail_no_server_init(&remoteHandle);
-    TestParameterGetValueAsString_fail_no_server_init(&remoteHandle);
-    TestParameterGetValueAsBlob_fail_no_server_init(&remoteHandle);
-    TestParameterGetValueFromDomainName_fail_no_server_init(&remoteHandle);
+    test_ParameterGetValue_no_server_init_neg(&remoteHandle);
+    test_ParameterGetValueAsU32_no_server_init_neg(&remoteHandle);
+    test_ParameterGetValueAsU64_no_server_init_neg(&remoteHandle);
+    test_ParameterGetValueAsString_no_server_init_neg(&remoteHandle);
+    test_ParameterGetValueAsBlob_no_server_init_neg(&remoteHandle);
+    test_ParameterGetValueFromDomainName_no_server_init_neg(&remoteHandle);
 
-    TestParameterSetValue_fail_no_server_init(&remoteHandle);
-    TestParameterSetValueAsU32_fail_no_server_init(&remoteHandle);
-    TestParameterSetValueAsU64_fail_no_server_init(&remoteHandle);
-    TestParameterSetValueAsString_fail_no_server_init(&remoteHandle);
-    TestParameterSetValueAsBlob_fail_no_server_init(&remoteHandle);
+    test_ParameterSetValue_no_server_init_neg(&remoteHandle);
+    test_ParameterSetValueAsU32_no_server_init_neg(&remoteHandle);
+    test_ParameterSetValueAsU64_no_server_init_neg(&remoteHandle);
+    test_ParameterSetValueAsString_no_server_init_neg(&remoteHandle);
+    test_ParameterSetValueAsBlob_no_server_init_neg(&remoteHandle);
 
     Debug_LOG_DEBUG("%s: All tests completed.\n", TEST_APP);
     return 0;

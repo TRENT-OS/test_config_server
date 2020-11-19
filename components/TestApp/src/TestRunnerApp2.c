@@ -47,48 +47,52 @@ run(void)
     {
         .dataport = OS_DATAPORT_ASSIGN(cfg_dataport_buf)
     };
-    err = OS_ConfigService_createHandleRemote(
-              &ctx,
-              &remoteHandle);
-    Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
+
+    if ((err = OS_ConfigService_createHandleRemote(
+                   &ctx,
+                   &remoteHandle)) != OS_SUCCESS)
+    {
+        Debug_LOG_ERROR("OS_ConfigService_createHandleRemote() failed with %d", err);
+        return -1;
+    }
 
     Debug_LOG_DEBUG("%s: Starting multiclient test of ConfigServer...\n", TEST_APP);
     //Test get parameter functions in multiclient environment
-    TestGetInteger32FromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger32FromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                      APP2_PARAMETER_32_NAME_0, APP2_PARAMETER_32_VALUE_0);
     sync_with_other_apps();
-    TestGetInteger64FromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetInteger64FromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                      APP2_PARAMETER_64_NAME_0, APP2_PARAMETER_64_VALUE_0);
     sync_with_other_apps();
-    TestGetStringsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetStringsFromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                    APP2_PARAMETER_STRING_NAME_0, APP2_PARAMETER_STRING_VALUE_0,
                                    sizeof(APP2_PARAMETER_STRING_VALUE_0));
     sync_with_other_apps();
-    TestGetBlobsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetBlobsFromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                  APP2_PARAMETER_BLOB_NAME_0, APP2_PARAMETER_BLOB_VALUE_0,
                                  sizeof(APP2_PARAMETER_BLOB_VALUE_0));
     sync_with_other_apps();
-    TestGetBlobsFromFsBackend_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_GetBlobsFromFsBackend_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                  APP2_PARAMETER_BLOB_NAME_3, APP2_PARAMETER_BLOB_VALUE_3,
                                  sizeof(APP2_PARAMETER_BLOB_VALUE_3));
     sync_with_other_apps();
 
     //Test set parameter functions in multiclient environment
-    TestParameterSetValueAsU32_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU32_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                   APP2_PARAMETER_32_NAME_0, APP2_PARAMETER_32_VALUE_0_NEW);
     sync_with_other_apps();
-    TestParameterSetValueAsU64_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsU64_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                   APP2_PARAMETER_64_NAME_0, APP2_PARAMETER_64_VALUE_0_NEW);
     sync_with_other_apps();
-    TestParameterSetValueAsString_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsString_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                      APP2_PARAMETER_STRING_NAME_0, APP2_PARAMETER_STRING_VALUE_0_NEW,
                                      sizeof(APP2_PARAMETER_STRING_VALUE_0_NEW));
     sync_with_other_apps();
-    TestParameterSetValueAsBlob_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                    APP2_PARAMETER_BLOB_NAME_0, APP2_PARAMETER_BLOB_VALUE_0_NEW,
                                    sizeof(APP2_PARAMETER_BLOB_VALUE_0_NEW));
     sync_with_other_apps();
-    TestParameterSetValueAsBlob_ok(&remoteHandle, DOMAIN_APP, TEST_APP,
+    test_ParameterSetValueAsBlob_pos(&remoteHandle, DOMAIN_APP, TEST_APP,
                                    APP2_PARAMETER_BLOB_NAME_3, APP2_PARAMETER_BLOB_VALUE_3_NEW,
                                    sizeof(APP2_PARAMETER_BLOB_VALUE_3_NEW));
     sync_with_other_apps();

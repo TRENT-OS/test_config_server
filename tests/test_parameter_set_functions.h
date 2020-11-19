@@ -12,35 +12,40 @@
 
 
 // -----------------------------------------------------------------------------
-void TestParameterSetValueAsU32_ok(OS_ConfigServiceHandle_t* handle,
-                                   const char* domainName,
-                                   const char* componentName,
-                                   const char* parameterName,
-                                   const uint32_t parameterValue);
+void test_ParameterSetValueAsU32_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const uint32_t parameterValue);
 
-void TestParameterSetValueAsU64_ok(OS_ConfigServiceHandle_t* handle,
-                                   const char* domainName,
-                                   const char* componentName,
-                                   const char* parameterName,
-                                   const uint64_t parameterValue);
+void test_ParameterSetValueAsU64_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const uint64_t parameterValue);
 
-void TestParameterSetValueAsString_ok(OS_ConfigServiceHandle_t* handle,
-                                      const char* domainName,
-                                      const char* componentName,
-                                      const char* parameterName,
-                                      const char* parameterValue,
-                                      size_t parameterSize);
+void test_ParameterSetValueAsString_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const char* parameterValue,
+    size_t parameterSize);
 
-void TestParameterSetValueAsBlob_ok(OS_ConfigServiceHandle_t* handle,
-                                    const char* domainName,
-                                    const char* componentName,
-                                    const char* parameterName,
-                                    const char* parameterValue,
-                                    size_t parameterSize);
+void test_ParameterSetValueAsBlob_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const char* parameterValue,
+    size_t parameterSize);
 
-void TestParameterSetValue_ok(OS_ConfigServiceHandle_t* handle,
-                              const char* domainName,
-                              const char* componentName,
-                              const char* parameterName,
-                              const void* parameterValue,
-                              size_t parameterSize);
+void test_ParameterSetValue_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* domainName,
+    const char* componentName,
+    const char* parameterName,
+    const void* parameterValue,
+    size_t parameterSize);

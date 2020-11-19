@@ -12,26 +12,28 @@
 
 
 // -----------------------------------------------------------------------------
-void TestDomainEnumerator_increment_ok(OS_ConfigServiceHandle_t* handle,
-                                       const char* componentName,
-                                       unsigned int maxDomainIndex);
+void test_DomainEnumerator_increment_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* componentName,
+    unsigned int maxDomainIndex);
 
-void TestDomainEnumerator_reset_ok(OS_ConfigServiceHandle_t* handle,
-                                   const char* componentName,
-                                   unsigned int maxDomainIndex);
+void test_DomainEnumerator_reset_pos(
+    OS_ConfigServiceHandle_t* handle,
+    const char* componentName,
+    unsigned int maxDomainIndex);
 
 void
-TestDomainEnumerator_init_fail_no_server_init(
+test_DomainEnumerator_init_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
 void
-TestDomainEnumerator_close_fail_no_server_init(
+test_DomainEnumerator_close_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
 void
-TestDomainEnumerator_reset_fail_no_server_init(
+test_DomainEnumerator_reset_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
 void
-TestDomainEnumerator_increment_fail_no_server_init(
+test_DomainEnumerator_increment_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
 void
-TestDomainEnumerator_getElement_fail_no_server_init(
+test_DomainEnumerator_getElement_no_server_init_neg(
     OS_ConfigServiceHandle_t* handle);
