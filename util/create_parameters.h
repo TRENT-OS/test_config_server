@@ -8,4 +8,6 @@
 #include "OS_ConfigService.h"
 
 OS_Error_t
-initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* domainName);
+initializeDomainsAndParameters(
+    OS_ConfigServiceLib_t* configLib,
+    char const* domainName);

@@ -49,9 +49,9 @@ find_domain(
     for (;;)
     {
         ret = OS_ConfigService_domainEnumeratorGetElement(
-                    handle,
-                    enumerator,
-                    domain);
+                  handle,
+                  enumerator,
+                  domain);
         if (0 != ret)
         {
             Debug_LOG_ERROR("OS_ConfigService_domainEnumeratorGetElement() failed, ret %d",
@@ -104,17 +104,26 @@ get_parameter_enumerator(
         return OS_ERROR_CONFIG_DOMAIN_NOT_FOUND;
     }
 
-    ret = OS_ConfigService_domainEnumeratorGetElement(handle, &domainEnumerator, &domain);
+    ret = OS_ConfigService_domainEnumeratorGetElement(
+              handle,
+              &domainEnumerator,
+              &domain);
     if (OS_SUCCESS != ret)
     {
-        Debug_LOG_ERROR("OS_ConfigServiceLibTypes_DomainEnumerator_tGetElement() failed, ret %d", ret);
+        Debug_LOG_ERROR("OS_ConfigServiceLibTypes_DomainEnumerator_tGetElement() failed, ret %d",
+                        ret);
         return OS_ERROR_GENERIC;
     }
 
-    ret = OS_ConfigService_domainCreateParameterEnumerator(handle, &domain, &parameterName, parameterEnumerator);
+    ret = OS_ConfigService_domainCreateParameterEnumerator(
+              handle,
+              &domain,
+              &parameterName,
+              parameterEnumerator);
     if (OS_SUCCESS != ret)
     {
-        Debug_LOG_ERROR("OS_ConfigServiceLibTypes_Domain_tCreateParameterEnumerator() failed, ret %d", ret);
+        Debug_LOG_ERROR("OS_ConfigServiceLibTypes_Domain_tCreateParameterEnumerator() failed, ret %d",
+                        ret);
         return OS_ERROR_GENERIC;
     }
 
@@ -146,7 +155,8 @@ get_parameter_element(
         return OS_ERROR_CONFIG_DOMAIN_NOT_FOUND;
     }
 
-    ret = OS_ConfigService_domainGetElement(handle, &domain, parameterName, parameter);
+    ret = OS_ConfigService_domainGetElement(handle, &domain, parameterName,
+                                            parameter);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("domainGetElement() failed, ret %d", ret);
@@ -178,10 +188,12 @@ initializeParameterName(
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
-                                      const char* DomainName,
-                                      const char* ParameterName,
-                                      const uint32_t IntegerValue)
+OS_Error_t
+verify_integer32_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const uint32_t IntegerValue)
 {
     OS_Error_t ret;
     size_t bytesCopied;
@@ -191,7 +203,13 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceHandle_t configHandle = *handle;
     uint32_t valueInteger32;
 
-    ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
+    ret = get_parameter_element(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &domainName,
+              &parameterName,
+              &parameter);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
@@ -213,7 +231,10 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
         return OS_ERROR_CONFIG_TYPE_MISMATCH;
     }
 
-    ret = OS_ConfigService_parameterGetValueAsU32(configHandle, &parameter, &valueInteger32);
+    ret = OS_ConfigService_parameterGetValueAsU32(
+              configHandle,
+              &parameter,
+              &valueInteger32);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueAsU32() failed, ret %d", ret);
@@ -229,13 +250,13 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
     valueInteger32 = 0;
 
     ret = OS_ConfigService_parameterGetValueFromDomainName(
-                                                configHandle,
-                                                &domainName,
-                                                &parameterName,
-                                                OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32,
-                                                &valueInteger32,
-                                                sizeof(valueInteger32),
-                                                &bytesCopied);
+              configHandle,
+              &domainName,
+              &parameterName,
+              OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32,
+              &valueInteger32,
+              sizeof(valueInteger32),
+              &bytesCopied);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
@@ -252,10 +273,12 @@ OS_Error_t verify_integer32_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
-                                      const char* DomainName,
-                                      const char* ParameterName,
-                                      const uint64_t IntegerValue)
+OS_Error_t
+verify_integer64_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const uint64_t IntegerValue)
 {
     OS_Error_t ret;
     size_t bytesCopied;
@@ -265,7 +288,13 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceHandle_t configHandle = *handle;
     uint64_t valueInteger64;
 
-    ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
+    ret = get_parameter_element(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &domainName,
+              &parameterName,
+              &parameter);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
@@ -287,7 +316,10 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
         return OS_ERROR_CONFIG_TYPE_MISMATCH;
     }
 
-    ret = OS_ConfigService_parameterGetValueAsU64(configHandle, &parameter, &valueInteger64);
+    ret = OS_ConfigService_parameterGetValueAsU64(
+              configHandle,
+              &parameter,
+              &valueInteger64);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
@@ -303,13 +335,13 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
     valueInteger64 = 0;
 
     ret = OS_ConfigService_parameterGetValueFromDomainName(
-                                                configHandle,
-                                                &domainName,
-                                                &parameterName,
-                                                OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64,
-                                                &valueInteger64,
-                                                sizeof(valueInteger64),
-                                                &bytesCopied);
+              configHandle,
+              &domainName,
+              &parameterName,
+              OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64,
+              &valueInteger64,
+              sizeof(valueInteger64),
+              &bytesCopied);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
@@ -325,11 +357,13 @@ OS_Error_t verify_integer64_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
-                                   const char* DomainName,
-                                   const char* ParameterName,
-                                   const char* StringValue,
-                                   size_t parameterLength)
+OS_Error_t
+verify_string_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const char* StringValue,
+    size_t parameterLength)
 {
     OS_Error_t ret;
     size_t bytesCopied;
@@ -339,7 +373,13 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
     char configString[OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH];
     OS_ConfigServiceHandle_t configHandle = *handle;
 
-    ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
+    ret = get_parameter_element(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &domainName,
+              &parameterName,
+              &parameter);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
@@ -349,7 +389,8 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
     size_t parameterSize = OS_ConfigService_parameterGetSize(&parameter);
     if (parameterSize != parameterLength)
     {
-        Debug_LOG_ERROR("retrieved string size does not match expected size for parameter %s", ParameterName);
+        Debug_LOG_ERROR("retrieved string size does not match expected size for parameter %s",
+                        ParameterName);
         return OS_ERROR_GENERIC;
     }
 
@@ -361,10 +402,11 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
         return OS_ERROR_CONFIG_TYPE_MISMATCH;
     }
 
-    ret = OS_ConfigService_parameterGetValueAsString(configHandle,
-                                                       &parameter,
-                                                       configString,
-                                                       sizeof(configString));
+    ret = OS_ConfigService_parameterGetValueAsString(
+              configHandle,
+              &parameter,
+              configString,
+              sizeof(configString));
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueAsString() failed, ret %d", ret);
@@ -378,16 +420,16 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
         return ret;
     }
 
-    memset(configString,0,sizeof(configString));
+    memset(configString, 0, sizeof(configString));
 
     ret = OS_ConfigService_parameterGetValueFromDomainName(
-                                                configHandle,
-                                                &domainName,
-                                                &parameterName,
-                                                OS_CONFIG_LIB_PARAMETER_TYPE_STRING,
-                                                configString,
-                                                sizeof(configString),
-                                                &bytesCopied);
+              configHandle,
+              &domainName,
+              &parameterName,
+              OS_CONFIG_LIB_PARAMETER_TYPE_STRING,
+              configString,
+              sizeof(configString),
+              &bytesCopied);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
@@ -405,11 +447,13 @@ OS_Error_t verify_string_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
-                                 const char* DomainName,
-                                 const char* ParameterName,
-                                 const char* BlobValue,
-                                 size_t parameterLength)
+OS_Error_t
+verify_blob_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const char* BlobValue,
+    size_t parameterLength)
 {
     OS_Error_t ret;
     size_t bytesCopied;
@@ -419,7 +463,13 @@ OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
     char configBlob[parameterLength];
     OS_ConfigServiceHandle_t configHandle = *handle;
 
-    ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
+    ret = get_parameter_element(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &domainName,
+              &parameterName,
+              &parameter);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
@@ -441,10 +491,11 @@ OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
         return OS_ERROR_CONFIG_TYPE_MISMATCH;
     }
 
-    ret = OS_ConfigService_parameterGetValueAsBlob(configHandle,
-                                                       &parameter,
-                                                       configBlob,
-                                                       sizeof(configBlob));
+    ret = OS_ConfigService_parameterGetValueAsBlob(
+              configHandle,
+              &parameter,
+              configBlob,
+              sizeof(configBlob));
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueAsBlob() failed, ret %d", ret);
@@ -458,16 +509,16 @@ OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
         return ret;
     }
 
-    memset(configBlob,0,sizeof(configBlob));
+    memset(configBlob, 0, sizeof(configBlob));
 
     ret = OS_ConfigService_parameterGetValueFromDomainName(
-                                                configHandle,
-                                                &domainName,
-                                                &parameterName,
-                                                OS_CONFIG_LIB_PARAMETER_TYPE_BLOB,
-                                                configBlob,
-                                                sizeof(configBlob),
-                                                &bytesCopied);
+              configHandle,
+              &domainName,
+              &parameterName,
+              OS_CONFIG_LIB_PARAMETER_TYPE_BLOB,
+              configBlob,
+              sizeof(configBlob),
+              &bytesCopied);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
@@ -485,11 +536,13 @@ OS_Error_t verify_blob_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
-                            const char* DomainName,
-                            const char* ParameterName,
-                            const char* parameterValue,
-                            size_t parameterLength)
+OS_Error_t
+verify_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const char* parameterValue,
+    size_t parameterLength)
 {
     OS_Error_t ret;
     size_t bytesCopied;
@@ -499,7 +552,13 @@ OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
     char configBlob[parameterLength];
     OS_ConfigServiceHandle_t configHandle = *handle;
 
-    ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
+    ret = get_parameter_element(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &domainName,
+              &parameterName,
+              &parameter);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
@@ -516,11 +575,12 @@ OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceLibTypes_ParameterType_t parameterType;
     OS_ConfigService_parameterGetType(&parameter, &parameterType);
 
-    ret = OS_ConfigService_parameterGetValue(configHandle,
-                                               &parameter,
-                                               configBlob,
-                                               sizeof(configBlob),
-                                               &bytesCopied);
+    ret = OS_ConfigService_parameterGetValue(
+              configHandle,
+              &parameter,
+              configBlob,
+              sizeof(configBlob),
+              &bytesCopied);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValue() failed, ret %d", ret);
@@ -535,13 +595,13 @@ OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
     }
 
     ret = OS_ConfigService_parameterGetValueFromDomainName(
-                                                configHandle,
-                                                &domainName,
-                                                &parameterName,
-                                                parameterType,
-                                                configBlob,
-                                                sizeof(configBlob),
-                                                &bytesCopied);
+              configHandle,
+              &domainName,
+              &parameterName,
+              parameterType,
+              configBlob,
+              sizeof(configBlob),
+              &bytesCopied);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("parameterGetValueFromDomainName() failed, ret %d", ret);
@@ -559,29 +619,33 @@ OS_Error_t verify_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t set_integer32_parameter(OS_ConfigServiceHandle_t* handle,
-                                   const char* DomainName,
-                                   const char* ParameterName,
-                                   const uint32_t IntegerValue)
+OS_Error_t
+set_integer32_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const uint32_t IntegerValue)
 {
     OS_Error_t ret;
 
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = {0};
 
-    ret = get_parameter_enumerator(configHandle,
-                                   DomainName,
-                                   ParameterName,
-                                   &parameterEnumerator);
+    ret = get_parameter_enumerator(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &parameterEnumerator);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
         return OS_ERROR_GENERIC;
     }
 
-    ret = OS_ConfigService_parameterSetValueAsU32(configHandle,
-                                                    &parameterEnumerator,
-                                                    IntegerValue);
+    ret = OS_ConfigService_parameterSetValueAsU32(
+              configHandle,
+              &parameterEnumerator,
+              IntegerValue);
     if (ret < 0)
     {
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
@@ -594,29 +658,33 @@ OS_Error_t set_integer32_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t set_integer64_parameter(OS_ConfigServiceHandle_t* handle,
-                                   const char* DomainName,
-                                   const char* ParameterName,
-                                   const uint64_t IntegerValue)
+OS_Error_t
+set_integer64_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const uint64_t IntegerValue)
 {
     OS_Error_t ret;
 
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = {0};
 
-    ret = get_parameter_enumerator(configHandle,
-                                   DomainName,
-                                   ParameterName,
-                                   &parameterEnumerator);
+    ret = get_parameter_enumerator(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &parameterEnumerator);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
         return OS_ERROR_GENERIC;
     }
 
-    ret = OS_ConfigService_parameterSetValueAsU64(configHandle,
-                                                    &parameterEnumerator,
-                                                    IntegerValue);
+    ret = OS_ConfigService_parameterSetValueAsU64(
+              configHandle,
+              &parameterEnumerator,
+              IntegerValue);
     if (ret < 0)
     {
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
@@ -629,32 +697,36 @@ OS_Error_t set_integer64_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t set_string_parameter(OS_ConfigServiceHandle_t* handle,
-                                   const char* DomainName,
-                                   const char* ParameterName,
-                                   const char* StringValue,
-                                   size_t parameterLength)
+OS_Error_t
+set_string_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const char* StringValue,
+    size_t parameterLength)
 {
     OS_Error_t ret;
 
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = {0};
 
-    ret = get_parameter_enumerator(configHandle,
-                                   DomainName,
-                                   ParameterName,
-                                   &parameterEnumerator);
+    ret = get_parameter_enumerator(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &parameterEnumerator);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
         return OS_ERROR_GENERIC;
     }
 
-    ret = OS_ConfigService_parameterSetValueAsString(configHandle,
-                                                    &parameterEnumerator,
-                                                    OS_CONFIG_LIB_PARAMETER_TYPE_STRING,
-                                                    StringValue,
-                                                    parameterLength);
+    ret = OS_ConfigService_parameterSetValueAsString(
+              configHandle,
+              &parameterEnumerator,
+              OS_CONFIG_LIB_PARAMETER_TYPE_STRING,
+              StringValue,
+              parameterLength);
     if (ret < 0)
     {
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
@@ -667,32 +739,36 @@ OS_Error_t set_string_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t set_blob_parameter(OS_ConfigServiceHandle_t* handle,
-                                   const char* DomainName,
-                                   const char* ParameterName,
-                                   const char* BlobValue,
-                                   size_t parameterLength)
+OS_Error_t
+set_blob_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const char* BlobValue,
+    size_t parameterLength)
 {
     OS_Error_t ret;
 
     OS_ConfigServiceHandle_t configHandle = *handle;
     OS_ConfigServiceLibTypes_ParameterEnumerator_t parameterEnumerator = {0};
 
-    ret = get_parameter_enumerator(configHandle,
-                                   DomainName,
-                                   ParameterName,
-                                   &parameterEnumerator);
+    ret = get_parameter_enumerator(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &parameterEnumerator);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
         return OS_ERROR_GENERIC;
     }
 
-    ret = OS_ConfigService_parameterSetValueAsBlob(configHandle,
-                                                    &parameterEnumerator,
-                                                    OS_CONFIG_LIB_PARAMETER_TYPE_BLOB,
-                                                    BlobValue,
-                                                    parameterLength);
+    ret = OS_ConfigService_parameterSetValueAsBlob(
+              configHandle,
+              &parameterEnumerator,
+              OS_CONFIG_LIB_PARAMETER_TYPE_BLOB,
+              BlobValue,
+              parameterLength);
     if (ret < 0)
     {
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);
@@ -705,11 +781,13 @@ OS_Error_t set_blob_parameter(OS_ConfigServiceHandle_t* handle,
 }
 
 //------------------------------------------------------------------------------
-OS_Error_t set_parameter(OS_ConfigServiceHandle_t* handle,
-                         const char* DomainName,
-                         const char* ParameterName,
-                         const void* parameterValue,
-                         size_t parameterLength)
+OS_Error_t
+set_parameter(
+    OS_ConfigServiceHandle_t* handle,
+    const char* DomainName,
+    const char* ParameterName,
+    const void* parameterValue,
+    size_t parameterLength)
 {
     OS_Error_t ret;
     OS_ConfigServiceHandle_t configHandle = *handle;
@@ -718,17 +796,24 @@ OS_Error_t set_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceLibTypes_ParameterName_t parameterName;
     OS_ConfigServiceLibTypes_Parameter_t parameter;
 
-    ret = get_parameter_element(configHandle, DomainName, ParameterName, &domainName, &parameterName, &parameter);
+    ret = get_parameter_element(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &domainName,
+              &parameterName,
+              &parameter);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_element() failed, ret %d", ret);
         return ret;
     }
 
-    ret = get_parameter_enumerator(configHandle,
-                                   DomainName,
-                                   ParameterName,
-                                   &parameterEnumerator);
+    ret = get_parameter_enumerator(
+              configHandle,
+              DomainName,
+              ParameterName,
+              &parameterEnumerator);
     if (OS_SUCCESS != ret)
     {
         Debug_LOG_ERROR("get_parameter_enumerator() failed, ret %d", ret);
@@ -738,11 +823,12 @@ OS_Error_t set_parameter(OS_ConfigServiceHandle_t* handle,
     OS_ConfigServiceLibTypes_ParameterType_t parameterType;
     OS_ConfigService_parameterGetType(&parameter, &parameterType);
 
-    ret = OS_ConfigService_parameterSetValue(configHandle,
-                                               &parameterEnumerator,
-                                               parameterType,
-                                               parameterValue,
-                                               parameterLength);
+    ret = OS_ConfigService_parameterSetValue(
+              configHandle,
+              &parameterEnumerator,
+              parameterType,
+              parameterValue,
+              parameterLength);
     if (ret < 0)
     {
         Debug_LOG_ERROR("OS_ConfigService_parameterSetValue() failed, ret %d", ret);

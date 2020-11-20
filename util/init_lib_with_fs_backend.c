@@ -22,7 +22,8 @@ void initializeName(char* buf, size_t bufSize, char const* name)
     strncpy(buf, name, bufSize - 1);
 }
 
-OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
+OS_Error_t
+initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
                                       OS_FileSystem_Handle_t hFs)
 {
     OS_Error_t result = 0;
@@ -35,7 +36,8 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
 
     // Initialize the backends in the config library object.
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
-    result = OS_ConfigServiceBackend_initializeFileBackend(&domainBackend, name, hFs);
+    result = OS_ConfigServiceBackend_initializeFileBackend(&domainBackend, name,
+                                                           hFs);
     Debug_LOG_DEBUG("Domain name: %s", name.buffer);
     if (result != OS_SUCCESS)
     {
@@ -45,7 +47,7 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN,
                    PARAMETER_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&parameterBackend, name,
-                                                     hFs);
+                                                           hFs);
     if (result != OS_SUCCESS)
     {
         return result;
@@ -53,7 +55,8 @@ OS_Error_t initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
     Debug_LOG_DEBUG("Parameter backend initialized.");
 
     initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, STRING_FILE);
-    result = OS_ConfigServiceBackend_initializeFileBackend(&stringBackend, name, hFs);
+    result = OS_ConfigServiceBackend_initializeFileBackend(&stringBackend, name,
+                                                           hFs);
     if (result != OS_SUCCESS)
     {
         return result;
