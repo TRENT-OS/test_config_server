@@ -83,7 +83,7 @@ initializeDomain(OS_ConfigServiceLibTypes_Domain_t* domain, char const* name)
 }
 
 
-int
+OS_Error_t
 initializeDomainsAndParameters(OS_ConfigServiceLib_t* configLib, char const* domainName)
 {
     int result;
