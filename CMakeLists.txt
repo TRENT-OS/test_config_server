@@ -32,7 +32,8 @@ DeclareCAmkESComponent(
         -DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
     LIBS
         system_config
-        os_libs
+        lib_debug
+        lib_macros
         os_core_api
         os_configuration
         os_filesystem
@@ -53,7 +54,7 @@ DeclareCAmkESComponent(
         -DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
     LIBS
         system_config
-        os_libs
+        lib_debug
         os_core_api
         os_configuration
         os_filesystem
@@ -72,7 +73,7 @@ DeclareCAmkESComponent(
         -DOS_CONFIG_SERVICE_BACKEND_FILESYSTEM
     LIBS
         system_config
-        os_libs
+        lib_debug
         os_core_api
         os_configuration
         os_filesystem
@@ -103,7 +104,8 @@ DeclareCAmkESComponent(
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        os_libs
+        lib_debug
+        lib_macros
         os_core_api
         os_configuration
         os_filesystem
@@ -129,7 +131,8 @@ DeclareCAmkESComponent(
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        os_libs
+        lib_debug
+        lib_macros
         os_core_api
         os_configuration
 )
@@ -154,7 +157,8 @@ DeclareCAmkESComponent(
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        os_libs
+        lib_debug
+        lib_macros
         os_core_api
         os_configuration
 )
@@ -179,7 +183,8 @@ DeclareCAmkESComponent(
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        os_libs
+        lib_debug
+        lib_macros
         os_core_api
         os_configuration
 )
@@ -202,7 +207,8 @@ DeclareCAmkESComponent(
         -DOS_CONFIG_SERVICE_CAMKES_CLIENT
     LIBS
         system_config
-        os_libs
+        lib_debug
+        lib_macros
         os_core_api
         os_configuration
 )

@@ -12,7 +12,7 @@
 #include "OS_ConfigService.h"
 #include "OS_Dataport.h"
 
-#include "LibDebug/Debug.h"
+#include "lib_debug/Debug.h"
 
 #include "test_domain_enumerator.h"
 #include "test_parameter_enumerator.h"

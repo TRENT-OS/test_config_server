@@ -25,7 +25,7 @@
 #include "test_parameter_set_functions.h"
 #include "test_multiclient_env.h"
 
-#include "LibDebug/Debug.h"
+#include "lib_debug/Debug.h"
 #include <string.h>
 #include <camkes.h>
 

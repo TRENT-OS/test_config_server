@@ -4,7 +4,7 @@
 
 #include "test_parameter_set_functions.h"
 
-#include "LibMacros/Test.h"
+#include "lib_macros/Test.h"
 
 #include "util/helper_func.h"
 

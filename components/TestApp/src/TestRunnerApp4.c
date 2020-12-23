@@ -12,7 +12,7 @@
 #include "OS_ConfigService.h"
 #include "OS_Dataport.h"
 
-#include "LibDebug/Debug.h"
+#include "lib_debug/Debug.h"
 
 #include "test_types.h"
 #include "test_multiclient_env.h"
