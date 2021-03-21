@@ -22,6 +22,12 @@
 #include "create_parameters.h"
 
 
+// CAmkES RPC function offered by the ConfigFileInjector that components relying
+// on the prepared backend can call and will block on. All init steps of the
+// ConfigFileInjector are done in its pre_init() and therefore the RPC
+// interface is blocked until these functions have run and the backend it injected.
+// As this function is solely there for components to wait on, it is
+// intentionally empty apart from a a debug message.
 void injector_component_backend_injected()
 {
     Debug_LOG_DEBUG("injector_component_backend_injected call received");
