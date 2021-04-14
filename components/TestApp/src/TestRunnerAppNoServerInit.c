@@ -36,7 +36,7 @@ run(void)
     OS_ConfigServiceHandle_t remoteHandle;
     static OS_ConfigService_ClientCtx_t ctx =
     {
-        .dataport = OS_DATAPORT_ASSIGN(cfg_dataport_buf)
+        .dataport = OS_DATAPORT_ASSIGN(cfg_port)
     };
     err = OS_ConfigService_createHandleRemote(
               &ctx,

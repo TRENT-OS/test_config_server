@@ -20,7 +20,7 @@ component TestApp1 {
 
     //-------------------------------------------------
     // ConfigServer
-    dataport Buf cfg_dataport_buf;
+    dataport Buf cfg_port;
     uses if_OS_ConfigService OS_ConfigServiceServer;
 
     //-------------------------------------------------
@@ -43,7 +43,7 @@ component TestApp2 {
 
     //-------------------------------------------------
     // ConfigServer
-    dataport Buf cfg_dataport_buf;
+    dataport Buf cfg_port;
     uses if_OS_ConfigService OS_ConfigServiceServer;
 }
 
@@ -56,7 +56,7 @@ component TestApp3 {
 
     //-------------------------------------------------
     // ConfigServer
-    dataport Buf cfg_dataport_buf;
+    dataport Buf cfg_port;
     uses if_OS_ConfigService OS_ConfigServiceServer;
 }
 
@@ -69,7 +69,7 @@ component TestApp4 {
 
     //-------------------------------------------------
     // ConfigServer
-    dataport Buf cfg_dataport_buf;
+    dataport Buf cfg_port;
     uses if_OS_ConfigService OS_ConfigServiceServer;
 }
 
@@ -79,6 +79,6 @@ component TestAppNoServerInit {
 
     //-------------------------------------------------
     // ConfigServer
-    dataport Buf cfg_dataport_buf;
+    dataport Buf cfg_port;
     uses if_OS_ConfigService OS_ConfigServiceServer;
 }

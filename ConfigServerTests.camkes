@@ -48,7 +48,7 @@ assembly {
         component   TestApp1         testApp1;
 
         connection  seL4RPCCall      testApp1_configServer          (from testApp1.OS_ConfigServiceServer,      to configServer.OS_ConfigServiceServer);
-        connection  seL4SharedData   testApp1_configServer_data     (from testApp1.cfg_dataport_buf,            to configServer.cfg_dataport_buf1);
+        connection  seL4SharedData   testApp1_configServer_data     (from testApp1.cfg_port,                    to configServer.cfg_port1);
         connection  seL4RPCCall      testApp1_configFileInjector    (from testApp1.injector_component,          to configFileInjector.injector_component);
         connection  seL4Notification testApp2_testDone              (from testApp1.test_done,                   to testApp2.app1_test_done);
         connection  seL4NotificationNative testApp1_local_testDone  (from testApp1.local_test_done,             to configServer.app1_local_test_done);
@@ -63,7 +63,7 @@ assembly {
         component   TestApp2         testApp2;
 
         connection  seL4RPCCall      testApp2_configServer       (from testApp2.OS_ConfigServiceServer, to configServer.OS_ConfigServiceServer);
-        connection  seL4SharedData   testApp2_configServer_data  (from testApp2.cfg_dataport_buf, to configServer.cfg_dataport_buf2);
+        connection  seL4SharedData   testApp2_configServer_data  (from testApp2.cfg_port, to configServer.cfg_port2);
         connection  seL4Notification testApp3_testDone           (from testApp2.test_done, to testApp3.app2_test_done);
 
 
@@ -73,7 +73,7 @@ assembly {
         component   TestApp3         testApp3;
 
         connection  seL4RPCCall      testApp3_configServer       (from testApp3.OS_ConfigServiceServer, to configServer.OS_ConfigServiceServer);
-        connection  seL4SharedData   testApp3_configServer_data  (from testApp3.cfg_dataport_buf, to configServer.cfg_dataport_buf3);
+        connection  seL4SharedData   testApp3_configServer_data  (from testApp3.cfg_port, to configServer.cfg_port3);
         connection  seL4Notification testApp4_testDone           (from testApp3.test_done, to testApp4.app3_test_done);
 
 
@@ -83,7 +83,7 @@ assembly {
         component   TestApp4         testApp4;
 
         connection  seL4RPCCall      testApp4_configServer       (from testApp4.OS_ConfigServiceServer, to configServer.OS_ConfigServiceServer);
-        connection  seL4SharedData   testApp4_configServer_data  (from testApp4.cfg_dataport_buf, to configServer.cfg_dataport_buf4);
+        connection  seL4SharedData   testApp4_configServer_data  (from testApp4.cfg_port, to configServer.cfg_port4);
         connection  seL4Notification testApp1_testDone           (from testApp4.test_done, to testApp1.app4_test_done);
 
         //----------------------------------------------------------------------
@@ -92,7 +92,7 @@ assembly {
         component   TestAppNoServerInit         testAppNoServerInit;
 
         connection  seL4RPCCall      testAppNoServerInit_configServerNoInit (from testAppNoServerInit.OS_ConfigServiceServer, to configServerNoInit.OS_ConfigServiceServer);
-        connection  seL4SharedData   testAppNoServerInit_configServer_data  (from testAppNoServerInit.cfg_dataport_buf, to configServerNoInit.cfg_dataport_buf);
+        connection  seL4SharedData   testAppNoServerInit_configServer_data  (from testAppNoServerInit.cfg_port, to configServerNoInit.cfg_port);
     }
 
     configuration {

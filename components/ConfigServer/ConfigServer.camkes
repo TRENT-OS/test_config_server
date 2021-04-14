@@ -15,10 +15,10 @@ component ConfigServer {
 
     //-------------------------------------------------
     // dataports for clients
-    dataport Buf cfg_dataport_buf1;
-    dataport Buf cfg_dataport_buf2;
-    dataport Buf cfg_dataport_buf3;
-    dataport Buf cfg_dataport_buf4;
+    dataport Buf cfg_port1;
+    dataport Buf cfg_port2;
+    dataport Buf cfg_port3;
+    dataport Buf cfg_port4;
 
     //-------------------------------------------------
     // Storage interface
@@ -33,5 +33,5 @@ component ConfigServer {
 component ConfigServerNoInit {
 
     provides if_OS_ConfigService OS_ConfigServiceServer;
-    dataport Buf cfg_dataport_buf;
+    dataport Buf cfg_port;
 }

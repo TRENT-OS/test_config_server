@@ -24,7 +24,7 @@ test_CreateHandle_pos(
     {
         static OS_ConfigService_ClientCtx_t ctx =
         {
-            .dataport = OS_DATAPORT_ASSIGN(cfg_dataport_buf)
+            .dataport = OS_DATAPORT_ASSIGN(cfg_port)
         };
 
         TEST_SUCCESS(OS_ConfigService_createHandleRemote(
