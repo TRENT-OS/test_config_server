@@ -23,7 +23,7 @@ assembly {
         //----------------------------------------------------------------------
         component ConfigFileInjector configFileInjector;
         connection  seL4RPCCall         configFileInjector_ramDisk             (from configFileInjector.storage_rpc,         to ramDisk.storage_rpc);
-        connection  seL4SharedData      configFileInjector_storage_dp        (from configFileInjector.storage_dp,        to ramDisk.storage_port);
+        connection  seL4SharedData      configFileInjector_storage_port        (from configFileInjector.storage_port,        to ramDisk.storage_port);
 
         component   RamDisk             ramDisk;
 
@@ -36,7 +36,7 @@ assembly {
         RamDisk_INSTANCE_CONNECT_CLIENT(
           ramDisk,
           configServer.storage_rpc,
-          configServer.storage_dp
+          configServer.storage_port
         )
 
         connection  seL4RPCCall    configServer_configFileInjector       (from configServer.injector_component,  to configFileInjector.injector_component);
@@ -53,7 +53,7 @@ assembly {
         connection  seL4Notification testApp2_testDone              (from testApp1.test_done,                   to testApp2.app1_test_done);
         connection  seL4NotificationNative testApp1_local_testDone  (from testApp1.local_test_done,             to configServer.app1_local_test_done);
         connection  seL4RPCCall      testApp1_ramDisk               (from testApp1.storage_rpc,                 to ramDisk.storage_rpc);
-        connection  seL4SharedData   testApp1_storage_dp            (from testApp1.storage_dp,                  to ramDisk.storage_port);
+        connection  seL4SharedData   testApp1_storage_port          (from testApp1.storage_port,                to ramDisk.storage_port);
 
 
 
