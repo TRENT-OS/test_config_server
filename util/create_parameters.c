@@ -1,5 +1,5 @@
-/**
- * Copyright (C) 2019, Hensoldt Cyber GmbH
+/*
+ * Copyright (C) 2019-2021, HENSOLDT Cyber GmbH
  */
 
 #include <string.h>
@@ -26,7 +26,7 @@ OS_ConfigService_writeVariableLengthBlob(
     }
 
     // We anticipate a maximum size here which should be ok to place on the stack.
-    char tmpBuf[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH];
+    char tmpBuf[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_SIZE];
     size_t bytesCopied = 0;
 
     while (bytesCopied < bufferLength)
@@ -78,7 +78,7 @@ static
 void
 initializeDomain(OS_ConfigServiceLibTypes_Domain_t* domain, char const* name)
 {
-    initializeName(domain->name.name, OS_CONFIG_LIB_DOMAIN_NAME_LEN, name);
+    initializeName(domain->name.name, OS_CONFIG_LIB_DOMAIN_NAME_SIZE, name);
     domain->enumerator.index = 0;
 }
 
@@ -112,7 +112,7 @@ initializeDomainsAndParameters(
         OS_ConfigServiceAccessRights_SetAll(&parameter.writeAccess);
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_32_NAME_0);
         parameter.parameterValue.valueInteger32 = APP1_PARAMETER_32_VALUE_0;
         parameter.domain.index = 0;
@@ -127,7 +127,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_32_NAME_1);
         parameter.parameterValue.valueInteger32 = APP1_PARAMETER_32_VALUE_1;
         parameter.domain.index = 0;
@@ -142,7 +142,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_32_NAME_2);
         parameter.parameterValue.valueInteger32 = APP1_PARAMETER_32_VALUE_2;
         parameter.domain.index = 0;
@@ -157,7 +157,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_32_NAME_3);
         parameter.parameterValue.valueInteger32 = APP1_PARAMETER_32_VALUE_3;
         parameter.domain.index = 0;
@@ -172,7 +172,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_64_NAME_0);
         parameter.parameterValue.valueInteger64 = APP1_PARAMETER_64_VALUE_0;
         parameter.domain.index = 0;
@@ -187,7 +187,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_64_NAME_1);
         parameter.parameterValue.valueInteger64 = APP1_PARAMETER_64_VALUE_1;
         parameter.domain.index = 0;
@@ -202,7 +202,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_64_NAME_2);
         parameter.parameterValue.valueInteger64 = APP1_PARAMETER_64_VALUE_2;
         parameter.domain.index = 0;
@@ -217,7 +217,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_64_NAME_3);
         parameter.parameterValue.valueInteger64 = APP1_PARAMETER_64_VALUE_3;
         parameter.domain.index = 0;
@@ -232,10 +232,10 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_STRING_NAME_0);
 
-        char str[OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH];
+        char str[OS_CONFIG_LIB_PARAMETER_MAX_STRING_SIZE];
         memset(str, 0, sizeof(str));
         strncpy(str, APP1_PARAMETER_STRING_VALUE_0, (sizeof(str) - 1));
 
@@ -262,7 +262,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_STRING_NAME_1);
 
         memset(str, 0, sizeof(str));
@@ -291,7 +291,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_STRING_NAME_2);
 
         memset(str, 0, sizeof(str));
@@ -320,7 +320,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_STRING_NAME_3);
 
         memset(str, 0, sizeof(str));
@@ -349,9 +349,9 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_BLOB_NAME_0);
-        char blob[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH];
+        char blob[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_SIZE];
         memcpy(blob, APP1_PARAMETER_BLOB_VALUE_0, sizeof(APP1_PARAMETER_BLOB_VALUE_0));
         parameter.parameterValue.valueBlob.index = 0;
         parameter.parameterValue.valueBlob.numberOfBlocks = 1;
@@ -377,7 +377,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_BLOB_NAME_1);
 
         memcpy(blob, APP1_PARAMETER_BLOB_VALUE_1, sizeof(APP1_PARAMETER_BLOB_VALUE_1));
@@ -405,7 +405,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_BLOB_NAME_2);
 
         memcpy(blob, APP1_PARAMETER_BLOB_VALUE_2, sizeof(APP1_PARAMETER_BLOB_VALUE_2));
@@ -433,7 +433,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP1_PARAMETER_BLOB_NAME_3);
         char largeBlob[sizeof(APP1_PARAMETER_BLOB_VALUE_3)];
         memcpy(largeBlob, APP1_PARAMETER_BLOB_VALUE_3,
@@ -485,7 +485,7 @@ initializeDomainsAndParameters(
         OS_ConfigServiceAccessRights_SetAll(&parameter.writeAccess);
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_32_NAME_0);
         parameter.parameterValue.valueInteger32 = APP2_PARAMETER_32_VALUE_0;
         parameter.domain.index = 1;
@@ -500,7 +500,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_32_NAME_1);
         parameter.parameterValue.valueInteger32 = APP2_PARAMETER_32_VALUE_1;
         parameter.domain.index = 1;
@@ -515,7 +515,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_32_NAME_2);
         parameter.parameterValue.valueInteger32 = APP2_PARAMETER_32_VALUE_2;
         parameter.domain.index = 1;
@@ -530,7 +530,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_32_NAME_3);
         parameter.parameterValue.valueInteger32 = APP2_PARAMETER_32_VALUE_3;
         parameter.domain.index = 1;
@@ -545,7 +545,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_64_NAME_0);
         parameter.parameterValue.valueInteger64 = APP2_PARAMETER_64_VALUE_0;
         parameter.domain.index = 1;
@@ -560,7 +560,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_64_NAME_1);
         parameter.parameterValue.valueInteger64 = APP2_PARAMETER_64_VALUE_1;
         parameter.domain.index = 1;
@@ -575,7 +575,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_64_NAME_2);
         parameter.parameterValue.valueInteger64 = APP2_PARAMETER_64_VALUE_2;
         parameter.domain.index = 1;
@@ -590,7 +590,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_64_NAME_3);
         parameter.parameterValue.valueInteger64 = APP2_PARAMETER_64_VALUE_3;
         parameter.domain.index = 1;
@@ -605,10 +605,10 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_STRING_NAME_0);
 
-        char str[OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH];
+        char str[OS_CONFIG_LIB_PARAMETER_MAX_STRING_SIZE];
         memset(str, 0, sizeof(str));
         strncpy(str, APP2_PARAMETER_STRING_VALUE_0, (sizeof(str) - 1));
 
@@ -635,7 +635,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_STRING_NAME_1);
 
         memset(str, 0, sizeof(str));
@@ -664,7 +664,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_STRING_NAME_2);
 
         memset(str, 0, sizeof(str));
@@ -693,7 +693,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_STRING_NAME_3);
 
         memset(str, 0, sizeof(str));
@@ -722,9 +722,9 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_BLOB_NAME_0);
-        char blob[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH];
+        char blob[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_SIZE];
         memcpy(blob, APP2_PARAMETER_BLOB_VALUE_0, sizeof(APP2_PARAMETER_BLOB_VALUE_0));
         parameter.parameterValue.valueBlob.index = 36;
         parameter.parameterValue.valueBlob.numberOfBlocks = 1;
@@ -751,7 +751,7 @@ initializeDomainsAndParameters(
 
         OS_ConfigServiceAccessRights_ClearAll(&parameter.writeAccess);
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_BLOB_NAME_1);
 
         memcpy(blob, APP2_PARAMETER_BLOB_VALUE_1, sizeof(APP2_PARAMETER_BLOB_VALUE_1));
@@ -780,7 +780,7 @@ initializeDomainsAndParameters(
 
         OS_ConfigServiceAccessRights_ClearAll(&parameter.readAccess);
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_BLOB_NAME_2);
 
         memcpy(blob, APP2_PARAMETER_BLOB_VALUE_2, sizeof(APP2_PARAMETER_BLOB_VALUE_2));
@@ -810,7 +810,7 @@ initializeDomainsAndParameters(
         OS_ConfigServiceAccessRights_SetAll(&parameter.readAccess);
         OS_ConfigServiceAccessRights_SetAll(&parameter.writeAccess);
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP2_PARAMETER_BLOB_NAME_3);
         char largeBlob[sizeof(APP2_PARAMETER_BLOB_VALUE_3)];
         memcpy(largeBlob, APP2_PARAMETER_BLOB_VALUE_3,
@@ -863,7 +863,7 @@ initializeDomainsAndParameters(
         OS_ConfigServiceAccessRights_SetAll(&parameter.writeAccess);
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_32_NAME_0);
         parameter.parameterValue.valueInteger32 = APP3_PARAMETER_32_VALUE_0;
         parameter.domain.index = 2;
@@ -878,7 +878,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_32_NAME_1);
         parameter.parameterValue.valueInteger32 = APP3_PARAMETER_32_VALUE_1;
         parameter.domain.index = 2;
@@ -893,7 +893,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_32_NAME_2);
         parameter.parameterValue.valueInteger32 = APP3_PARAMETER_32_VALUE_2;
         parameter.domain.index = 2;
@@ -908,7 +908,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_32_NAME_3);
         parameter.parameterValue.valueInteger32 = APP3_PARAMETER_32_VALUE_3;
         parameter.domain.index = 2;
@@ -923,7 +923,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_64_NAME_0);
         parameter.parameterValue.valueInteger64 = APP3_PARAMETER_64_VALUE_0;
         parameter.domain.index = 2;
@@ -938,7 +938,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_64_NAME_1);
         parameter.parameterValue.valueInteger64 = APP3_PARAMETER_64_VALUE_1;
         parameter.domain.index = 2;
@@ -953,7 +953,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_64_NAME_2);
         parameter.parameterValue.valueInteger64 = APP3_PARAMETER_64_VALUE_2;
         parameter.domain.index = 2;
@@ -968,7 +968,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_64_NAME_3);
         parameter.parameterValue.valueInteger64 = APP3_PARAMETER_64_VALUE_3;
         parameter.domain.index = 2;
@@ -983,10 +983,10 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_STRING_NAME_0);
 
-        char str[OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH];
+        char str[OS_CONFIG_LIB_PARAMETER_MAX_STRING_SIZE];
         memset(str, 0, sizeof(str));
         strncpy(str, APP3_PARAMETER_STRING_VALUE_0, (sizeof(str) - 1));
 
@@ -1013,7 +1013,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_STRING_NAME_1);
 
         memset(str, 0, sizeof(str));
@@ -1042,7 +1042,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_STRING_NAME_2);
 
         memset(str, 0, sizeof(str));
@@ -1071,7 +1071,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_STRING_NAME_3);
 
         memset(str, 0, sizeof(str));
@@ -1100,9 +1100,9 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_BLOB_NAME_0);
-        char blob[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH];
+        char blob[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_SIZE];
         memcpy(blob, APP3_PARAMETER_BLOB_VALUE_0, sizeof(APP3_PARAMETER_BLOB_VALUE_0));
         parameter.parameterValue.valueBlob.index = 72;
         parameter.parameterValue.valueBlob.numberOfBlocks = 1;
@@ -1128,7 +1128,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_BLOB_NAME_1);
 
         memcpy(blob, APP3_PARAMETER_BLOB_VALUE_1, sizeof(APP3_PARAMETER_BLOB_VALUE_1));
@@ -1156,7 +1156,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_BLOB_NAME_2);
 
         memcpy(blob, APP3_PARAMETER_BLOB_VALUE_2, sizeof(APP3_PARAMETER_BLOB_VALUE_2));
@@ -1184,7 +1184,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP3_PARAMETER_BLOB_NAME_3);
         char largeBlob[sizeof(APP3_PARAMETER_BLOB_VALUE_3)];
         memcpy(largeBlob, APP3_PARAMETER_BLOB_VALUE_3,
@@ -1236,7 +1236,7 @@ initializeDomainsAndParameters(
         OS_ConfigServiceAccessRights_SetAll(&parameter.writeAccess);
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_32_NAME_0);
         parameter.parameterValue.valueInteger32 = APP4_PARAMETER_32_VALUE_0;
         parameter.domain.index = 3;
@@ -1251,7 +1251,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_32_NAME_1);
         parameter.parameterValue.valueInteger32 = APP4_PARAMETER_32_VALUE_1;
         parameter.domain.index = 3;
@@ -1266,7 +1266,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_32_NAME_2);
         parameter.parameterValue.valueInteger32 = APP4_PARAMETER_32_VALUE_2;
         parameter.domain.index = 3;
@@ -1281,7 +1281,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER32;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_32_NAME_3);
         parameter.parameterValue.valueInteger32 = APP4_PARAMETER_32_VALUE_3;
         parameter.domain.index = 3;
@@ -1296,7 +1296,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_64_NAME_0);
         parameter.parameterValue.valueInteger64 = APP4_PARAMETER_64_VALUE_0;
         parameter.domain.index = 3;
@@ -1311,7 +1311,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_64_NAME_1);
         parameter.parameterValue.valueInteger64 = APP4_PARAMETER_64_VALUE_1;
         parameter.domain.index = 3;
@@ -1326,7 +1326,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_64_NAME_2);
         parameter.parameterValue.valueInteger64 = APP4_PARAMETER_64_VALUE_2;
         parameter.domain.index = 3;
@@ -1341,7 +1341,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_INTEGER64;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_64_NAME_3);
         parameter.parameterValue.valueInteger64 = APP4_PARAMETER_64_VALUE_3;
         parameter.domain.index = 3;
@@ -1356,10 +1356,10 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_STRING_NAME_0);
 
-        char str[OS_CONFIG_LIB_PARAMETER_MAX_STRING_LENGTH];
+        char str[OS_CONFIG_LIB_PARAMETER_MAX_STRING_SIZE];
         memset(str, 0, sizeof(str));
         strncpy(str, APP4_PARAMETER_STRING_VALUE_0, (sizeof(str) - 1));
 
@@ -1386,7 +1386,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_STRING_NAME_1);
 
         memset(str, 0, sizeof(str));
@@ -1415,7 +1415,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_STRING_NAME_2);
 
         memset(str, 0, sizeof(str));
@@ -1444,7 +1444,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_STRING;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_STRING_NAME_3);
 
         memset(str, 0, sizeof(str));
@@ -1473,9 +1473,9 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_BLOB_NAME_0);
-        char blob[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_LENGTH];
+        char blob[OS_CONFIG_LIB_PARAMETER_MAX_BLOB_BLOCK_SIZE];
         memcpy(blob, APP4_PARAMETER_BLOB_VALUE_0, sizeof(APP4_PARAMETER_BLOB_VALUE_0));
         parameter.parameterValue.valueBlob.index = 108;
         parameter.parameterValue.valueBlob.numberOfBlocks = 1;
@@ -1501,7 +1501,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_BLOB_NAME_1);
 
         memcpy(blob, APP4_PARAMETER_BLOB_VALUE_1, sizeof(APP4_PARAMETER_BLOB_VALUE_1));
@@ -1529,7 +1529,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_BLOB_NAME_2);
 
         memcpy(blob, APP4_PARAMETER_BLOB_VALUE_2, sizeof(APP4_PARAMETER_BLOB_VALUE_2));
@@ -1557,7 +1557,7 @@ initializeDomainsAndParameters(
         }
 
         parameter.parameterType = OS_CONFIG_LIB_PARAMETER_TYPE_BLOB;
-        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_LEN,
+        initializeName(parameter.parameterName.name, OS_CONFIG_LIB_PARAMETER_NAME_SIZE,
                        APP4_PARAMETER_BLOB_NAME_3);
         char largeBlob[sizeof(APP4_PARAMETER_BLOB_VALUE_3)];
         memcpy(largeBlob, APP4_PARAMETER_BLOB_VALUE_3,

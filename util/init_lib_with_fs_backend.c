@@ -1,5 +1,5 @@
-/**
- * Copyright (C) 2019, Hensoldt Cyber GmbH
+/*
+ * Copyright (C) 2019-2021, HENSOLDT Cyber GmbH
  */
 
 #include <string.h>
@@ -35,7 +35,7 @@ initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
     OS_ConfigServiceBackend_FileName_t name;
 
     // Initialize the backends in the config library object.
-    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, DOMAIN_FILE);
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_SIZE, DOMAIN_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&domainBackend, name,
                                                            hFs);
     Debug_LOG_DEBUG("Domain name: %s", name.buffer);
@@ -44,7 +44,7 @@ initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
         return result;
     }
 
-    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN,
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_SIZE,
                    PARAMETER_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&parameterBackend, name,
                                                            hFs);
@@ -54,7 +54,7 @@ initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
     }
     Debug_LOG_DEBUG("Parameter backend initialized.");
 
-    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, STRING_FILE);
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_SIZE, STRING_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&stringBackend, name,
                                                            hFs);
     if (result != OS_SUCCESS)
@@ -63,7 +63,7 @@ initializeWithFileBackends(OS_ConfigServiceLib_t* configLib,
     }
     Debug_LOG_DEBUG("String backend initialized.");
 
-    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_LEN, BLOB_FILE);
+    initializeName(name.buffer, OS_CONFIG_BACKEND_MAX_FILE_NAME_SIZE, BLOB_FILE);
     result = OS_ConfigServiceBackend_initializeFileBackend(&blobBackend, name, hFs);
     if (result != OS_SUCCESS)
     {
