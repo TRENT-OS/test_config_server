@@ -91,8 +91,10 @@
 #define APP1_PARAMETER_STRING_VALUE_2_NEW "App1_Hello_World!_2_NEW"
 
 #define APP1_PARAMETER_STRING_NAME_3      "App1_Parameter_String_3"
-#define APP1_PARAMETER_STRING_VALUE_3     "App1_Hello_World!_3"
-#define APP1_PARAMETER_STRING_VALUE_3_NEW "App1_Hello_World!_3_NEW"
+// use max strlen = 31
+#define APP1_PARAMETER_STRING_VALUE_3     "App1_Hello_World!_3_12345678901"
+// use max strlen = 31
+#define APP1_PARAMETER_STRING_VALUE_3_NEW "App1_Hello_World!_3_NEW_1234567"
 
 
 #define APP1_PARAMETER_BLOB_NAME_0        "App1_Parameter_Blob_0"
