@@ -266,7 +266,8 @@ initializeDomainsAndParameters(
                        APP1_PARAMETER_STRING_NAME_1);
 
         memset(str, 0, sizeof(str));
-        strncpy(str, APP1_PARAMETER_STRING_VALUE_1, (sizeof(str) - 1));
+        strncpy(str, APP1_PARAMETER_STRING_VALUE_1, sizeof(str));
+        str[sizeof(str) - 1] = '\0';
 
         parameter.parameterValue.valueString.index = 1;
         parameter.parameterValue.valueString.size = strlen(str) + 1;
@@ -295,7 +296,8 @@ initializeDomainsAndParameters(
                        APP1_PARAMETER_STRING_NAME_2);
 
         memset(str, 0, sizeof(str));
-        strncpy(str, APP1_PARAMETER_STRING_VALUE_2, (sizeof(str) - 1));
+        strncpy(str, APP1_PARAMETER_STRING_VALUE_2, sizeof(str));
+        str[sizeof(str) - 1] = '\0';
 
         parameter.parameterValue.valueString.index = 2;
         parameter.parameterValue.valueString.size = strlen(str) + 1;
@@ -324,7 +326,8 @@ initializeDomainsAndParameters(
                        APP1_PARAMETER_STRING_NAME_3);
 
         memset(str, 0, sizeof(str));
-        strncpy(str, APP1_PARAMETER_STRING_VALUE_3, (sizeof(str) - 1));
+        strncpy(str, APP1_PARAMETER_STRING_VALUE_3, sizeof(str));
+        str[sizeof(str) - 1] = '\0';
 
         parameter.parameterValue.valueString.index = 3;
         parameter.parameterValue.valueString.size = strlen(str) + 1;
