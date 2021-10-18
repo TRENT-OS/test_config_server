@@ -1,8 +1,8 @@
 /*
-   *  CAmkES configuration file for the ConfigServer test suite.
-   *
-   *  Copyright (C) 2019, Hensoldt Cyber GmbH
-*/
+ * CAmkES configuration file for the ConfigServer test suite.
+ *
+ * Copyright (C) 2019-2021, HENSOLDT Cyber GmbH
+ */
 
 
 import <std_connector.camkes>;
