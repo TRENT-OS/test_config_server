@@ -215,7 +215,6 @@ DeclareCAmkESComponent(
 
 RamDisk_DeclareCAmkESComponent(
     RamDisk
-    system_config
 )
 
 DeclareAndCreateCamkESSystem(ConfigServerTests.camkes)

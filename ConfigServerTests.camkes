@@ -100,6 +100,6 @@ assembly {
         configServer.backend_init_done_value = 0;
 
         // arbitrary size that should be able to hold the config parameters
-        ramDisk.storage_size_bytes = RAMDISK_SIZE_BYTES;
+        ramDisk.storage_size = (1 * 1024 * 1024);
     }
 }
