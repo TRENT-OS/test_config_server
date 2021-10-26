@@ -2,7 +2,7 @@
    *  ConfigFileInjector component used to create a config file for the ConfigServer
    *  tests.
    *
-   *  Copyright (C) 2020, Hensoldt Cyber GmbH
+   *  Copyright (C) 2020, HENSOLDT Cyber GmbH
 */
 
 

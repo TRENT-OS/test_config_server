@@ -2,7 +2,7 @@
    *  ConfigServer component that can be initialized either with a memory or a filesystem
    *  backend.
    *
-   *  Copyright (C) 2019, Hensoldt Cyber GmbH
+   *  Copyright (C) 2019, HENSOLDT Cyber GmbH
 */
 
 

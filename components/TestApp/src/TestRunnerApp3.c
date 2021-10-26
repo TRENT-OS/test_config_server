@@ -2,7 +2,7 @@
    *  TestRunnerApp connected to a ConfigServer component to run all tests remote
    *  in in a multiclient setup with other TestRunnerApps.
    *
-   *  Copyright (C) 2020, Hensoldt Cyber GmbH
+   *  Copyright (C) 2020, HENSOLDT Cyber GmbH
 */
 
 

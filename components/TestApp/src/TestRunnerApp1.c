@@ -3,7 +3,7 @@
    *  additionally connected to a ConfigServer component to run all tests remote
    *  and local.
    *
-   *  Copyright (C) 2020, Hensoldt Cyber GmbH
+   *  Copyright (C) 2020, HENSOLDT Cyber GmbH
 */
 
 
