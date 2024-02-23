@@ -1,10 +1,13 @@
 /*
-   *  TestRunnerApp connected to a ConfigServer component to run all tests remote
-   *  in in a multiclient setup with other TestRunnerApps.
-   *
-   *  Copyright (C) 2020, HENSOLDT Cyber GmbH
-*/
-
+ * TestRunnerApp connected to a ConfigServer component to run all tests remote
+ * in in a multiclient setup with other TestRunnerApps.
+ *
+ * Copyright (C) 2020-2024, HENSOLDT Cyber GmbH
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
+ * For commercial licensing, contact: info.cyber@hensoldt.net
+ */
 
 #include "system_config.h"
 
@@ -23,24 +26,22 @@
 #include <camkes.h>
 
 /* Defines -------------------------------------------------------------------*/
-#define TEST_APP     TEST_APP_SERVER_NO_INIT
-#define DOMAIN_APP   DOMAIN_APP_SERVER_NO_INIT
+#define TEST_APP TEST_APP_SERVER_NO_INIT
+#define DOMAIN_APP DOMAIN_APP_SERVER_NO_INIT
 
 //------------------------------------------------------------------------------
-int
-run(void)
+int run(void)
 {
     OS_Error_t err = OS_ERROR_GENERIC;
 
-    //Open remote handle of API
+    // Open remote handle of API
     OS_ConfigServiceHandle_t remoteHandle;
     static OS_ConfigService_ClientCtx_t ctx =
-    {
-        .dataport = OS_DATAPORT_ASSIGN(cfg_port)
-    };
+        {
+            .dataport = OS_DATAPORT_ASSIGN(cfg_port)};
     err = OS_ConfigService_createHandleRemote(
-              &ctx,
-              &remoteHandle);
+        &ctx,
+        &remoteHandle);
     Debug_ASSERT_PRINTFLN(err == OS_SUCCESS, "err %d", err);
 
     Debug_LOG_DEBUG("%s: Starting test of not initialized ConfigServer...\n",
